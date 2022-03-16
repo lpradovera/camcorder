@@ -15,7 +15,7 @@ const auth = {
   username: process.env.SIGNALWIRE_PROJECT_KEY, // Project-ID
   password: process.env.SIGNALWIRE_TOKEN, // API token
 };
-const apiurl = process.env.SIGNALWIRE_SPACE;// <your username>.signalwire.com/api/video
+const apiurl = process.env.SIGNALWIRE_SPACE;// <your username>.signalwire.com
 
 const permissions = [
   'room.self.audio_mute',
@@ -39,9 +39,10 @@ const permissions = [
 app.post("/api/get_token", async (req, res) => {
   let { user_name, room_name } = req.body;
 
+  console.log(user_name, room_name, apiurl + "/api/video/room_tokens")
   try {
     let token = await axios.post(
-      apiurl + "/api/video/room_tokens",
+      "https://" + apiurl + "/api/video/room_tokens",
       {
         user_name,
         room_name: room_name,
