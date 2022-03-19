@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from "react";
 import axios from "axios";
 import * as SignalWire from "@signalwire/js";
 
-export default function InCall({ roomDetails }) {
+export const InCall = ({ roomDetails }) => {
   useEffect(() => {
-    console.log('effect works')
+    console.log("effect works");
     let roomSession;
 
     (async () => {
@@ -21,7 +21,7 @@ export default function InCall({ roomDetails }) {
 
           roomSession = new SignalWire.Video.RoomSession({
             token: token,
-            rootElement: document.querySelector("#video-root")
+            rootElement: document.querySelector("#video-root"),
           });
 
           roomSession.on("room.joined", async (e) => {
@@ -67,9 +67,9 @@ export default function InCall({ roomDetails }) {
           maxWidth: "100%",
           maxHeight: "100%",
           aspectRatio: "16/9",
-          margin: "auto"
+          margin: "auto",
         }}
       ></div>
     </>
   );
-}
+};

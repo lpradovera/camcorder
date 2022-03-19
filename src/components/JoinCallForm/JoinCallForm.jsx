@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function JoinCallForm({ onJoin = () => {} }) {
+export const JoinCallForm = ({ onJoin = () => {} }) => {
   let [name, setName] = useState("");
   let [room, setRoom] = useState("");
   return (
     <>
       <h3>Join a new Room</h3>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input 
+        <input
           type="text"
           placeholder="Your Name"
           onChange={(e) => setName(e.target.value)}
@@ -29,9 +29,7 @@ export default function JoinCallForm({ onJoin = () => {} }) {
             if (name !== "" && room !== "") {
               onJoin({ name, room });
             } else {
-              alert(
-                "Please Fill all fields"
-              );
+              alert("Please Fill all fields");
             }
           }}
         >
@@ -40,4 +38,4 @@ export default function JoinCallForm({ onJoin = () => {} }) {
       </form>
     </>
   );
-}
+};
