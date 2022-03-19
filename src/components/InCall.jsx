@@ -13,7 +13,7 @@ export default function InCall({ roomDetails }) {
           user_name: roomDetails.name,
           room_name: roomDetails.room,
         });
-        console.log(reply.data);
+        console.log("reply.data", reply.data);
         const token = reply.data.token;
 
         try {

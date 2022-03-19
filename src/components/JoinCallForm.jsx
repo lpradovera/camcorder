@@ -8,7 +8,7 @@ export default function JoinCallForm({ onJoin = () => {} }) {
     <>
       <h3>Join a new Room</h3>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input
+        <input 
           type="text"
           placeholder="Your Name"
           onChange={(e) => setName(e.target.value)}

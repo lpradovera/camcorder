@@ -32,7 +32,7 @@ function App() {
   let [roomDetails, setRoomDetails] = useState({});
 
   return (
-    <>
+    <div className="dark:bg-slate-600">
       <Header />
       <Routes>
         <Route path="/in-call" element={<InCallRoute roomDetails={roomDetails} />}></Route>       
@@ -44,7 +44,7 @@ function App() {
         />}>
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 
