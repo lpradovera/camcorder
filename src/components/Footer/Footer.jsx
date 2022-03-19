@@ -6,7 +6,7 @@ export const Footer = () => {
 
 
   return (
-    <footer className="dark:slate-600" >
+    <footer className="h-10 dark:slate-600" >
       <h4>Footer</h4>
     </footer>
   );
