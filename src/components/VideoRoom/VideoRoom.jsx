@@ -3,6 +3,8 @@ import axios from "axios";
 import * as SignalWire from "@signalwire/js";
 
 export const VideoRoom = ({
+  onRoomInit = () => {},
+  onRoomUpdate = () => {},
   roomDetails: roomDetails = { room: "test", name: "tester" },
   onMemberListUpdate = () => {},
 }) => {
@@ -31,6 +33,7 @@ export const VideoRoom = ({
               token,
               rootElementId: "video-root",
               video: true,
+              audio: true,
             });
           } catch (e) {
             console.log(e);
@@ -41,6 +44,7 @@ export const VideoRoom = ({
             let thisMember = memberList.current.find(
               (m) => m.id === e.member_id
             );
+            onRoomUpdate({ thisMemberId: e.member_id, member: thisMember });
             onMemberListUpdate(e.room.members);
             console.log(e.room.members);
             console.log("You have joined the room.");
@@ -80,14 +84,14 @@ export const VideoRoom = ({
             );
 
             if (memberThatLeft === undefined) return;
-            console.log(memberThatLeft?.name + " has left the room.");
-
+            console.log(memberThatLeft?.name + " has left the room.")
+            console.log(memberThatLeft);
             memberList.current = remainingMembers;
             onMemberListUpdate(memberList.current);
-            console.log(memberList.current);
           });
 
           await room.join();
+          onRoomInit(room);
           console.log("You joined");
         } catch (error) {
           console.error("Something went wrong", error);
@@ -96,15 +100,16 @@ export const VideoRoom = ({
         console.log(e);
       }
     }
-  }, [roomDetails, onMemberListUpdate, setupDone]);
+  }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
 
+ 
   return (
     <>
       <div
         id="video-root"
         style={{
-          maxWidth: "100%",
-          maxHeight: "100%",
+          maxWidth: "600px",
+          maxHeight: "600px",
           aspectRatio: "16/9",
           margin: "auto",
         }}
