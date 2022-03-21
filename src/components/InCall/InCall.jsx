@@ -1,75 +1,21 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios from "axios";
-import * as SignalWire from "@signalwire/js";
+import React, { useCallback, useEffect, useState } from "react";
+import { VideoRoom } from "../VideoRoom/VideoRoom";
+import { Participants } from "../Participants/Participants";
 
 export const InCall = ({ roomDetails }) => {
-  useEffect(() => {
-    console.log("effect works");
-    let roomSession;
-
-    (async () => {
-      try {
-        const reply = await axios.post("/api/get_token", {
-          user_name: roomDetails.name,
-          room_name: roomDetails.room,
-        });
-        console.log("reply.data", reply.data);
-        const token = reply.data.token;
-
-        try {
-          console.log("Setting up RTC session");
-
-          roomSession = new SignalWire.Video.RoomSession({
-            token: token,
-            rootElement: document.querySelector("#video-root"),
-          });
-
-          roomSession.on("room.joined", async (e) => {
-            console.log("You have joined the room.");
-          });
-
-          roomSession.on("memberList.updated", (e) => {
-            console.log("member list updated.");
-          });
-
-          roomSession.on("member.joined", async (e) => {
-            console.log(e.member.name + " has joined the room.");
-          });
-
-          roomSession.on("member.left", async (e) => {
-            console.log("member.left");
-            if (e.member.id === roomSession.memberId) {
-              console.log("It is you who has left the room");
-            } else {
-              console.log(e.member.name + " has left the room.");
-            }
-          });
-
-          console.log("Join");
-
-          await roomSession.join();
-
-          console.log("Joined");
-        } catch (error) {
-          console.error("Something went wrong", error);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  });
+  
+  const [memberList, setMemberList] = useState([]);
 
   return (
     <>
-      <div
-        id="video-root"
-        style={{
-          maxWidth: "100%",
-          maxHeight: "100%",
-          aspectRatio: "16/9",
-          margin: "auto",
-        }}
-      ></div>
+      <VideoRoom
+        roomDetails={roomDetails}
+        onMemberListUpdate={useCallback((list) => {
+          setMemberList(list);
+        }, [])}
+      />
+
+      <Participants memberList={memberList} />
     </>
   );
 };
