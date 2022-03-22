@@ -24,7 +24,13 @@ module.exports = {
         200: "#0F172A",
       },
       "bubble-gum": "#ff77e9",
-      bermuda: "#78dcca",
+      red: {
+        500: '#ef4444',
+        600: '#dc2626',
+        700: '#b91c1c',
+        800: '#991b1b',
+        900: '#7f1d1d',
+      },
       slate: {
         500: "#64748b",
         600: "#475569",
@@ -43,6 +49,11 @@ module.exports = {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
     },
+    fontWeight: {
+      medium: 500,
+      semibold: 600,
+      extrabold: 800,
+    }
   },
   plugins: [],
 };
