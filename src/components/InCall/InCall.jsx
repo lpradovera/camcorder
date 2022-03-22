@@ -1,21 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
-
+import { useNavigate } from "react-router-dom";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
+  let navigate = useNavigate();
   let [room, setRoom] = useState({});
   let [audioMuted, setAudioMuted] = useState(false);
   let [videoMuted, setVideoMuted] = useState(false);
   let [thisMemberId, setThisMemberId] = useState(null);
 
-  let onRoomInit = useCallback(
-    (room) => {
-      setRoom(room);
-    },
-    []
-  );
+  let onRoomInit = useCallback((room) => {
+    setRoom(room);
+  }, []);
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -30,11 +28,29 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
-
-  
+  const memberUpdate = async (event) => {
+    if (event.action === "remove") {
+      console.log("Removing Member", event.id);
+      await room.removeMember({ memberId: event.id });
+      console.log("Removed member", event.id);
+      if (event.id === thisMemberId) navigate("/");
+    } else if (event.action === "mute_video") {
+      await room.videoMute({ memberId: event.id });
+      if (event.id === thisMemberId) setVideoMuted(true);
+    } else if (event.action === "mute_audio") {
+      await room.audioMute({ memberId: event.id });
+      if (event.id === thisMemberId) setAudioMuted(true);
+    } else if (event.action === "unmute_audio") {
+      await room.audioUnmute({ memberId: event.id });
+      if (event.id === thisMemberId) setAudioMuted(false);
+    } else if (event.action === "unmute_video") {
+      await room.videoUnmute({ memberId: event.id });
+      if (event.id === thisMemberId) setVideoMuted(false);
+    }
+  };
 
   return (
-    <>
+    <div className="flex">
       <VideoRoom
         onRoomInit={onRoomInit}
         onRoomUpdate={onRoomUpdate}
@@ -45,28 +61,14 @@ export const InCall = ({ roomDetails }) => {
       />
       <Participants
         memberList={memberList}
-        onMemberUpdate={async (event) => {
-          console.log(event )
-          if (event.action === "remove") {
-            console.log("Removing Member", event.id);
-            await room.removeMember({ memberId: event.id });
-            console.log("Removed member", event.id);
-            if (event.id === thisMemberId) history.push("/");
-          } else if (event.action === "mute_video") {
-            await room.videoMute({ memberId: event.id });
-            if (event.id === thisMemberId) setVideoMuted(true);
-          } else if (event.action === "mute_audio") {
-            await room.audioMute({ memberId: event.id });
-            if (event.id === thisMemberId) setAudioMuted(true);
-          } else if (event.action === "unmute_audio") {
-            await room.audioUnmute({ memberId: event.id });
-            if (event.id === thisMemberId) setAudioMuted(false);
-          } else if (event.action === "unmute_video") {
-            await room.videoUnmute({ memberId: event.id });
-            if (event.id === thisMemberId) setVideoMuted(false);
-          }
-        }}
+        onMemberUpdate={(event) => memberUpdate(event)}
       />
-    </>
+      <button onClick={() => {
+        console.log(room)
+      }}>click</button>
+
+
+      
+    </div>
   );
 };

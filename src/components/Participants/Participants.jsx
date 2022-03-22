@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
-
   return (
-    <>
-      <h2 className="text-silver-100 px-4 py-4">Participants:</h2>
-      <ul className="list-disc px-6 text-silver-100">
+    <div className="flex flex-col w-2/5 py-4 border-2 border-silver-100">
+      <div>
+        <h2 className="border-2 text-silver-100 px-4 py-4">
+          Participants:
+        </h2>
+      </div>
+      <ul className="list-none text-silver-100">
         {memberList.map((member) => {
           return (
-            <div className="py-2 px-2" key={member.id}>
+            <div className="py-2 px-2 border-2" key={member.id}>
               <li>
                 {member.name}
                 <button
-                  className="border-2 px-2 rounded ml-4"
+                  className="ml-4"
                   onClick={() => {
                     member.video_muted
                       ? onMemberUpdate({
@@ -28,7 +31,6 @@ export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
                   {member.video_muted ? "Unmute Video" : "Mute Video"}
                 </button>
                 <button
-                  className="border-2 px-2 rounded ml-4"
                   onClick={() => {
                     member.video_muted
                       ? onMemberUpdate({
@@ -48,6 +50,6 @@ export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };

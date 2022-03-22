@@ -84,8 +84,7 @@ export const VideoRoom = ({
             );
 
             if (memberThatLeft === undefined) return;
-            console.log(memberThatLeft?.name + " has left the room.")
-            console.log(memberThatLeft);
+            console.log(memberThatLeft?.name + " has left the room.");
             memberList.current = remainingMembers;
             onMemberListUpdate(memberList.current);
           });
@@ -102,18 +101,11 @@ export const VideoRoom = ({
     }
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
 
- 
   return (
     <>
-      <div
-        id="video-root"
-        style={{
-          maxWidth: "600px",
-          maxHeight: "600px",
-          aspectRatio: "16/9",
-          margin: "auto",
-        }}
-      ></div>
+      <div 
+      className="w-3/5 h-full px-4 py-8"
+      id="video-root"></div>
     </>
   );
 };
