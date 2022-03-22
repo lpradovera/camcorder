@@ -7,9 +7,9 @@ import { MicrophoneOff } from "./components/MicrophoneOff/MicrophoneOff";
 export const Participants = ({ memberList, roomDetails, onMemberUpdate = () => {} }) => {
   return (
     <div className="flex flex-col w-2/5 py-">
-      <h2 className="text-2xl text-slate-300 pt-6 font-medium">{roomDetails.room}</h2>
+      <h2 className="text-2xl text-slate-300 pt-6 font-medium">Room name: {roomDetails.room}</h2>
       <div>
-        <h2 className="text-2xl text-silver-100 px-4 pt-16">Participants:</h2>
+        <h3 className="text-2xl text-silver-100 px-4 pt-16">Participants:</h3>
       </div>
       <ul className="list-decimal text-silver-100 w-4/5">
         {memberList.map((member) => {

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
+import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { useNavigate } from "react-router-dom";
 
 export const InCall = ({ roomDetails }) => {
@@ -66,6 +67,11 @@ export const InCall = ({ roomDetails }) => {
           onMemberUpdate={(event) => memberUpdate(event)}
         />
       </div>
+      <ControlPanel
+        memberList={memberList}
+        thisMemberId={thisMemberId}
+        onMemberUpdate={(event) => memberUpdate(event)}
+      />
     </div>
   );
 };
