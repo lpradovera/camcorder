@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { Eye } from "./components/Eye/Eye";
+import { EyeOff } from "./components/EyeOff/EyeOff";
+import { MicrophoneUp } from "./components/MicrophoneUP/MicrophoneUp";
+import { MicrophoneOff } from "./components/MicrophoneOff/MicrophoneOff";
 
-export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
+export const Participants = ({ memberList, roomDetails, onMemberUpdate = () => {} }) => {
   return (
-    <div className="flex flex-col w-2/5 py-4 border-2 border-silver-100">
+    <div className="flex flex-col w-2/5 py-">
+      <h2 className="text-2xl text-slate-300 pt-6 font-medium">{roomDetails.room}</h2>
       <div>
-        <h2 className="border-2 text-silver-100 px-4 py-4">
-          Participants:
-        </h2>
+        <h2 className="text-2xl text-silver-100 px-4 pt-16">Participants:</h2>
       </div>
-      <ul className="list-none text-silver-100">
+      <ul className="list-decimal text-silver-100 w-4/5">
         {memberList.map((member) => {
           return (
-            <div className="py-2 px-2 border-2" key={member.id}>
-              <li>
+            <div className="flex justify-between px-4 py-4" key={member.id}>
+              <li className="text-xl">
                 {member.name}
+              </li>
+              <div>
                 <button
-                  className="ml-4"
+                  className="px-4"
                   onClick={() => {
                     member.video_muted
                       ? onMemberUpdate({
@@ -28,9 +33,10 @@ export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
                         });
                   }}
                 >
-                  {member.video_muted ? "Unmute Video" : "Mute Video"}
+                  {member.video_muted ? <Eye /> : <EyeOff />}
                 </button>
                 <button
+                  className="px-4"
                   onClick={() => {
                     member.video_muted
                       ? onMemberUpdate({
@@ -43,9 +49,13 @@ export const Participants = ({ memberList, onMemberUpdate = () => {} }) => {
                         });
                   }}
                 >
-                  {member.audio_muted ? "Unmute Audio" : "Mute Audio"}
+                  {member.audio_muted ? <MicrophoneUp /> : <MicrophoneOff />}
                 </button>
-              </li>
+              </div>
+                
+
+                
+              
             </div>
           );
         })}

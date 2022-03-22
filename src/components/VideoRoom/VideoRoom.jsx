@@ -5,7 +5,10 @@ import * as SignalWire from "@signalwire/js";
 export const VideoRoom = ({
   onRoomInit = () => {},
   onRoomUpdate = () => {},
-  roomDetails: roomDetails = { room: "test", name: "tester" },
+  roomDetails: roomDetails = {
+    room: "test",
+    name: "tester",
+  },
   onMemberListUpdate = () => {},
 }) => {
   let [setupDone, setSetupDone] = useState(false);
@@ -33,7 +36,6 @@ export const VideoRoom = ({
               token,
               rootElementId: "video-root",
               video: true,
-              audio: true,
             });
           } catch (e) {
             console.log(e);
@@ -103,9 +105,7 @@ export const VideoRoom = ({
 
   return (
     <>
-      <div 
-      className="w-3/5 h-full px-4 py-8"
-      id="video-root"></div>
+      <div className="w-3/5 h-full px-4 py-8" id="video-root"></div>
     </>
   );
 };

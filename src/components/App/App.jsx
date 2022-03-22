@@ -5,7 +5,7 @@ import { JoinCallForm } from "../JoinCallForm/JoinCallForm";
 import { InviteForm } from "../InviteForm/InviteForm";
 import { InCall } from "../InCall/InCall";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
-import { Home } from '../Home/Home';
+import { Home } from "../Home/Home";
 
 import {
   Routes,
@@ -31,7 +31,6 @@ export const App = () => {
   let query = useQuery();
   let navigate = useNavigate();
   let [roomDetails, setRoomDetails] = useState({});
-
 
   return (
     <>

@@ -50,25 +50,22 @@ export const InCall = ({ roomDetails }) => {
   };
 
   return (
-    <div className="flex">
-      <VideoRoom
-        onRoomInit={onRoomInit}
-        onRoomUpdate={onRoomUpdate}
-        roomDetails={roomDetails}
-        onMemberListUpdate={useCallback((list) => {
-          setMemberList(list);
-        }, [])}
-      />
-      <Participants
-        memberList={memberList}
-        onMemberUpdate={(event) => memberUpdate(event)}
-      />
-      <button onClick={() => {
-        console.log(room)
-      }}>click</button>
-
-
-      
+    <div className="flex flex-col">
+      <div className="flex flex-row">
+        <VideoRoom
+          onRoomInit={onRoomInit}
+          onRoomUpdate={onRoomUpdate}
+          roomDetails={roomDetails}
+          onMemberListUpdate={useCallback((list) => {
+            setMemberList(list);
+          }, [])}
+        />
+        <Participants
+          roomDetails={roomDetails}
+          memberList={memberList}
+          onMemberUpdate={(event) => memberUpdate(event)}
+        />
+      </div>
     </div>
   );
 };
