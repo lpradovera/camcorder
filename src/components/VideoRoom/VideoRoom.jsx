@@ -50,9 +50,10 @@ export const VideoRoom = ({
         }
         room.on("room.joined", async (e) => roomJoined(e));
 
-        room.on("room.updated", async (e) =>
+        room.on("room.updated", async (e) => {
           console.log("Room has been updated")
-        );
+        });
+        
 
         room.on("member.joined", async (e) => memberJoined(e));
 

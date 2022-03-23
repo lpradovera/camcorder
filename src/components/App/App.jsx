@@ -42,7 +42,7 @@ export const App = () => {
             element={
               <JoinCallForm
                 onJoin={({ room, name }) => {
-                  setRoomDetails({ name, room });
+                  setRoomDetails({ name, room, mod: true });
                   navigate("in-call");
                 }}
               />
