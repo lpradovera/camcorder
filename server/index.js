@@ -2,42 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const bodyParser = require("body-parser");
 const { permissionsCheck } = require("./helpers");
 
 const PORT = process.env.PORT || 9001;
 const app = express();
-app.use(bodyParser.json());
-// app.use(express.json());
+app.use(express.json());
 app.use(cors());
-const moderatorPermissions = [
-  "room.list_available_layouts",
-  "room.recording",
-  "room.set_layout",
-  "room.member.audio_mute",
-  "room.member.audio_unmute",
-  "room.member.deaf",
-  "room.member.undeaf",
-  "room.member.remove",
-  "room.member.set_input_sensitivity",
-  "room.member.set_input_volume",
-  "room.member.set_output_volume",
-  "room.member.video_mute",
-  "room.member.video_unmute",
-];
-const normalPermissions = [
-  "room.self.audio_mute",
-  "room.self.audio_unmute",
-  "room.self.video_mute",
-  "room.self.video_unmute",
-  "room.self.deaf",
-  "room.self.undeaf",
-  "room.self.set_input_volume",
-  "room.self.set_output_volume",
-  "room.self.set_input_sensitivity",
-  "room.hide_video_muted",
-  "room.show_video_muted",
-];
+
 const auth = {
   username: process.env.SIGNALWIRE_PROJECT_KEY, // Project-ID
   password: process.env.SIGNALWIRE_TOKEN, // API token
@@ -54,9 +25,7 @@ app.post("/api/get_token", async (req, res) => {
       {
         user_name,
         room_name: room_name,
-        permissions: mod
-          ? [...normalPermissions, ...moderatorPermissions]
-          : normalPermissions,
+        permissions: permissionsCheck(mod),
       },
       { auth }
     );

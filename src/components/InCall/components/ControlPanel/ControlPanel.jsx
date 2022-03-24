@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRecord } from "../../../../hooks/useRecord";
 import { useVideoStream } from "../../../../hooks/useVideoStream";
 import { useAudioStream } from "../../../../hooks/useAudioStream";
@@ -7,7 +7,7 @@ import { Microphone } from "../../../Icons/Microphone/Microphone";
 import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 import { Volume } from "../../../Icons/Volume/Volume";
 import { Save } from "../../../Icons/Save/Save";
-import { RecordingButton } from "../../../RecordingButton/RecordingButton";
+
 
 export const ControlPanel = ({ room, memberList, thisMemberId }) => {
   const { startRecording, recording, recordingReady } = useRecord(room);
@@ -47,14 +47,7 @@ export const ControlPanel = ({ room, memberList, thisMemberId }) => {
               className={`flex ${
                 recording ? "bg-slate-100" : "bg-slate-500"
               } rounded justify-center pt-3 w-14 h-14`}
-              onClick={() => {
-                startRecording();
-                // if (!recording) {
-                //   startRecording();
-                // } else {
-                //   stopRecording();
-                // }
-              }}
+              onClick={() => startRecording()}
             >
               {recording ? (
                 <div className="animate-pulse border-4 border-red-600 rounded-full w-8 h-8 flex flex-col items-center justify-center">
@@ -108,10 +101,7 @@ export const ControlPanel = ({ room, memberList, thisMemberId }) => {
 
           {/* get record */}
           <div className="flex flex-col justify-center">
-            <button
-              className="flex bg-slate-500 rounded justify-center pt-4 w-14 h-14"
-              onClick={() => console.log("hel")}
-            >
+            <button className="flex bg-slate-500 rounded justify-center pt-4 w-14 h-14">
               {recordingReady ? (
                 <Save recordingReady={recordingReady} />
               ) : (
