@@ -40,6 +40,19 @@ app.post("/api/get_token", async (req, res) => {
   }
 });
 
+app.get("/get_recording/:id", async (req, res) => {
+  try {
+    const rec = await axios.get(`${apiurl}/room_recordings/${req.params.id}`, { auth })
+    res.json(rec.data)
+  } catch (e) {
+    console.log(e);
+    return res.status(500);
+  }
+})
+
+
+
+
 app.get("/api/test", (req, res) => {
   console.log("API call");
   res.json({ message: "Hello from server!" });
