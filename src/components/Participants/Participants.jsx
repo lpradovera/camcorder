@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Eye } from "./components/Eye/Eye";
 import { EyeOff } from "./components/EyeOff/EyeOff";
-import { MicrophoneUp } from "./components/MicrophoneUP/MicrophoneUp";
-import { MicrophoneOff } from "./components/MicrophoneOff/MicrophoneOff";
+import { Microphone } from "../Icons/Microphone/Microphone";
 import { useVideoStream } from "../../hooks/useVideoStream";
 import { useAudioStream } from "../../hooks/useAudioStream";
 
@@ -26,9 +25,6 @@ export const Participants = ({
 
   return (
     <div className="flex flex-col w-2/5 py-">
-      <h2 className="text-2xl text-slate-300 pt-6 font-medium">
-        Room name: {roomDetails.room}
-      </h2>
       <div>
         <h3 className="text-2xl text-silver-100 px-4 pt-16">Participants:</h3>
       </div>
@@ -43,7 +39,7 @@ export const Participants = ({
                   {member.video_muted ? <Eye /> : <EyeOff />}
                 </button>
                 <button className="px-4" onClick={() => audioStream()}>
-                  {member.audio_muted ? <MicrophoneUp /> : <MicrophoneOff />}
+                  {member.audio_muted ? <Microphone /> : null}
                 </button>
               </div>
             </div>

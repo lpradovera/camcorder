@@ -15,6 +15,7 @@ export const VideoRoom = ({
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
 
+
   const roomJoined = async (e) => {
     thisMemberId.current = e.member_id;
     memberList.current = e.room.members;
@@ -51,9 +52,8 @@ export const VideoRoom = ({
         room.on("room.joined", async (e) => roomJoined(e));
 
         room.on("room.updated", async (e) => {
-          console.log("Room has been updated")
+          console.log("Room has been updated");
         });
-        
 
         room.on("member.joined", async (e) => memberJoined(e));
 
@@ -97,8 +97,8 @@ export const VideoRoom = ({
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
 
   return (
-    <>
-      <div className="w-3/5 h-full px-4 py-8" id="video-root"></div>
-    </>
+    <div className="w-3/5 h-full px-6 py-6">
+      <div id="video-root"></div>
+    </div>
   );
 };

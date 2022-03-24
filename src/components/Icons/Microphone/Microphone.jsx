@@ -1,13 +1,13 @@
 import React from "react";
 
-export const MicrophoneUp = () => {
+export const Microphone = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="h-6 w-6"
-      fill="none"
+      fill="#fff"
       viewBox="0 0 24 24"
-      stroke="currentColor"
+      stroke="#fff"
       strokeWidth={2}
     >
       <path

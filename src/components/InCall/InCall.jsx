@@ -4,11 +4,11 @@ import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { useNavigate } from "react-router-dom";
 
+
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
   let [room, setRoom] = useState({});
-  let rec;
   let [thisMemberId, setThisMemberId] = useState(null);
   let onRoomInit = useCallback((room) => {
     setRoom(room);
@@ -33,15 +33,14 @@ export const InCall = ({ roomDetails }) => {
       await room.removeMember({ memberId: event.id });
       console.log("Removed member", event.id);
       if (event.id === thisMemberId) navigate("/");
-    } 
+    }
   };
 
-  
-
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row">
+    <div className="flex flex-col h-screen">
+      <div className="flex flex-row relative">
         <VideoRoom
+          roomRec={room}
           onRoomInit={onRoomInit}
           onRoomUpdate={onRoomUpdate}
           roomDetails={roomDetails}
@@ -57,13 +56,19 @@ export const InCall = ({ roomDetails }) => {
           onMemberUpdate={(event) => memberUpdate(event)}
         />
       </div>
-      <ControlPanel
+      <div className="fixed w-full bottom-10 flex flex-col justify-end">
+        <ControlPanel
         room={room}
         roomDetails={roomDetails}
         memberList={memberList}
         thisMemberId={thisMemberId}
         onMemberUpdate={(event) => memberUpdate(event)}
       />
+      </div>
+      
+
+
+
     </div>
   );
 };

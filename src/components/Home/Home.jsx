@@ -4,7 +4,7 @@ import { GetStartedButton } from "./components/GetStartedButton/GetStartedButton
 export const Home = () => {
   return (
     <>
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 md:pt-20 lg:pt-28 lg:px-8 flex flex-col items-center">
+      <div className="max-w-7xl h-screen mx-auto py-6 px-4 sm:px-6 md:pt-20 lg:pt-28 lg:px-8 flex flex-col items-center">
         <h1 className="text-3xl pt-11 text-center font-bold text-silver-100 font-extrabold">
           Your online recording studio
         </h1>

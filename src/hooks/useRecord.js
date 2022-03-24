@@ -7,14 +7,15 @@ import { useState } from "react";
  * @returns use stopRecord to stop recording video
  */
 export const useRecord = (room) => {
-  const [recording, setRecording] = useState(false),
-    [recordingObj, setRecordingObj] = useState();
+  const [recording, setRecording] = useState(false);
+  const[recordingObj, setRecordingObj] = useState();
 
   const startRecording = async () => {
     if (!recordingObj) {
       const rec = await room.startRecording();
       setRecordingObj(rec);
       setRecording(true);
+      
       console.log(
         "Your recording is being processed and will be downloaded shortly."
       );
@@ -34,10 +35,10 @@ export const useRecord = (room) => {
       console.log("Stop recording");
     }
   };
-
+ 
   return {
     startRecording,
     stopRecording,
-    recording,
+    recording
   };
 };
