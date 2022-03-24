@@ -2,20 +2,47 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const bodyParser = require("body-parser");
 const { permissionsCheck } = require("./helpers");
 
 const PORT = process.env.PORT || 9001;
 const app = express();
-
-app.use(express.json());
+app.use(bodyParser.json());
+// app.use(express.json());
 app.use(cors());
-
+const moderatorPermissions = [
+  "room.list_available_layouts",
+  "room.recording",
+  "room.set_layout",
+  "room.member.audio_mute",
+  "room.member.audio_unmute",
+  "room.member.deaf",
+  "room.member.undeaf",
+  "room.member.remove",
+  "room.member.set_input_sensitivity",
+  "room.member.set_input_volume",
+  "room.member.set_output_volume",
+  "room.member.video_mute",
+  "room.member.video_unmute",
+];
+const normalPermissions = [
+  "room.self.audio_mute",
+  "room.self.audio_unmute",
+  "room.self.video_mute",
+  "room.self.video_unmute",
+  "room.self.deaf",
+  "room.self.undeaf",
+  "room.self.set_input_volume",
+  "room.self.set_output_volume",
+  "room.self.set_input_sensitivity",
+  "room.hide_video_muted",
+  "room.show_video_muted",
+];
 const auth = {
   username: process.env.SIGNALWIRE_PROJECT_KEY, // Project-ID
   password: process.env.SIGNALWIRE_TOKEN, // API token
 };
 const apiurl = process.env.SIGNALWIRE_SPACE; // <your username>.signalwire.com
-
 
 app.post("/api/get_token", async (req, res) => {
   let { user_name, room_name, mod } = req.body;
@@ -27,7 +54,9 @@ app.post("/api/get_token", async (req, res) => {
       {
         user_name,
         room_name: room_name,
-        permissions: permissionsCheck(mod),
+        permissions: mod
+          ? [...normalPermissions, ...moderatorPermissions]
+          : normalPermissions,
       },
       { auth }
     );
@@ -41,17 +70,22 @@ app.post("/api/get_token", async (req, res) => {
 });
 
 app.get("/get_recording/:id", async (req, res) => {
+  const id = req.params.id
   try {
-    const rec = await axios.get(`${apiurl}/room_recordings/${req.params.id}`, { auth })
-    res.json(rec.data)
+    const rec = await axios.get(`https://${apiurl}/api/video/room_recordings/${id}`, {
+      auth,
+    });
+    res.json(rec.data);
   } catch (e) {
     console.log(e);
     return res.status(500);
   }
-})
+});
 
-
-
+app.get("/rooms", async (req, res) => {
+  const rooms = await axios.get(`${apiurl}/rooms`, { auth });
+  res.json(rooms.data.data);
+});
 
 app.get("/api/test", (req, res) => {
   console.log("API call");

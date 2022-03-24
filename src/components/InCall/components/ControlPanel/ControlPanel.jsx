@@ -6,9 +6,11 @@ import { VideoRecordingSymbol } from "../../../VideoRecordingSymbol/VideoRecordi
 import { Microphone } from "../../../Icons/Microphone/Microphone";
 import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 import { Volume } from "../../../Icons/Volume/Volume";
+import { Save } from "../../../Icons/Save/Save";
+import { RecordingButton } from "../../../RecordingButton/RecordingButton";
 
 export const ControlPanel = ({ room, memberList, thisMemberId }) => {
-  const { startRecording, stopRecording, recording } = useRecord(room);
+  const { startRecording, recording, recordingReady } = useRecord(room);
   const { videoStream, videoMuted } = useVideoStream(
     room,
     memberList,
@@ -46,11 +48,12 @@ export const ControlPanel = ({ room, memberList, thisMemberId }) => {
                 recording ? "bg-slate-100" : "bg-slate-500"
               } rounded justify-center pt-3 w-14 h-14`}
               onClick={() => {
-                if (!recording) {
-                  startRecording();
-                } else {
-                  stopRecording();
-                }
+                startRecording();
+                // if (!recording) {
+                //   startRecording();
+                // } else {
+                //   stopRecording();
+                // }
               }}
             >
               {recording ? (
@@ -102,10 +105,28 @@ export const ControlPanel = ({ room, memberList, thisMemberId }) => {
             </button>
             <p className="text-center pt-1 text-slate-300">Speaker</p>
           </div>
+
+          {/* get record */}
+          <div className="flex flex-col justify-center">
+            <button
+              className="flex bg-slate-500 rounded justify-center pt-4 w-14 h-14"
+              onClick={() => console.log("hel")}
+            >
+              {recordingReady ? (
+                <Save recordingReady={recordingReady} />
+              ) : (
+                <div className="relative">
+                  <Save />
+                  <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
+                </div>
+              )}
+            </button>
+            <p className="text-center pt-1 text-slate-300">Save</p>
+          </div>
         </div>
 
         {recording ? (
-          <VideoRecordingSymbol position="absolute" bottom="2" right="2" />
+          <VideoRecordingSymbol position="absolute" bottom="2" right="6" />
         ) : null}
       </div>
     </>

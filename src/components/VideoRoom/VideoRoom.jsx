@@ -72,7 +72,7 @@ export const VideoRoom = ({
           memberList.current = newMemberList;
           onMemberListUpdate([...memberList.current]);
         });
-
+        
         room.on("member.left", async (e) => {
           let memberThatLeft = memberList.current.find(
             (m) => m.id === e.member.id
