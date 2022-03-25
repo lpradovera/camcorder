@@ -14,6 +14,8 @@ export const VideoRoom = ({
   let [setupDone, setSetupDone] = useState(false);
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
+  let currLayout = useRef(null);
+  let [overlayStyle, setOverlayStyle] = useState({ display: 'none' })
 
   const roomJoined = async (e) => {
     thisMemberId.current = e.member_id;
@@ -97,7 +99,9 @@ export const VideoRoom = ({
 
   return (
     <>
-      <div className="px-2 py-2 w-2/5" id="video-root"></div>
+      <div className="px-2 py-2 w-2/5 relative" id="video-root">
+
+      </div>
     </>
   );
 };

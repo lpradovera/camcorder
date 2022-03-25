@@ -4,6 +4,7 @@ import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { useNavigate } from "react-router-dom";
 
+
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
@@ -15,14 +16,15 @@ export const InCall = ({ roomDetails }) => {
   let onRoomInit = useCallback((room) => {
     setRoom(room);
   }, []);
+  
 
   const handleHide = () => {
-      if (!offset) {
-        setOffset(true);
-      } else {
-        setOffset(false);
-      }
-    };
+    if (!offset) {
+      setOffset(true);
+    } else {
+      setOffset(false);
+    }
+  };
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -59,7 +61,7 @@ export const InCall = ({ roomDetails }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen dark:bg-slate-700">
+    <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
       <div className="flex flex-row">
         <VideoRoom
           onRoomInit={onRoomInit}
@@ -70,10 +72,13 @@ export const InCall = ({ roomDetails }) => {
           }, [])}
         />
       </div>
-      <div className={`w-[311px] ${
-        offset ? "animate-pulse" : null
-      } dark:bg-slate-700 shadow-xl absolute ${offset ? 'right-0' : 'right-[-290px]'} h-screen`}>
-      <Participants
+      <div
+        className={`right-0 transition-[right] duration-300
+      ${offset ? null : "animate-pulse"} dark:bg-slate-700 shadow-xl absolute ${
+          offset ? "w-[25px]" : "w-[40%]"
+        } h-screen`}
+      >
+        <Participants
           offset={offset}
           handleHide={handleHide}
           memberList={memberList}

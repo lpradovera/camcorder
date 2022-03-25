@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { VideoCamera } from "../Icons/VideoCamera/VideoCamera";
 import { Microphone } from "../Icons/Microphone/Microphone";
 import { Chevron } from "../Icons/Chevron/Chevron";
@@ -10,21 +10,9 @@ export const Participants = ({
   handleHide,
   onMemberUpdate = () => {},
 }) => {
-  // const [offset, setOffset] = useState("-290");
-
-  // const handleHide = () => {
-  //   if (offset === "-290") {
-  //     setOffset("0");
-  //   } else {
-  //     setOffset("-290");
-  //   }
-  // };
-
   return (
-    <div
-      className=""
-    >
-      <div className="p-[24px] transition flex justify-between items-center relative">
+    <div className="">
+      <div className="p-[24px] flex justify-between items-center">
         <button
           onClick={() => handleHide()}
           className="flex dark:bg-slate-600 hover:dark:bg-slate-400 rounded-full items-center absolute left-[-20px] top-[20px]"
