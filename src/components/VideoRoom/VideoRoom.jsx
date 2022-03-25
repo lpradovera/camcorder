@@ -15,7 +15,6 @@ export const VideoRoom = ({
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
 
-
   const roomJoined = async (e) => {
     thisMemberId.current = e.member_id;
     memberList.current = e.room.members;
@@ -72,7 +71,7 @@ export const VideoRoom = ({
           memberList.current = newMemberList;
           onMemberListUpdate([...memberList.current]);
         });
-        
+
         room.on("member.left", async (e) => {
           let memberThatLeft = memberList.current.find(
             (m) => m.id === e.member.id
@@ -97,8 +96,8 @@ export const VideoRoom = ({
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
 
   return (
-    <div className="w-3/5 h-full px-6 py-6">
-      <div id="video-root"></div>
-    </div>
+    <>
+      <div className="px-2 py-2 w-2/5" id="video-root"></div>
+    </>
   );
 };

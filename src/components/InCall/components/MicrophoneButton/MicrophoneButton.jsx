@@ -1,12 +1,20 @@
 import React from "react";
 import { Microphone } from "../../../Icons/Microphone/Microphone";
 
-export const MicrophoneButton = ({ audioStream, audioMuted }) => {
+export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
   return (
     <div className="flex flex-col justify-center">
       <button
         className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
-        onClick={() => audioStream()}
+        onClick={() => {
+          if(audioMuted) {
+            room.audioUnmute();
+            setAudioMuted(false);
+          } else {
+            room.audioMute();
+            setAudioMuted(true);
+          }
+        }}
       >
         {audioMuted ? (
           <div className="relative">

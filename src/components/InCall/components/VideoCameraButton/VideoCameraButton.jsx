@@ -1,12 +1,24 @@
 import React from "react";
 import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 
-export const VideoCameraButton = ({ videoStream, videoMuted }) => {
+export const VideoCameraButton = ({
+   room,
+   setVideoMuted,
+   videoMuted 
+  }) => {
   return (
     <div className="flex flex-col justify-center">
       <button
         className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
-        onClick={() => videoStream()}
+        onClick={() => {
+          if(videoMuted) {
+            room.videoUnmute();
+            setVideoMuted(false);
+          } else {
+            room.videoMute();
+            setVideoMuted(true);
+          }
+        }}
       >
         {videoMuted ? (
           <div className="relative">
