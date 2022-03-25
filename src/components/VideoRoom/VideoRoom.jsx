@@ -51,9 +51,8 @@ export const VideoRoom = ({
         room.on("room.joined", async (e) => roomJoined(e));
 
         room.on("room.updated", async (e) => {
-          console.log("Room has been updated")
+          console.log("Room has been updated");
         });
-        
 
         room.on("member.joined", async (e) => memberJoined(e));
 
@@ -98,7 +97,7 @@ export const VideoRoom = ({
 
   return (
     <>
-      <div className="w-3/5 h-full px-4 py-8" id="video-root"></div>
+      <div className="px-2 py-2 w-2/5" id="video-root"></div>
     </>
   );
 };

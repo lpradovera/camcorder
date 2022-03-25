@@ -6,7 +6,6 @@ const { permissionsCheck } = require("./helpers");
 
 const PORT = process.env.PORT || 9001;
 const app = express();
-
 app.use(express.json());
 app.use(cors());
 
@@ -15,7 +14,6 @@ const auth = {
   password: process.env.SIGNALWIRE_TOKEN, // API token
 };
 const apiurl = process.env.SIGNALWIRE_SPACE; // <your username>.signalwire.com
-
 
 app.post("/api/get_token", async (req, res) => {
   let { user_name, room_name, mod } = req.body;
@@ -38,6 +36,24 @@ app.post("/api/get_token", async (req, res) => {
     console.log(e);
     return res.status(500);
   }
+});
+
+app.get("/get_recording/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const rec = await axios.get(`https://${apiurl}/api/video/room_recordings/${id}`, {
+      auth,
+    });
+    res.json(rec.data);
+  } catch (e) {
+    console.log(e);
+    return res.status(500);
+  }
+});
+
+app.get("/rooms", async (req, res) => {
+  const rooms = await axios.get(`${apiurl}/rooms`, { auth });
+  res.json(rooms.data.data);
 });
 
 app.get("/api/test", (req, res) => {
