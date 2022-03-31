@@ -1,35 +1,37 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { useNavigate } from "react-router-dom";
-
+import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
+import { useHandleHide } from "../../hooks/useHandleHide";
+import { useOnRoomInit } from "../../hooks/useOnRoomInit";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  const [offset, setOffset] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
-  let [room, setRoom] = useState({});
+  const [recording, setRecording] = useState(false);
+  let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
-  let onRoomInit = useCallback((room) => {
-    setRoom(room);
-  }, []);
+  const { handleHide, offset } = useHandleHide();
+  const { room, layout, onRoomInit } = useOnRoomInit();
   
-
-  const handleHide = () => {
-    if (!offset) {
-      setOffset(true);
-    } else {
-      setOffset(false);
-    }
-  };
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
+      if (updatedValues.cameras !== undefined)
+        setCameras(updatedValues.cameras);
+      if (updatedValues.speakers !== undefined)
+        setSpeakers(updatedValues.speakers);
+      if (updatedValues.microphones !== undefined)
+        setMicrophones(updatedValues.microphones);
+      if (updatedValues.left === true) history.push("/");
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
+      if (updatedValues.layout !== undefined)
+        setCurLayout(updatedValues.layout);
       if (updatedValues.member !== undefined) {
         let mem = updatedValues.member;
         console.log("Current User", mem);
@@ -64,6 +66,8 @@ export const InCall = ({ roomDetails }) => {
     <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
       <div className="flex flex-row">
         <VideoRoom
+          setRecording={setRecording}
+          members={memberList}
           onRoomInit={onRoomInit}
           onRoomUpdate={onRoomUpdate}
           roomDetails={roomDetails}
@@ -72,21 +76,20 @@ export const InCall = ({ roomDetails }) => {
           }, [])}
         />
       </div>
-      <div
-        className={`right-0 transition-[right] duration-300
-      ${offset ? null : "animate-pulse"} dark:bg-slate-700 shadow-xl absolute ${
-          offset ? "w-[25px]" : "w-[40%]"
-        } h-screen`}
-      >
+
+      <ParticipantsWrapper offset={offset}>
         <Participants
+          room={room}
           offset={offset}
           handleHide={handleHide}
           memberList={memberList}
           onMemberUpdate={(event) => memberUpdate(event)}
         />
-      </div>
+      </ParticipantsWrapper>
+
       <div className="fixed w-full bottom-10 flex flex-col justify-end">
         <ControlPanel
+          recording={recording}
           room={room}
           setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}

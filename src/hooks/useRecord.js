@@ -8,7 +8,6 @@ import axios from 'axios';
  * @returns use recordingReady record object
  */
 export const useRecord = (room) => {
-  const [recording, setRecording] = useState(false);
   const [recordingObj, setRecordingObj] = useState();
   const [recordingReady, setRecordingReady] = useState();
 
@@ -16,7 +15,6 @@ export const useRecord = (room) => {
     if (!recordingObj) {
       const rec = await room.startRecording();
       setRecordingObj(rec);
-      setRecording(true);
 
       console.log(
         "Your recording is being processed and will be downloaded shortly."
@@ -24,7 +22,6 @@ export const useRecord = (room) => {
     } else {
       const recId = recordingObj.id;
       await recordingObj.stop();
-      setRecording(false);
       setRecordingObj(undefined);
       console.log('Stop recording');
       await retry(
@@ -52,6 +49,5 @@ export const useRecord = (room) => {
   return {
     startRecording,
     recordingReady,
-    recording,
   };
 };

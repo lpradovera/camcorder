@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer utilities {
   .input-placeholder-xl::placeholder {
      font-size: 22px;
@@ -9,4 +10,8 @@
   .input-text-xlf {
     font-size: 22px;
   }
+  .slider-thumb::-webkit-slider-thumb {
+  @apply appearance-none w-[4px] h-5 rounded-xl bg-slate-300 cursor-pointer;
+}
+  
 }

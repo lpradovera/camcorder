@@ -1,87 +1,42 @@
 import React from "react";
-import { VideoCamera } from "../Icons/VideoCamera/VideoCamera";
-import { Microphone } from "../Icons/Microphone/Microphone";
-import { Chevron } from "../Icons/Chevron/Chevron";
-import { ChevronLeft } from "../Icons/ChevronLeft/ChevronLeft";
+import { InputVolume } from "./components/InputVolume/InputVolume";
+import { ButtonVideoCamera } from "./components/ButtonVideoCamera/ButtonVideoCamera";
+import { ButtonMicrophone } from "./components/ButtonMicrophone/ButtonMicrophone";
+import { ButtonWrapper } from "./components/ButtonWrapper/ButtonWrapper";
+import { ButtonChevron } from "./components/ButtonChevron/ButtonChevron";
 
 export const Participants = ({
   memberList,
+  room,
   offset,
   handleHide,
-  onMemberUpdate = () => {},
+  onMemberUpdate,
 }) => {
   return (
-    <div className="">
-      <div className="p-[24px] flex justify-between items-center">
-        <button
-          onClick={() => handleHide()}
-          className="flex dark:bg-slate-600 hover:dark:bg-slate-400 rounded-full items-center absolute left-[-20px] top-[20px]"
-        >
-          {offset ? <Chevron /> : <ChevronLeft />}
-        </button>
-      </div>
-      <div className="px-11 py-8">
-        <ul>
-          {memberList.map((member) => {
-            return (
-              <div className=" flex justify-between" key={member.id}>
-                <li className="dark:text-slate-400">{member.name}</li>
-                <div className="flex justify-around w-2/5">
-                  <button
-                    onClick={() => {
-                      if (member.video_muted) {
-                        onMemberUpdate({
-                          action: "unmute_video",
-                          id: member.id,
-                        });
-                      } else {
-                        onMemberUpdate({
-                          action: "mute_video",
-                          id: member.id,
-                        });
-                      }
-                    }}
-                  >
-                    {member.video_muted ? (
-                      <div className="relative">
-                        <VideoCamera />
-                        <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
-                      </div>
-                    ) : (
-                      <VideoCamera />
-                    )}
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      if (member.audio_muted) {
-                        onMemberUpdate({
-                          action: "unmute_audio",
-                          id: member.id,
-                        });
-                      } else {
-                        onMemberUpdate({
-                          action: "mute_audio",
-                          id: member.id,
-                        });
-                      }
-                    }}
-                  >
-                    {member.audio_muted ? (
-                      <div className="relative">
-                        <Microphone />
-                        <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
-                      </div>
-                    ) : (
-                      <Microphone />
-                    )}
-                  </button>
-                </div>
+    <>
+      <ButtonChevron handleHide={handleHide} offset={offset} />
+      <div className={`px-2 py-8 ${offset ? 'hidden' : 'block'}`}>
+        {memberList.map((member) => {
+          return (
+            <div key={member.id} className="shadow-lg mb-2 rounded-lg py-4 px-3 dark:bg-slate-600">
+              <div className=" flex justify-between pb-4">
+                <span className="dark:text-slate-300 pt-1">{member.name}</span>
+                <ButtonWrapper>
+                  <ButtonVideoCamera
+                    member={member}
+                    onMemberUpdate={onMemberUpdate}
+                  />
+                  <ButtonMicrophone
+                    member={member}
+                    onMemberUpdate={onMemberUpdate}
+                  />
+                </ButtonWrapper>
               </div>
-            );
-          })}
-        </ul>
+              <InputVolume room={room} member={member} />
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </>
   );
 };

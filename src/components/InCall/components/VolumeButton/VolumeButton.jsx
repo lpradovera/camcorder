@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
 import { Volume } from "../../../Icons/Volume/Volume";
+import { useNavigate } from "react-router-dom";
 
-export const VolumeButton = ({videoStream, videoMuted}) => {
-
+export const VolumeButton = ({room}) => {
+  let navigate = useNavigate();
   useEffect(() => {
     console.log('Test, volume button does not work');
   }, []);
@@ -11,9 +12,11 @@ export const VolumeButton = ({videoStream, videoMuted}) => {
     <div className="flex flex-col justify-center">
       <button
         className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
-        onClick={() => videoStream()}
+        onClick={() => {
+          console.log('Does not work');
+        }}
       >
-        {videoMuted ? (
+        {false ? (
           <div className="relative">
             <Volume />
             <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
