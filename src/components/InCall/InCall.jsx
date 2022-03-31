@@ -1,15 +1,19 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
-import { useNavigate } from "react-router-dom";
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
 import { useHandleHide } from "../../hooks/useHandleHide";
 import { useOnRoomInit } from "../../hooks/useOnRoomInit";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
+  const location = useLocation();
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const [recording, setRecording] = useState(false);
@@ -17,6 +21,7 @@ export const InCall = ({ roomDetails }) => {
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
   const { room, layout, onRoomInit } = useOnRoomInit();
+   
   
 
   let onRoomUpdate = useCallback(
@@ -27,7 +32,7 @@ export const InCall = ({ roomDetails }) => {
         setSpeakers(updatedValues.speakers);
       if (updatedValues.microphones !== undefined)
         setMicrophones(updatedValues.microphones);
-      if (updatedValues.left === true) history.push("/");
+      if (updatedValues.left === true) navigate("/");
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined)

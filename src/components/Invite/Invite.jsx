@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "../Icons/Link/Link";
-
+import { useLocation } from "react-router-dom";
 
 const copy = (text) => {
   navigator.clipboard.writeText(text);
 };
 
 export const Invite = ({ room = "room", mod }) => {
+  const location = useLocation();
   const generateLink = (r, type = "normal") => {
     if (type === "normal")
       return (
@@ -40,14 +41,11 @@ export const Invite = ({ room = "room", mod }) => {
       >
         <Menu.Items className="absolute right-[-90px] bottom-32 mt-2 w-96 rounded-md shadow-lg dark:text-slate-100 dark:bg-slate-400 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-3 px-3">
+            <Menu.Item>{() => <h3>As Guest:</h3>}</Menu.Item>
             <Menu.Item>
               {() => (
-                  <h3>As Guest:</h3>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {() => (
-                <span className="cursor-copy"
+                <span
+                  className="cursor-copy"
                   onClick={() => {
                     copy(generateLink(room));
                   }}
@@ -56,26 +54,31 @@ export const Invite = ({ room = "room", mod }) => {
                 </span>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {() => (
-                <>
-                  <h3>As Moderator:</h3>
-                </>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {() => (
-                <>
-                  <span className="cursor-copy"
-                    onClick={() => {
-                      copy(generateLink(room, "mod"));
-                    }}
-                  >
-                    {generateLink(room, "mod")}
-                  </span>
-                </>
-              )}
-            </Menu.Item>
+            {location.state.mod ? (
+              <>
+                <Menu.Item>
+                  {() => (
+                    <>
+                      <h3>As Moderator:</h3>
+                    </>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {() => (
+                    <>
+                      <span
+                        className="cursor-copy"
+                        onClick={() => {
+                          copy(generateLink(room, "mod"));
+                        }}
+                      >
+                        {generateLink(room, "mod")}
+                      </span>
+                    </>
+                  )}
+                </Menu.Item>
+              </>
+            ) : null}
           </div>
         </Menu.Items>
       </Transition>
