@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Layout } from "../Layout/Layout";
 import { JoinCallForm } from "../JoinCallForm/JoinCallForm";
@@ -19,18 +19,26 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const InCallRoute = ({ roomDetails }) => {
-  if (roomDetails.name === undefined || roomDetails.room === undefined) {
-    return <Navigate to="/" />;
-  } else {
-    return <InCall roomDetails={roomDetails} />;
-  }
-};
-
 export const App = () => {
   let query = useQuery();
+  let location = useLocation();
   let navigate = useNavigate();
   let [roomDetails, setRoomDetails] = useState({});
+
+  useEffect(() => {
+    if (location.state !== null) {
+      console.log(location.state, "location");
+      setRoomDetails({
+        name: location.state.name,
+        room: location.state.room,
+        mod: location.state.mod,
+      });
+    }
+  }, []);
+
+  const InCallRoute = ({ roomDetails }) => {
+    return <InCall roomDetails={roomDetails} />;
+  };
 
   return (
     <>
@@ -43,7 +51,26 @@ export const App = () => {
               <JoinCallForm
                 onJoin={({ room, name }) => {
                   setRoomDetails({ name, room, mod: true });
-                  navigate("in-call");
+                  navigate("in-call", {
+                    state: { name: name, room: room, mod: true },
+                  });
+                }}
+              />
+            }
+          />
+
+          <Route
+            path="invite"
+            element={
+              <InviteForm
+                mod={query.get("m") === "mod"}
+                roomName={query.get("r")}
+                onJoin={({ room, name, mod }) => {
+                  console.log(name, room, mod);
+                  setRoomDetails({ name, room, mod });
+                  navigate("in-call", {
+                    state: { name: name, room: room, mod: mod },
+                  });
                 }}
               />
             }
