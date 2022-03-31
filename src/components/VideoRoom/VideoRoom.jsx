@@ -3,8 +3,9 @@ import * as SignalWire from "@signalwire/js";
 import { getToken } from "../../helpers/helpers";
 
 export const VideoRoom = ({
-  onRoomInit = () => {},
-  onRoomUpdate = () => {},
+  onRoomInit,
+  setRecording,
+  onRoomUpdate,
   roomDetails: roomDetails = {
     room: "test",
     name: "tester",
@@ -15,7 +16,73 @@ export const VideoRoom = ({
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
   let currLayout = useRef(null);
-  let [overlayStyle, setOverlayStyle] = useState({ display: 'none' })
+
+  let [overlayStyle, setOverlayStyle] = useState({ display: "none" });
+  let [speakerOverlayStyle, setSpeakerOverlayStyle] = useState({
+    display: "none",
+  });
+
+  //
+  function updateSpeakerOverlay(memberId, speaking) {
+    if (!currLayout.current) return;
+
+    const layer = currLayout.current.layers.find(
+      (lyr) => lyr.member_id === memberId
+    );
+
+    if (layer && speaking) {
+      setSpeakerOverlayStyle({
+        display: "block",
+        position: "absolute",
+        overflow: "hidden",
+        top: layer.y + "%",
+        left: layer.x + "%",
+        width: layer.width + "%",
+        height: layer.height + "%",
+        zIndex: 1,
+        background: "transparent",
+        border: "5px solid yellow",
+        pointerEvents: "none",
+      });
+    } else {
+      setSpeakerOverlayStyle({ display: "none" });
+    }
+  }
+
+  function updateOverlay(e) {
+    if (!currLayout) return;
+
+    // Mouse coordinates relative to the video element, in percentage (0 to 100)
+    const rect = document.getElementById("video-root").getBoundingClientRect();
+    const x = (100 * (e.clientX - rect.left)) / rect.width;
+    const y = (100 * (e.clientY - rect.top)) / rect.height;
+
+    const layer = currLayout?.current?.layers.find(
+      (lyr) =>
+        lyr.x < x &&
+        x < lyr.x + lyr.width &&
+        lyr.y < y &&
+        y < lyr.y + lyr.height
+    );
+    if (layer && layer.reservation !== "fullscreen") {
+      setOverlayStyle({
+        display: "block",
+        position: "absolute",
+        overflow: "hidden",
+        top: layer.y + "%",
+        left: layer.x + "%",
+        width: layer.width + "%",
+        height: layer.height + "%",
+        zIndex: 1,
+        background: "#0d6efd38",
+        backdropFilter: "blur(10px)",
+        pointerEvents: "none",
+      });
+    } else {
+      setOverlayStyle({ display: "none" });
+    }
+  }
+  //
 
   const roomJoined = async (e) => {
     thisMemberId.current = e.member_id;
@@ -54,6 +121,7 @@ export const VideoRoom = ({
 
         room.on("room.updated", async (e) => {
           console.log("Room has been updated");
+          setRecording(e.room.recording);
         });
 
         room.on("member.joined", async (e) => memberJoined(e));
@@ -72,6 +140,14 @@ export const VideoRoom = ({
           newMemberList.push(updatedMember);
           memberList.current = newMemberList;
           onMemberListUpdate([...memberList.current]);
+        });
+        room.on("layout.changed", async (e) => {
+          currLayout.current = e.layout; // add this line
+          onRoomUpdate({ layout: e.layout.name });
+        });
+        room.on("member.talking", (e) => {
+          // Update the UI: the participant with id `e.member.id` is talking iff e.member.talking == true
+          updateSpeakerOverlay(e.member.id, e.member.talking);
         });
 
         room.on("member.left", async (e) => {
@@ -99,8 +175,15 @@ export const VideoRoom = ({
 
   return (
     <>
-      <div className="px-2 py-2 w-2/5 relative" id="video-root">
-
+      <div
+        className="px-2 py-2 w-3/5 relative"
+        id="video-root"
+        onMouseOver={updateOverlay}
+        onMouseMove={updateOverlay}
+        onMouseLeave={updateOverlay}
+      >
+        <div style={overlayStyle}></div>
+        <div style={speakerOverlayStyle}></div>
       </div>
     </>
   );

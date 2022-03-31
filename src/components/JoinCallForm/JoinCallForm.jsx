@@ -3,8 +3,6 @@ import React, { useState } from "react";
 export const JoinCallForm = ({ onJoin = () => {} }) => {
   let [name, setName] = useState("");
   let [room, setRoom] = useState("");
-  let [video, setVideo] = useState(false);
-  let [audio, setAudio] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,33 +39,6 @@ export const JoinCallForm = ({ onJoin = () => {} }) => {
             pattern="[^' ']+"
             required
           />
-          {/* <div className="flex flex-col items-start justify-between">
-              <div className="flex items-center pb-4">
-                <input
-                  id="video"
-                  name="video"
-                  type="checkbox"
-                  onChange={(e) => setVideo(e.target.checked)}
-                  className="h-6 w-6 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label htmlFor="video" className="ml-2 block text-xl text-slate-400">
-                  Connect with video?
-                </label>
-              </div>
-
-              <div className="flex items-center">
-                <input
-                  id="audio"
-                  name="audio"
-                  type="checkbox"
-                  onChange={(e) => setAudio(e.target.checked)}
-                  className="h-6 w-6 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label htmlFor="audio" className="ml-2 block text-xl text-slate-400">
-                  Connect with audio?
-                </label>
-              </div>
-          </div> */}
           <button
             className="w-full flex justify-center py-2 px-4 border border-transparent text-2xl font-extrabold rounded-md text-white bg-slate-500 hover:bg-slate-800"
             type="submit"

@@ -6,15 +6,17 @@ import { RecordingButton } from "../RecordingButton/RecordingButton";
 import { MicrophoneButton } from "../MicrophoneButton/MicrophoneButton";
 import { VolumeButton } from "../VolumeButton/VolumeButton";
 import { GetRecordButton } from "../GetRecordButton/GetRecordButton";
+import { PhoneMissedCallButton } from "../PhoneMissedCallButton/PhoneMissedCallButton";
 
 export const ControlPanel = ({
   room,
+  recording,
   videoMuted,
   audioMuted,
   setVideoMuted,
   setAudioMuted,
 }) => {
-  const { startRecording, recording, recordingReady } = useRecord(room);
+  const { startRecording, recordingReady } = useRecord(room);
   
   return (
     <>
@@ -34,12 +36,14 @@ export const ControlPanel = ({
             audioMuted={audioMuted}
             setAudioMuted={setAudioMuted}
           />
-          {/* <VolumeButton videoStream={videoStream} videoMuted={videoMuted} /> */}
+          <VolumeButton  room={room} />
           <GetRecordButton recordingReady={recordingReady} />
+
+          <PhoneMissedCallButton room={room} />
         </div>
 
         {recording ? (
-          <VideoRecordingSymbol position="absolute" bottom="2" right="6" />
+          <VideoRecordingSymbol position="absolute" bottom="2" right="0" />
         ) : null}
       </div>
     </>
