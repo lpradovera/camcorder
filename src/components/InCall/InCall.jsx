@@ -91,6 +91,7 @@ export const InCall = ({ roomDetails }) => {
         <ControlPanel
           recording={recording}
           room={room}
+          roomDetails={roomDetails}
           setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}
           videoMuted={videoMuted}

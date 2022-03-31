@@ -7,17 +7,19 @@ import { MicrophoneButton } from "../MicrophoneButton/MicrophoneButton";
 import { VolumeButton } from "../VolumeButton/VolumeButton";
 import { GetRecordButton } from "../GetRecordButton/GetRecordButton";
 import { PhoneMissedCallButton } from "../PhoneMissedCallButton/PhoneMissedCallButton";
+import { Invite } from "../../../Invite/Invite";
 
 export const ControlPanel = ({
   room,
   recording,
   videoMuted,
+  roomDetails,
   audioMuted,
   setVideoMuted,
   setAudioMuted,
 }) => {
   const { startRecording, recordingReady } = useRecord(room);
-  
+
   return (
     <>
       <div className="flex py-2 justify-center relative transparent">
@@ -31,13 +33,15 @@ export const ControlPanel = ({
             startRecording={startRecording}
             recording={recording}
           />
-          <MicrophoneButton 
+          <MicrophoneButton
             room={room}
             audioMuted={audioMuted}
             setAudioMuted={setAudioMuted}
           />
-          <VolumeButton  room={room} />
+          <VolumeButton room={room} />
           <GetRecordButton recordingReady={recordingReady} />
+
+          <Invite mod={roomDetails.mod} room={roomDetails.room} />
 
           <PhoneMissedCallButton room={room} />
         </div>
