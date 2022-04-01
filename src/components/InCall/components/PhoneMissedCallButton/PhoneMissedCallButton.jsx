@@ -15,7 +15,7 @@ export const PhoneMissedCallButton = ({ room }) => {
         onClick={() => {
           room.leave();
           setTimeout(() => {
-            navigate("/dashboard", {
+            navigate("/", {
               state: { },
             });
           }, 1500);

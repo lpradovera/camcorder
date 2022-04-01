@@ -5,10 +5,8 @@ import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
 import { useHandleHide } from "../../hooks/useHandleHide";
 import { useOnRoomInit } from "../../hooks/useOnRoomInit";
-import {
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
@@ -21,8 +19,6 @@ export const InCall = ({ roomDetails }) => {
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
   const { room, layout, onRoomInit } = useOnRoomInit();
-   
-  
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -69,7 +65,7 @@ export const InCall = ({ roomDetails }) => {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
-      <div className="flex flex-row">
+      <VideoRoomWrapper offset={offset}>
         <VideoRoom
           setRecording={setRecording}
           members={memberList}
@@ -80,7 +76,7 @@ export const InCall = ({ roomDetails }) => {
             setMemberList(list);
           }, [])}
         />
-      </div>
+      </VideoRoomWrapper>
 
       <ParticipantsWrapper offset={offset}>
         <Participants

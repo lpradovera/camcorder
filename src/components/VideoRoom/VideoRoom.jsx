@@ -49,39 +49,39 @@ export const VideoRoom = ({
     }
   }
 
-  function updateOverlay(e) {
-    if (!currLayout) return;
+  // function updateOverlay(e) {
+  //   if (!currLayout) return;
 
-    // Mouse coordinates relative to the video element, in percentage (0 to 100)
-    const rect = document.getElementById("video-root").getBoundingClientRect();
-    const x = (100 * (e.clientX - rect.left)) / rect.width;
-    const y = (100 * (e.clientY - rect.top)) / rect.height;
+  //   // Mouse coordinates relative to the video element, in percentage (0 to 100)
+  //   const rect = document.getElementById("video-root").getBoundingClientRect();
+  //   const x = (100 * (e.clientX - rect.left)) / rect.width;
+  //   const y = (100 * (e.clientY - rect.top)) / rect.height;
 
-    const layer = currLayout?.current?.layers.find(
-      (lyr) =>
-        lyr.x < x &&
-        x < lyr.x + lyr.width &&
-        lyr.y < y &&
-        y < lyr.y + lyr.height
-    );
-    if (layer && layer.reservation !== "fullscreen") {
-      setOverlayStyle({
-        display: "block",
-        position: "absolute",
-        overflow: "hidden",
-        top: layer.y + "%",
-        left: layer.x + "%",
-        width: layer.width + "%",
-        height: layer.height + "%",
-        zIndex: 1,
-        background: "#0d6efd38",
-        backdropFilter: "blur(10px)",
-        pointerEvents: "none",
-      });
-    } else {
-      setOverlayStyle({ display: "none" });
-    }
-  }
+  //   const layer = currLayout?.current?.layers.find(
+  //     (lyr) =>
+  //       lyr.x < x &&
+  //       x < lyr.x + lyr.width &&
+  //       lyr.y < y &&
+  //       y < lyr.y + lyr.height
+  //   );
+  //   if (layer && layer.reservation !== "fullscreen") {
+  //     setOverlayStyle({
+  //       display: "block",
+  //       position: "absolute",
+  //       overflow: "hidden",
+  //       top: layer.y + "%",
+  //       left: layer.x + "%",
+  //       width: layer.width + "%",
+  //       height: layer.height + "%",
+  //       zIndex: 1,
+  //       background: "#0d6efd38",
+  //       backdropFilter: "blur(10px)",
+  //       pointerEvents: "none",
+  //     });
+  //   } else {
+  //     setOverlayStyle({ display: "none" });
+  //   }
+  // }
   //
 
   const roomJoined = async (e) => {
@@ -176,13 +176,13 @@ export const VideoRoom = ({
   return (
     <>
       <div
-        className="px-2 py-2 w-3/5 relative"
+        className=" w-3/5 relative"
         id="video-root"
-        onMouseOver={updateOverlay}
-        onMouseMove={updateOverlay}
-        onMouseLeave={updateOverlay}
+        // onMouseOver={updateOverlay}
+        // onMouseMove={updateOverlay}
+        // onMouseLeave={updateOverlay}
       >
-        <div style={overlayStyle}></div>
+        {/* <div style={overlayStyle}></div> */}
         <div style={speakerOverlayStyle}></div>
       </div>
     </>
