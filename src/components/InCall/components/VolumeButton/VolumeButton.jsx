@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
-import { Volume } from "../../../Icons/Volume/Volume";
+import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
+import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
 import { useNavigate } from "react-router-dom";
 
 export const VolumeButton = ({room}) => {
-  let navigate = useNavigate();
+
   useEffect(() => {
     console.log('Test, volume button does not work');
   }, []);
@@ -18,11 +19,11 @@ export const VolumeButton = ({room}) => {
       >
         {false ? (
           <div className="relative">
-            <Volume />
+            <VolumeUp />
             <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
           </div>
         ) : (
-          <Volume />
+          <VolumeOff />
         )}
       </button>
       <p className="text-center pt-1 text-slate-300">Speaker</p>

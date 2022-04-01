@@ -1,11 +1,12 @@
 import React from "react";
 
 export const InputVolume = ({ room, member, audioMuted }) => {
-  let opacity = audioMuted ? 'opacity-20' : 'opacity-100';
+  let opacity = member.audio_muted ? 'opacity-20' : 'opacity-100';
+
   return (
     <div className="relative">
       <input
-        disabled={audioMuted}
+        disabled={member.audio_muted}
         onChange={(e) => {
           room.setInputVolume({
             memberId: member.id,

@@ -4,7 +4,9 @@ import { ButtonVideoCamera } from "./components/ButtonVideoCamera/ButtonVideoCam
 import { ButtonMicrophone } from "./components/ButtonMicrophone/ButtonMicrophone";
 import { ButtonWrapper } from "./components/ButtonWrapper/ButtonWrapper";
 import { ButtonChevron } from "./components/ButtonChevron/ButtonChevron";
+import { ButtonVolume } from "./components/ButtonVolume/ButtonVolume";
 import { useLocation } from "react-router-dom";
+
 
 export const Participants = ({
   memberList,
@@ -38,6 +40,7 @@ export const Participants = ({
                   />
                 </ButtonWrapper>
               : null}
+              <ButtonVolume member={member} onMemberUpdate={onMemberUpdate} />
               </div>
               {(location.state.name === member.name) || location.state.mod ? 
                <InputVolume audioMuted={audioMuted} room={room} member={member} /> : null}

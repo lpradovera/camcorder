@@ -60,6 +60,10 @@ export const InCall = ({ roomDetails }) => {
     } else if (event.action === "unmute_video") {
       await room.videoUnmute({ memberId: event.id });
       if (event.id === thisMemberId) setVideoMuted(false);
+    } else if (event.action === "mute_volume") {
+      await room.setOutputVolume({memberId: event.id, volume: event.volume});
+    } else if (event.action === "unmute_volume") {
+      await room.setOutputVolume({memberId: event.id, volume: event.volume});
     }
   };
 
