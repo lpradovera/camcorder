@@ -14,6 +14,7 @@ export const InCall = ({ roomDetails }) => {
   const location = useLocation();
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
+  const [volumeMuted, setVolumeMuted] = useState(false);
   const [recording, setRecording] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
@@ -100,7 +101,10 @@ export const InCall = ({ roomDetails }) => {
           roomDetails={roomDetails}
           setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}
+          setVolumeMuted={setVolumeMuted}
+          volumeMuted={volumeMuted}
           videoMuted={videoMuted}
+          memberList={memberList}
           audioMuted={audioMuted}
         />
       </div>

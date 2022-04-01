@@ -14,10 +14,12 @@ export const ControlPanel = ({
   room,
   recording,
   videoMuted,
+  volumeMuted,
   roomDetails,
   audioMuted,
   setVideoMuted,
   setAudioMuted,
+  setVolumeMuted,
 }) => {
   const { startRecording, recordingReady } = useRecord(room);
   const location = useLocation();
@@ -25,7 +27,10 @@ export const ControlPanel = ({
   return (
     <>
       <div className="flex py-2 justify-center relative transparent">
-        <div className="flex w-2/4 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-28 rounded-lg bg-slate-600">
+        <div
+          style={{ maxWidth: "620px" }}
+          className={`flex w-4/5 ${recording ? 'border-2 border-red-500' : 'border-none'} xs:border-none flex-wrap xs:flex-nowrap pt-4 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] sm:h-28 rounded-lg bg-slate-600`}
+        >
           <VideoCameraButton
             room={room}
             videoMuted={videoMuted}
@@ -43,7 +48,11 @@ export const ControlPanel = ({
             audioMuted={audioMuted}
             setAudioMuted={setAudioMuted}
           />
-          {/* <VolumeButton room={room} /> */}
+          <VolumeButton
+            room={room}
+            volumeMuted={volumeMuted}
+            setVolumeMuted={setVolumeMuted}
+          />
           {location.state.mod ? (
             <GetRecordButton recordingReady={recordingReady} />
           ) : null}
@@ -51,6 +60,7 @@ export const ControlPanel = ({
           <Invite mod={roomDetails.mod} room={roomDetails.room} />
 
           <PhoneMissedCallButton room={room} />
+          
         </div>
 
         {recording ? (

@@ -3,7 +3,7 @@ import { Save } from "../../../Icons/Save/Save";
 
 export const GetRecordButton = ({recordingReady}) => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className={`flex dark:bg-slate-500 ${
           recordingReady && "hover:dark:bg-slate-400"

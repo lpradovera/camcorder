@@ -2,7 +2,7 @@ import React from "react";
 
 export const RecordingButton = ({startRecording, recording}) => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className={`flex ${
           recording

@@ -3,7 +3,7 @@ import { Microphone } from "../../../Icons/Microphone/Microphone";
 
 export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onClick={() => {

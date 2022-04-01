@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 export const PhoneMissedCallButton = ({ room }) => {
   let navigate = useNavigate();
-  useEffect(() => {
-    console.log("Test, volume button does not work");
-  }, []);
+ 
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className="flex dark:bg-red-500 hover:dark:bg-red-600 rounded justify-center pt-4 w-14 h-14"
         onClick={() => {
