@@ -10,6 +10,7 @@ export const Participants = ({
   memberList,
   room,
   offset,
+  audioMuted,
   handleHide,
   onMemberUpdate,
 }) => {
@@ -39,7 +40,7 @@ export const Participants = ({
               : null}
               </div>
               {(location.state.name === member.name) || location.state.mod ? 
-               <InputVolume room={room} member={member} /> : null}
+               <InputVolume audioMuted={audioMuted} room={room} member={member} /> : null}
             </div>
           );
         })}

@@ -82,6 +82,7 @@ export const InCall = ({ roomDetails }) => {
         <Participants
           room={room}
           offset={offset}
+          audioMuted={audioMuted}
           handleHide={handleHide}
           memberList={memberList}
           onMemberUpdate={(event) => memberUpdate(event)}

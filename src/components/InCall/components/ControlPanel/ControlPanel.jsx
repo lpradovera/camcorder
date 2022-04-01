@@ -25,7 +25,7 @@ export const ControlPanel = ({
   return (
     <>
       <div className="flex py-2 justify-center relative transparent">
-        <div className="flex w-2/4 opacity-50 hover:opacity-100 justify-around h-28 rounded-lg bg-slate-600">
+        <div className="flex w-2/4 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-28 rounded-lg bg-slate-600">
           <VideoCameraButton
             room={room}
             videoMuted={videoMuted}
