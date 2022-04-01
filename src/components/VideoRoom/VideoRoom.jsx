@@ -4,6 +4,7 @@ import { getToken } from "../../helpers/helpers";
 
 export const VideoRoom = ({
   onRoomInit,
+  offset,
   setRecording,
   onRoomUpdate,
   roomDetails: roomDetails = {
@@ -176,7 +177,7 @@ export const VideoRoom = ({
   return (
     <>
       <div
-        className=" w-3/5 relative"
+        className={`w-full pt-10 relative ${offset ? 'xs:w-4/5' : 'xs:w-3/5'}`}
         id="video-root"
         // onMouseOver={updateOverlay}
         // onMouseMove={updateOverlay}

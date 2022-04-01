@@ -7,7 +7,7 @@ export const ParticipantsWrapper = ({ children, offset }) => {
       ${
         !offset ? null : "animate-pulse"
       } dark:bg-slate-700 shadow-xl absolute ${
-        offset ? "w-[25px]" : "w-2/5"
+        offset ? "w-[25px]" : "w-full xs:w-3/5 md:w-2/5"
       } h-screen`}
     >
       {children}

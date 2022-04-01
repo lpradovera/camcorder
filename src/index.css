@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "~video-react/styles/scss/video-react";
 
 @layer utilities {
   .input-placeholder-xl::placeholder {
