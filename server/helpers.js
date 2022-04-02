@@ -1,6 +1,7 @@
 const moderatorPermissions = [
   "room.list_available_layouts",
   "room.recording",
+  "room.playback",
   "room.set_layout",
   "room.member.audio_mute",
   "room.member.audio_unmute",

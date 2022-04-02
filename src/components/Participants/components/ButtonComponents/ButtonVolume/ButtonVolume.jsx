@@ -1,6 +1,6 @@
 import React from "react";
-import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
-import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
+import { VolumeUp } from "../../../../Icons/VolumeUp/VolumeUp";
+import { VolumeOff } from "../../../../Icons/VolumeOff/VolumeOff";
 
 export const ButtonVolume = ({ member, onMemberUpdate }) => {
   return (

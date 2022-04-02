@@ -1,31 +1,31 @@
 import React from "react";
-import { Microphone } from "../../../Icons/Microphone/Microphone";
+import { VideoCamera } from "../../../../Icons/VideoCamera/VideoCamera";
 
-export const ButtonMicrophone = ({ member, onMemberUpdate }) => {
+export const ButtonVideoCamera = ({ member, onMemberUpdate }) => {
   return (
     <button
       className="px-2 py-2 dark:bg-slate-800 dark:hover:bg-slate-700 rounded"
       onClick={() => {
-        if (member.audio_muted) {
+        if (member.video_muted) {
           onMemberUpdate({
-            action: "unmute_audio",
+            action: "unmute_video",
             id: member.id,
           });
         } else {
           onMemberUpdate({
-            action: "mute_audio",
+            action: "mute_video",
             id: member.id,
           });
         }
       }}
     >
-      {member.audio_muted ? (
+      {member.video_muted ? (
         <div className="relative">
-          <Microphone />
+          <VideoCamera />
           <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
         </div>
       ) : (
-        <Microphone />
+        <VideoCamera />
       )}
     </button>
   );

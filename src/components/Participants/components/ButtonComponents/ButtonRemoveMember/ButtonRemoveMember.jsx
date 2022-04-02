@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneMissedCall } from '../../../Icons/PhoneMissedCall/PhoneMissedCall';
+import { PhoneMissedCall } from '../../../../Icons/PhoneMissedCall/PhoneMissedCall';
 
 
 export const ButtonRemoveMember = ({onMemberUpdate, member}) => {

@@ -7,7 +7,6 @@ import { useHandleHide } from "../../hooks/useHandleHide";
 import { useOnRoomInit } from "../../hooks/useOnRoomInit";
 import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { Player } from "video-react";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
@@ -68,9 +67,10 @@ export const InCall = ({ roomDetails }) => {
       await room.setOutputVolume({ memberId: event.id, volume: event.volume });
     }
   };
-
+  const url = "https://s3.us-east-2.amazonaws.com/files.signalwire.com/05c46edd-af7b-43c1-9480-a44af999f430/29bba2d4-ddf1-4569-8b4a-5914440a5e13/video-room-recordings/47f2c82b-a1bb-4eda-839f-a0731c11183a.mp4?response-content-disposition=attachment%3B%20filename%3D%2247f2c82b-a1bb-4eda-839f-a0731c11183a.mp4%22&response-content-type=video%2Fmp4&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFVMIZFZVKLWJ3YQ%2F20220401%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220401T151801Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=db369f27133e0feb9ad141bdb6391253b43bdecf288afc3376c4fa4e81943d36"
   return (
     <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
+      
       <VideoRoomWrapper offset={offset}>
         <VideoRoom
           offset={offset}
@@ -94,11 +94,6 @@ export const InCall = ({ roomDetails }) => {
           memberList={memberList}
           onMemberUpdate={(event) => memberUpdate(event)}
         />
-        {/* <Player
-          playsInline
-          poster="/assets/poster.png"
-          src="https://s3.us-east-2.amazonaws.com/files.signalwire.com/05c46edd-af7b-43c1-9480-a44af999f430/29bba2d4-ddf1-4569-8b4a-5914440a5e13/video-room-recordings/942f4405-a2cd-46a9-ad0c-20a47bc47b88.mp4?response-content-disposition=attachment%3B%20filename%3D%22942f4405-a2cd-46a9-ad0c-20a47bc47b88.mp4%22&response-content-type=video%2Fmp4&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFVMIZFZVKLWJ3YQ%2F20220401%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220401T121044Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=1590571d961ccaaa07bba33fa58cfc2c4cc1a59cbc80d6c7f815bdc0bc3ebfab"
-        /> */}
       </ParticipantsWrapper>
 
       <div className="fixed w-full bottom-10 flex flex-col justify-end">

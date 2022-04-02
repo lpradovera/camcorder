@@ -1,6 +1,6 @@
 import React from "react";
-import { Chevron } from "../../../Icons/Chevron/Chevron";
-import { ChevronLeft } from "../../../Icons/ChevronLeft/ChevronLeft";
+import { Chevron } from "../../../../Icons/Chevron/Chevron";
+import { ChevronLeft } from "../../../../Icons/ChevronLeft/ChevronLeft";
 
 export const ButtonChevron = ({ handleHide, offset }) => {
   return (

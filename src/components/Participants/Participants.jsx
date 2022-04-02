@@ -1,12 +1,10 @@
 import React from "react";
-import { InputVolume } from "./components/InputVolume/InputVolume";
-import { ButtonVideoCamera } from "./components/ButtonVideoCamera/ButtonVideoCamera";
-import { ButtonMicrophone } from "./components/ButtonMicrophone/ButtonMicrophone";
-import { ButtonWrapper } from "./components/ButtonWrapper/ButtonWrapper";
-import { ButtonChevron } from "./components/ButtonChevron/ButtonChevron";
-import { ButtonVolume } from "./components/ButtonVolume/ButtonVolume";
-import { ButtonRemoveMember } from "./components/ButtonRemoveMember/ButtonRemoveMember";
-import { useLocation } from "react-router-dom";
+import { MemberList } from "./components/MemberList/MemberList";
+import { ButtonChevron } from "./components/ButtonComponents/ButtonChevron/ButtonChevron";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { RecordingsList } from "./components/RecordingsList/RecordingsList";
+
+
 
 export const Participants = ({
   memberList,
@@ -16,58 +14,29 @@ export const Participants = ({
   handleHide,
   onMemberUpdate,
 }) => {
-  const location = useLocation();
-
   return (
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
-      <div className={`px-2 py-8 ${offset ? "hidden" : "block"}`}>
-        {memberList.map((member) => {
-          return (
-            <div
-              key={member.id}
-              className="shadow-lg mb-2 rounded-lg py-4 px-3 dark:bg-slate-600"
-            >
-              <div className=" flex justify-between pb-4">
-                <span className="dark:text-slate-300 text-lg pt-1">{member.name}</span>
-                {location.state.mod ? (
-                  <ButtonWrapper>
-                    <ButtonVideoCamera
-                      member={member}
-                      onMemberUpdate={onMemberUpdate}
-                    />
-                    <ButtonMicrophone
-                      member={member}
-                      onMemberUpdate={onMemberUpdate}
-                    />
-                  </ButtonWrapper>
-                ) : null}
-                <div className="w-24 flex justify-between">
-                  {location.state.name === member.name || location.state.mod ? (
-                    <ButtonVolume
-                      member={member}
-                      onMemberUpdate={onMemberUpdate}
-                    />
-                  ) : null}
-                  {location.state.mod ? (
-                    <ButtonRemoveMember
-                      member={member}
-                      onMemberUpdate={onMemberUpdate}
-                    />
-                  ) : null}
-                </div>
-              </div>
-              {location.state.name === member.name || location.state.mod ? (
-                <InputVolume
-                  audioMuted={audioMuted}
-                  room={room}
-                  member={member}
-                />
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
+
+        <Tabs>
+          <TabList className="flex py-3 px-3 text-slate-200">
+            <Tab className="px-6 cursor-pointer">Members</Tab>
+            <Tab className="px-6 cursor-pointer">Records</Tab>
+          </TabList>
+
+          <TabPanel className="px-6 py-6">
+            <MemberList
+              memberList={memberList}
+              room={room}
+              onMemberUpdate={onMemberUpdate}
+              audioMuted={audioMuted}
+            />
+          </TabPanel>
+          <TabPanel className="px-6 py-6">
+            <RecordingsList room={room} />
+          </TabPanel>
+        </Tabs>
+
     </>
   );
 };
