@@ -9,3 +9,14 @@ export const getToken = async (roomDetails) => {
   return token.data.token;
 };
 
+const addZero = (elem) => {
+  if (elem < 9) {
+    return `0${elem}`;
+  } else {
+    return elem;
+  }
+};
+export const getDate = (d) => {
+  let date = new Date(d);
+  return `${addZero(date.getDate())}.${addZero(date.getMonth())}`;
+};

@@ -33,7 +33,7 @@ export const Participants = ({
             />
           </TabPanel>
           <TabPanel className="px-6 py-6">
-            <RecordingsList room={room} />
+            <RecordingsList room={room} offset={offset} />
           </TabPanel>
         </Tabs>
 

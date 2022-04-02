@@ -12,7 +12,7 @@ export const ButtonRefresh = ({getRec}) => {
 
   return (
     <button
-      className="px-2 py-2 dark:bg-slate-800 dark:hover:bg-slate-700 rounded"
+      className="px-2 py-2 absolute right-0 top-[-50px] dark:bg-slate-800 dark:hover:bg-slate-700 rounded"
       onClick={() => handleClick()}
     >
       <Refresh spin={spin} />
