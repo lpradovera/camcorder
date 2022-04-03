@@ -1,11 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { getDate } from "../../../../helpers/helpers";
-import { ButtonPlay } from "../ButtonComponents/ButtonPlay/ButtonPlay";
-import { ButtonStop } from "../ButtonComponents/ButtonStop/ButtonStop";
+import { ButtonPlayToggle } from "../ButtonComponents/ButtonPlayToggle/ButtonPlayToggle";
 
 export const RecordingItem = ({ rec, room }) => {
-
-  const [currentPlayback, setCurrentPlayback] = useState();
 
   return (
     <>
@@ -22,8 +19,10 @@ export const RecordingItem = ({ rec, room }) => {
 
               <div className="pl-5 flex relative">
                 <p>Duration: {r.duration} seconds.</p>
-                <ButtonPlay setCurrentPlayback={setCurrentPlayback} room={room} id={r.id} duration={r.duration} />
-                <ButtonStop room={room} currentPlayback={currentPlayback}/>
+                <ButtonPlayToggle
+                  room={room}
+                  id={r.id}
+                />
               </div>
             </div>
           );

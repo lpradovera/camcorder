@@ -9,6 +9,8 @@ import { RecordingsList } from "./components/RecordingsList/RecordingsList";
 export const Participants = ({
   memberList,
   room,
+  setVolumeMuted,
+  volumeMuted,
   offset,
   audioMuted,
   handleHide,
@@ -27,6 +29,8 @@ export const Participants = ({
           <TabPanel className="px-6 py-6">
             <MemberList
               memberList={memberList}
+              setVolumeMuted={setVolumeMuted}
+              volumeMuted={volumeMuted}
               room={room}
               onMemberUpdate={onMemberUpdate}
               audioMuted={audioMuted}

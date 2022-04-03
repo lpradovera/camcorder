@@ -9,12 +9,15 @@ export const VolumeButton = ({ room, setVolumeMuted, volumeMuted }) => {
     <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
-        onClick={() => {
+        onClick={ async () => {
           if (volumeMuted) {
-            room.setOutputVolume({ volume: -50 });
+            // room.setOutputVolume({ volume: -50 });
+            await room.deaf()
+            console.log(room)
             setVolumeMuted(false);
           } else {
-            room.setOutputVolume({ volume: 50 });
+            // room.setOutputVolume({ volume: 50 });
+            await room.undeaf()
             setVolumeMuted(true);
           }
         }}

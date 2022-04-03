@@ -62,12 +62,13 @@ export const InCall = ({ roomDetails }) => {
       await room.videoUnmute({ memberId: event.id });
       if (event.id === thisMemberId) setVideoMuted(false);
     } else if (event.action === "mute_volume") {
-      await room.setOutputVolume({ memberId: event.id, volume: event.volume });
+      // await room.setOutputVolume({ memberId: event.id, volume: event.volume });
+      await room.deaf({memberId: event.id});
     } else if (event.action === "unmute_volume") {
-      await room.setOutputVolume({ memberId: event.id, volume: event.volume });
+      await room.undeaf({memberId: event.id});
+      // await room.setOutputVolume({ memberId: event.id, volume: event.volume });
     }
   };
-  const url = "https://s3.us-east-2.amazonaws.com/files.signalwire.com/05c46edd-af7b-43c1-9480-a44af999f430/29bba2d4-ddf1-4569-8b4a-5914440a5e13/video-room-recordings/47f2c82b-a1bb-4eda-839f-a0731c11183a.mp4?response-content-disposition=attachment%3B%20filename%3D%2247f2c82b-a1bb-4eda-839f-a0731c11183a.mp4%22&response-content-type=video%2Fmp4&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFVMIZFZVKLWJ3YQ%2F20220401%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220401T151801Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=db369f27133e0feb9ad141bdb6391253b43bdecf288afc3376c4fa4e81943d36"
   return (
     <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
       
