@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ButtonRefresh } from "../ButtonComponents/ButtonRefresh/ButtonRefresh";
-import { getDate } from "../../../../helpers/helpers";
+import { RecordingItem } from '../RecordingItem/RecordingItem';
 
 export const RecordingsList = ({ room, offset }) => {
   const [rec, setRec] = useState();
@@ -38,24 +38,7 @@ export const RecordingsList = ({ room, offset }) => {
 
       <div className="pt-10 shadow-lg mb-2 dark:text-slate-300 rounded-lg py-4 px-3 dark:bg-slate-60">
         <h4 className="pb-5 font-medium">Record:</h4>
-        {rec &&
-          rec.recordings.map((r, i) => {
-            return (
-              <div key={r.id} className="flex flex-col pb-3">
-                <div className='flex'>
-                  <p className="pr-1">{i + 1}. </p>
-                  <p>
-                    Started: {getDate(r.startedAt)} Ended: {getDate(r.endedAt)}
-                  </p>
-                </div>
-
-                <div className="pl-5">
-                  <p>Duration: {r.duration} seconds.</p>
-                  
-                </div>
-              </div>
-            );
-          })}
+        <RecordingItem rec={rec} room={room} />
       </div>
     </div>
   );
