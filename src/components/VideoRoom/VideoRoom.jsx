@@ -177,7 +177,7 @@ export const VideoRoom = ({
   return (
     <>
       <div
-        className={`w-full pt-10 relative ${offset ? 'xs:w-4/5' : 'xs:w-3/5'}`}
+        className={`w-full relative rounded-lg border-4 border-slate-600`}
         id="video-root"
         // onMouseOver={updateOverlay}
         // onMouseMove={updateOverlay}

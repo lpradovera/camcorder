@@ -59,13 +59,13 @@ export const ButtonPlayToggle = ({ room, id }) => {
 
   return (
     <>
-      <button onClick={() => handlePlay(id)} className="absolute right-12">
+      <button onClick={() => handlePlay(id)} className="absolute left-4 bottom-0">
         <Play />
       </button>
-      <button onClick={() => handlePause()} className="absolute right-6">
+      <button onClick={() => handlePause()} className="absolute left-10 bottom-0">
         <Pause />
       </button>
-      <button onClick={() => handleStop()} className="absolute right-0">
+      <button onClick={() => handleStop()} className="absolute left-16 bottom-0">
         <Stop />
       </button>
     </>

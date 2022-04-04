@@ -17,8 +17,8 @@ export const RecordingItem = ({ rec, room }) => {
                 </p>
               </div>
 
-              <div className="pl-5 flex relative">
-                <p>Duration: {r.duration} seconds.</p>
+              <div className="pl-4 flex relative h-20">
+                <p>Duration: {r.duration} s.</p>
                 <ButtonPlayToggle
                   room={room}
                   id={r.id}
