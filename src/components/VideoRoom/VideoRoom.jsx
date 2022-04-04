@@ -26,7 +26,14 @@ export const VideoRoom = ({
   //
   function updateSpeakerOverlay(memberId, speaking) {
     if (!currLayout.current) return;
-
+    memberList.current.find(member => {
+      if(member.id === memberId) {
+        let div = document.createElement("div");
+        let f = document.querySelector('#name');
+        
+        f.innerHTML = member.name;
+      }
+    })
     const layer = currLayout.current.layers.find(
       (lyr) => lyr.member_id === memberId
     );
@@ -36,6 +43,7 @@ export const VideoRoom = ({
         display: "block",
         position: "absolute",
         overflow: "hidden",
+        color: '#fff',
         top: layer.y + "%",
         left: layer.x + "%",
         width: layer.width + "%",
@@ -184,7 +192,7 @@ export const VideoRoom = ({
         // onMouseLeave={updateOverlay}
       >
         {/* <div style={overlayStyle}></div> */}
-        <div style={speakerOverlayStyle}></div>
+        <div style={speakerOverlayStyle} id='name'></div>
       </div>
     </>
   );
