@@ -5,8 +5,7 @@ export const InviteForm = ({ roomName, onJoin = () => {}, mod = false }) => {
   let [joinAsGuest, setJoinAsGuest] = useState(false);
 
   return (
-    <>
-      <div>
+      <div className="min-h-full h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <form className="mt-8 space-y-6" onSubmit={(e) => handleSubmit(e)}>
           <input
             style={{ fontSize: "24px" }}
@@ -52,6 +51,5 @@ export const InviteForm = ({ roomName, onJoin = () => {}, mod = false }) => {
           </button>
         </form>
       </div>
-    </>
   );
 };

@@ -39,15 +39,29 @@ app.post("/api/get_token", async (req, res) => {
 });
 
 app.get("/get_recording/:id", async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    const rec = await axios.get(`https://${apiurl}/api/video/room_recordings/${id}`, {
-      auth,
-    });
+    const rec = await axios.get(
+      `https://${apiurl}/api/video/room_recordings/${id}`,
+      {
+        auth,
+      }
+    );
     res.json(rec.data);
   } catch (e) {
     console.log(e);
     return res.status(500);
+  }
+});
+app.get("/get_recordings", async (req, res) => {
+  try {
+    const records = await axios.get(
+      `https://${apiurl}/api/video/room_recordings`,
+      { auth }
+    );
+    res.json(records)
+  } catch (error) {
+    console.log(error);
   }
 });
 

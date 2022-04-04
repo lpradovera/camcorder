@@ -23,7 +23,7 @@ export const Invite = ({ room = "room", mod }) => {
 
   return (
     <Menu as="div" className="relative flex flex-col justify-center">
-      <div className="flex flex-col">
+      <div className="flex flex-col px-2 pb-4">
         <Menu.Button className="dark:bg-slate-500 hover:dark:bg-slate-400 rounded flex justify-center pt-4 w-14 h-14">
           <Link />
         </Menu.Button>

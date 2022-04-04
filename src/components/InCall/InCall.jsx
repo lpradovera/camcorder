@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
 import { useHandleHide } from "../../hooks/useHandleHide";
 import { useOnRoomInit } from "../../hooks/useOnRoomInit";
-import {
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
+import { useNavigate, useLocation } from "react-router-dom";
+import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
+import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
+import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
 
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
@@ -16,13 +17,12 @@ export const InCall = ({ roomDetails }) => {
   const location = useLocation();
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
+  const [volumeMuted, setVolumeMuted] = useState(false);
   const [recording, setRecording] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
   const { room, layout, onRoomInit } = useOnRoomInit();
-   
-  
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -46,63 +46,51 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
-  const memberUpdate = async (event) => {
-    if (event.action === "remove") {
-      console.log("Removing Member", event.id);
-      await room.removeMember({ memberId: event.id });
-      console.log("Removed member", event.id);
-      if (event.id === thisMemberId) navigate("/");
-    } else if (event.action === "mute_video") {
-      await room.videoMute({ memberId: event.id });
-      if (event.id === thisMemberId) setVideoMuted(true);
-    } else if (event.action === "mute_audio") {
-      await room.audioMute({ memberId: event.id });
-      if (event.id === thisMemberId) setAudioMuted(true);
-    } else if (event.action === "unmute_audio") {
-      await room.audioUnmute({ memberId: event.id });
-      if (event.id === thisMemberId) setAudioMuted(false);
-    } else if (event.action === "unmute_video") {
-      await room.videoUnmute({ memberId: event.id });
-      if (event.id === thisMemberId) setVideoMuted(false);
-    }
-  };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden dark:bg-slate-700 relative">
-      <div className="flex flex-row">
-        <VideoRoom
-          setRecording={setRecording}
-          members={memberList}
-          onRoomInit={onRoomInit}
-          onRoomUpdate={onRoomUpdate}
-          roomDetails={roomDetails}
-          onMemberListUpdate={useCallback((list) => {
-            setMemberList(list);
-          }, [])}
-        />
-      </div>
+    <InCallWrapper>
+      <VideoParticipantsWrapper>
+        <VideoRoomWrapper offset={offset}>
+          <VideoRoom
+            offset={offset}
+            setRecording={setRecording}
+            members={memberList}
+            onRoomInit={onRoomInit}
+            onRoomUpdate={onRoomUpdate}
+            roomDetails={roomDetails}
+            onMemberListUpdate={useCallback((list) => {
+              setMemberList(list);
+            }, [])}
+          />
+        </VideoRoomWrapper>
 
-      <ParticipantsWrapper offset={offset}>
-        <Participants
-          room={room}
-          offset={offset}
-          handleHide={handleHide}
-          memberList={memberList}
-          onMemberUpdate={(event) => memberUpdate(event)}
-        />
-      </ParticipantsWrapper>
+        <ParticipantsWrapper offset={offset}>
+          <Participants
+            room={room}
+            offset={offset}
+            setVideoMuted={setVideoMuted}
+            setAudioMuted={setAudioMuted}
+            audioMuted={audioMuted}
+            handleHide={handleHide}
+            memberList={memberList}
+            onMemberUpdate={(event) => memberUpdate(event)}
+          />
+        </ParticipantsWrapper>
+      </VideoParticipantsWrapper>
 
-      <div className="fixed w-full bottom-10 flex flex-col justify-end">
+      <ControlPanelWrapper>
         <ControlPanel
           recording={recording}
           room={room}
           roomDetails={roomDetails}
           setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}
+          setVolumeMuted={setVolumeMuted}
+          volumeMuted={volumeMuted}
           videoMuted={videoMuted}
           audioMuted={audioMuted}
         />
-      </div>
-    </div>
+      </ControlPanelWrapper>
+    </InCallWrapper>
   );
 };

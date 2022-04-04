@@ -1,49 +1,51 @@
 import React from "react";
-import { InputVolume } from "./components/InputVolume/InputVolume";
-import { ButtonVideoCamera } from "./components/ButtonVideoCamera/ButtonVideoCamera";
-import { ButtonMicrophone } from "./components/ButtonMicrophone/ButtonMicrophone";
-import { ButtonWrapper } from "./components/ButtonWrapper/ButtonWrapper";
-import { ButtonChevron } from "./components/ButtonChevron/ButtonChevron";
+import { MemberList } from "./components/MemberList/MemberList";
+import { ButtonChevron } from "./components/ButtonComponents/ButtonChevron/ButtonChevron";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { RecordingsList } from "./components/RecordingsList/RecordingsList";
 import { useLocation } from "react-router-dom";
 
 export const Participants = ({
   memberList,
   room,
+  setVolumeMuted,
+  volumeMuted,
+  setVideoMuted,
+  setAudioMuted,
   offset,
   handleHide,
-  onMemberUpdate,
 }) => {
   const location = useLocation();
-
   return (
-    
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
-      <div className={`px-2 py-8 ${offset ? 'hidden' : 'block'}`}>
-        {memberList.map((member) => {
-          return (
-            <div key={member.id} className="shadow-lg mb-2 rounded-lg py-4 px-3 dark:bg-slate-600">
-              <div className=" flex justify-between pb-4">
-                <span className="dark:text-slate-300 pt-1">{member.name}</span>
-                {location.state.mod ? 
-                <ButtonWrapper>
-                  <ButtonVideoCamera
-                    member={member}
-                    onMemberUpdate={onMemberUpdate}
-                  />
-                  <ButtonMicrophone
-                    member={member}
-                    onMemberUpdate={onMemberUpdate}
-                  />
-                </ButtonWrapper>
-              : null}
-              </div>
-              {(location.state.name === member.name) || location.state.mod ? 
-               <InputVolume room={room} member={member} /> : null}
-            </div>
-          );
-        })}
-      </div>
+
+      <Tabs className={`${offset ? 'hidden' : 'block'} md:block`}>
+        <TabList className="flex justify-center text-slate-200 pb-4">
+          <Tab className="px-6 cursor-pointer border-b-2 hover:border-b-2 hover:border-white border-transparent">
+            Members
+          </Tab>
+          {location.state.mod ? (
+            <Tab className="px-6 cursor-pointer hover:border-b-2 hover:border-white border-transparent">
+              Records
+            </Tab>
+          ) : null}
+        </TabList>
+
+        <TabPanel className="px-6 py-6 md:px-0 md:py-0">
+          <MemberList
+            setAudioMuted={setAudioMuted}
+            setVideoMuted={setVideoMuted}
+            memberList={memberList}
+            setVolumeMuted={setVolumeMuted}
+            volumeMuted={volumeMuted}
+            room={room}
+          />
+        </TabPanel>
+        <TabPanel className="px-6 py-6">
+          <RecordingsList room={room} offset={offset} />
+        </TabPanel>
+      </Tabs>
     </>
   );
 };

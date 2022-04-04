@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "~video-react/styles/scss/video-react";
 
 @layer utilities {
   .input-placeholder-xl::placeholder {
@@ -11,7 +11,7 @@
     font-size: 22px;
   }
   .slider-thumb::-webkit-slider-thumb {
-  @apply appearance-none w-[4px] h-5 rounded-xl bg-slate-300 cursor-pointer;
+  @apply appearance-none w-[6px] z-20 relative h-5 rounded-xl bg-slate-300 cursor-pointer;
 }
   
 }

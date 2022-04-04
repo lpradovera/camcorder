@@ -2,13 +2,12 @@ import React from "react";
 
 export const ParticipantsWrapper = ({ children, offset }) => {
   return (
-    <div
-      className={`right-0 transition-[right] duration-300
-      ${
-        !offset ? null : "animate-pulse"
-      } dark:bg-slate-700 shadow-xl absolute ${
-        offset ? "w-[25px]" : "w-[37%]"
-      } h-screen`}
+    <div style={{ minHeight: '100vh'}}
+      className={`right-0 absolute md:static 
+      md:w-3/12
+    dark:bg-slate-700
+        ${offset ? "w-[0px]" : "w-full"}
+        `}
     >
       {children}
     </div>

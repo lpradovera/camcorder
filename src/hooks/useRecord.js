@@ -10,6 +10,7 @@ import axios from 'axios';
 export const useRecord = (room) => {
   const [recordingObj, setRecordingObj] = useState();
   const [recordingReady, setRecordingReady] = useState();
+  const [record, setRecord] = useState();
 
   const startRecording = async () => {
     if (!recordingObj) {
@@ -24,6 +25,7 @@ export const useRecord = (room) => {
       await recordingObj.stop();
       setRecordingObj(undefined);
       console.log('Stop recording');
+      setRecord(room.getRecordings())
       await retry(
         async () => {
           const res = await axios.get(`http://localhost:8080/get_recording/${recId}`);
@@ -49,5 +51,6 @@ export const useRecord = (room) => {
   return {
     startRecording,
     recordingReady,
+    record
   };
 };
