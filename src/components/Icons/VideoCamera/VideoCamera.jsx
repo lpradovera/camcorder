@@ -1,10 +1,10 @@
 import React from "react";
 
-export const VideoCamera = () => {
+export const VideoCamera = ({width = 6, height = 6}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
+      className={`h-${height} w-${width}`}
       fill="#fff"
       viewBox="0 0 24 24"
       strokeWidth={2}

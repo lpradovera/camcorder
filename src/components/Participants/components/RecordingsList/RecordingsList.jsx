@@ -33,7 +33,7 @@ export const RecordingsList = ({ room, offset }) => {
 
 
   return (
-    <div className={`relative ${offset ? "hidden" : "block"}`}>
+    <div className={`relative`}>
       <ButtonRefresh getRec={getRec} />
 
       <div className="pt-10 shadow-lg mb-2 dark:text-slate-300 rounded-lg py-4 px-3 dark:bg-slate-60">
