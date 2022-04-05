@@ -49,7 +49,6 @@ export const InCall = ({ roomDetails }) => {
 
   return (
     <InCallWrapper>
-      <button onClick={() => console.log(curLayout)}>click</button>
       <VideoParticipantsWrapper>
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
