@@ -6,15 +6,15 @@ import { ParticipantsWrapper } from "./components/ParticipantsWrapper/Participan
 import { useHandleHide } from "../../hooks/useHandleHide";
 import { useOnRoomInit } from "../../hooks/useOnRoomInit";
 import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
 
+
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  const location = useLocation();
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const [volumeMuted, setVolumeMuted] = useState(false);
@@ -22,7 +22,7 @@ export const InCall = ({ roomDetails }) => {
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
-  const { room, layout, onRoomInit } = useOnRoomInit();
+  const { room, onRoomInit } = useOnRoomInit();
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -49,6 +49,7 @@ export const InCall = ({ roomDetails }) => {
 
   return (
     <InCallWrapper>
+      <button onClick={() => console.log(curLayout)}>click</button>
       <VideoParticipantsWrapper>
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
@@ -80,6 +81,8 @@ export const InCall = ({ roomDetails }) => {
 
       <ControlPanelWrapper>
         <ControlPanel
+          setCurLayout={setCurLayout}
+          curLayout={curLayout}
           recording={recording}
           room={room}
           roomDetails={roomDetails}
