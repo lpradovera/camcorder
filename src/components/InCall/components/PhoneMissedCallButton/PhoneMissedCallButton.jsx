@@ -10,8 +10,8 @@ export const PhoneMissedCallButton = ({ room }) => {
     <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className="flex dark:bg-red-600 hover:dark:bg-red-500 rounded justify-center pt-4 w-14 h-14"
-        onClick={() => {
-          room.leave();
+        onClick={async () => {
+          if (Object.keys(room).length !== 0) await room.leave();
           setTimeout(() => {
             navigate("/", {
               state: { },

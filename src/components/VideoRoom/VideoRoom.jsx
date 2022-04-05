@@ -44,6 +44,8 @@ export const VideoRoom = ({
         zIndex: 1,
         background: "transparent",
         border: "5px solid #034DF6",
+        borderRadius: '10px',
+        opacity: '50%',
         pointerEvents: "none",
       });
     } else {
@@ -149,7 +151,7 @@ export const VideoRoom = ({
         className={`w-full relative rounded-lg border-4 border-slate-600`}
         id="video-root">
         <div style={speakerOverlayStyle}>
-          <div id="name" className={`text-sky-400 font-medium pr-2 absolute bottom-2 left-3`}></div>
+          <div id="name" className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}></div>
         </div>
       </div>
     </>

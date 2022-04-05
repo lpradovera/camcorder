@@ -3,12 +3,14 @@ import { Microphone } from "../../../Icons/Microphone/Microphone";
 
 export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
   const handleToggleSelfAudioMuted = async () => {
-    if (audioMuted) {
-      await room.audioUnmute();
-      setAudioMuted(false);
-    } else {
-      await room.audioMute();
-      setAudioMuted(true);
+    if (Object.keys(room).length !== 0) {
+      if (audioMuted) {
+        await room?.audioUnmute();
+        setAudioMuted(false);
+      } else {
+        await room?.audioMute();
+        setAudioMuted(true);
+      }
     }
   };
 

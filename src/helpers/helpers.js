@@ -22,48 +22,59 @@ export const getDate = (d) => {
 };
 
 export const handleToggleAudioMute = async (member, room, setAudioMuted) => {
-  if (member.audio_muted) {
-    await room.audioUnmute({ memberId: member.id });
-    setAudioMuted(false);
-  } else {
-    await room.audioMute({ memberId: member.id });
-    setAudioMuted(true);
+  if (Object.keys(room).length !== 0) {
+    if (member.audio_muted) {
+      await room.audioUnmute({ memberId: member.id });
+      setAudioMuted(false);
+    } else {
+      await room.audioMute({ memberId: member.id });
+      setAudioMuted(true);
+    }
   }
 };
 
 export const handleSetInputVolume = async (e, member, room) => {
-  await room.setInputVolume({
-    memberId: member.id,
-    volume: e.target.value,
-  });
+  if (Object.keys(room).length !== 0) {
+    await room.setInputVolume({
+      memberId: member.id,
+      volume: e.target.value,
+    });
+  }
 };
 
 export const handleToggleDeaf = async (room, member) => {
-  if (member.deaf) {
-    await room.undeaf({ memberId: member.id });
-  } else {
-    await room.deaf({ memberId: member.id });
+  if (Object.keys(room).length !== 0) {
+    if (member.deaf) {
+      await room.undeaf({ memberId: member.id });
+    } else {
+      await room.deaf({ memberId: member.id });
+    }
   }
 };
 
 export const handleSetOutputVolume = async (e, member, room) => {
-  await room.setOutputVolume({
-    memberId: member.id,
-    volume: e.target.value,
-  });
-};
-
-export const handleRemoveMember = async (room, member) => {
-  await room.removeMember({ memberId: member.id });
-};
-
-export const handleToggleVideoMute = async (room, member, setVideoMuted) => {
-  if (member.video_muted) {
-    await room.videoUnmute({ memberId: member.id });
-    setVideoMuted(false);
-  } else {
-    await room.videoMute({ memberId: member.id });
-    setVideoMuted(true);
+  if (Object.keys(room).length !== 0) {
+    await room.setOutputVolume({
+      memberId: member.id,
+      volume: e.target.value,
+    });
   }
 };
 
+export const handleRemoveMember = async (room, member) => {
+  if (Object.keys(room).length !== 0) {
+    await room.removeMember({ memberId: member.id });
+  }
+};
+
+export const handleToggleVideoMute = async (room, member, setVideoMuted) => {
+  if (Object.keys(room).length !== 0) {
+    if (member.video_muted) {
+      await room.videoUnmute({ memberId: member.id });
+      setVideoMuted(false);
+    } else {
+      await room.videoMute({ memberId: member.id });
+      setVideoMuted(true);
+    }
+  }
+};
