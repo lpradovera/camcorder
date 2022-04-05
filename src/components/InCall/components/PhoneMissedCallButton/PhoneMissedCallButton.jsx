@@ -9,7 +9,7 @@ export const PhoneMissedCallButton = ({ room }) => {
   return (
     <div className="flex flex-col justify-center px-2 pb-4">
       <button
-        className="flex dark:bg-red-500 hover:dark:bg-red-600 rounded justify-center pt-4 w-14 h-14"
+        className="flex dark:bg-red-600 hover:dark:bg-red-500 rounded justify-center pt-4 w-14 h-14"
         onClick={() => {
           room.leave();
           setTimeout(() => {

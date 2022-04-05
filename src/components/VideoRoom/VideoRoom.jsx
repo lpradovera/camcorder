@@ -43,7 +43,7 @@ export const VideoRoom = ({
         height: layer.height + "%",
         zIndex: 1,
         background: "transparent",
-        border: "5px solid yellow",
+        border: "5px solid #034DF6",
         pointerEvents: "none",
       });
     } else {
@@ -138,6 +138,9 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
+    return () => {
+      setRecording();
+    }
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
   
   return (
@@ -146,7 +149,7 @@ export const VideoRoom = ({
         className={`w-full relative rounded-lg border-4 border-slate-600`}
         id="video-root">
         <div style={speakerOverlayStyle}>
-          <div id="name" className={`text-yellow-300 font-medium pr-2 absolute bottom-2 left-3`}></div>
+          <div id="name" className={`text-sky-400 font-medium pr-2 absolute bottom-2 left-3`}></div>
         </div>
       </div>
     </>

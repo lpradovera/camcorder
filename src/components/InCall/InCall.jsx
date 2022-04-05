@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
+import { VideoRecordingSymbol } from "../VideoRecordingSymbol/VideoRecordingSymbol";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
@@ -46,6 +47,7 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
+
 
   return (
     <InCallWrapper>

@@ -26,8 +26,8 @@ module.exports = {
       },
       "bubble-gum": "#ff77e9",
       red: {
-        500: "#ef4444",
-        600: "#dc2626",
+        500: "#F72B68",
+        600: "#F72B73",
         700: "#b91c1c",
         800: "#991b1b",
         900: "#7f1d1d",
@@ -61,6 +61,9 @@ module.exports = {
         500: "#eab308",
         600: "#ca8a04",
       },
+      sky: {
+        400: '#034DF6',
+      }
     },
     extend: {
       fontFamily: {

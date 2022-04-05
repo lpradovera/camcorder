@@ -31,10 +31,10 @@ export const ControlPanel = ({
     <>
       <div className="flex py-2 justify-center relative transparent">
         <div
-          style={{ maxWidth: "620px" }}
-          className={`flex w-4/5 ${
-            recording ? "border-2 border-red-500" : "border-none"
-          } xs:border-none flex-wrap xs:flex-nowrap pt-4 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] sm:h-28 rounded-lg bg-slate-600`}
+          style={{ maxWidth: "640px" }}
+          className={`flex w-11/12 ${
+            recording ? "border-2 border-red-600" : "border-2 border-transparent"
+          } flex-wrap md:flex-nowrap pt-2 pl-6 pr-6 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] md:h-28 rounded-lg bg-slate-600`}
         >
           <VideoCameraButton
             room={room}
@@ -73,9 +73,6 @@ export const ControlPanel = ({
           <PhoneMissedCallButton room={room} />
         </div>
 
-        {recording ? (
-          <VideoRecordingSymbol position="absolute" bottom="2" right="0" />
-        ) : null}
       </div>
     </>
   );

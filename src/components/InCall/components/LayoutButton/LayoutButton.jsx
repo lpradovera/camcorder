@@ -5,10 +5,9 @@ export const LayoutButton = ({ room, curLayout, setCurLayout }) => {
 
   const getLayout = async () => {
     setLayouts((await room.getLayouts()).layouts);
-    console.log(curLayout);
   };
 
-  useEffect(async () => {
+  useEffect( () => {
     if (Object.keys(room).length !== 0) {
       getLayout();
     }
