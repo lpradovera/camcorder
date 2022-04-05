@@ -12,7 +12,6 @@ import {
   Route,
   useNavigate,
   useLocation,
-  Navigate,
 } from "react-router-dom";
 
 function useQuery() {
@@ -66,7 +65,6 @@ export const App = () => {
                 mod={query.get("m") === "mod"}
                 roomName={query.get("r")}
                 onJoin={({ room, name, mod }) => {
-                  console.log(name, room, mod);
                   setRoomDetails({ name, room, mod });
                   navigate("in-call", {
                     state: { name: name, room: room, mod: mod },

@@ -20,16 +20,14 @@ export const Participants = ({
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
 
-      <Tabs className={`${offset ? 'hidden' : 'block'} md:block`}>
+      <Tabs className={`${offset ? "hidden" : "block"} md:block`}>
         <TabList className="flex justify-center text-slate-200 pb-4">
           <Tab className="px-6 cursor-pointer border-b-2 hover:border-b-2 hover:border-white border-transparent">
             Members
           </Tab>
-          {location.state.mod ? (
-            <Tab className="px-6 cursor-pointer hover:border-b-2 hover:border-white border-transparent">
-              Records
-            </Tab>
-          ) : null}
+          <Tab className="px-6 cursor-pointer hover:border-b-2 hover:border-white border-transparent">
+            Records
+          </Tab>
         </TabList>
 
         <TabPanel className="px-6 py-6 md:px-0 md:py-0">
@@ -43,7 +41,13 @@ export const Participants = ({
           />
         </TabPanel>
         <TabPanel className="px-6 py-6">
+          {location.state.mod ? 
           <RecordingsList room={room} offset={offset} />
+          : 
+          <p className='font-semibold text-slate-300 text-center'>
+            Sorry, you do not have access to view video recordings
+          </p>
+          }
         </TabPanel>
       </Tabs>
     </>

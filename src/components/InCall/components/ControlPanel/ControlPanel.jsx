@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRecord } from "../../../../hooks/useRecord";
 import { VideoRecordingSymbol } from "../../../VideoRecordingSymbol/VideoRecordingSymbol";
 import { VideoCameraButton } from "../VideoCameraButton/VideoCameraButton";
@@ -9,6 +9,7 @@ import { GetRecordButton } from "../GetRecordButton/GetRecordButton";
 import { PhoneMissedCallButton } from "../PhoneMissedCallButton/PhoneMissedCallButton";
 import { Invite } from "../../../Invite/Invite";
 import { useLocation } from "react-router-dom";
+import { LayoutButton } from "../LayoutButton/LayoutButton";
 
 export const ControlPanel = ({
   room,
@@ -20,6 +21,8 @@ export const ControlPanel = ({
   setVideoMuted,
   setAudioMuted,
   setVolumeMuted,
+  setCurLayout,
+  curLayout,
 }) => {
   const { startRecording, recordingReady } = useRecord(room);
   const location = useLocation();
@@ -28,8 +31,10 @@ export const ControlPanel = ({
     <>
       <div className="flex py-2 justify-center relative transparent">
         <div
-          style={{ maxWidth: "620px" }}
-          className={`flex w-4/5 ${recording ? 'border-2 border-red-500' : 'border-none'} xs:border-none flex-wrap xs:flex-nowrap pt-4 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] sm:h-28 rounded-lg bg-slate-600`}
+          style={{ maxWidth: "640px" }}
+          className={`flex w-11/12 ${
+            recording ? "border-2 border-red-600" : "border-2 border-transparent"
+          } flex-wrap md:flex-nowrap pt-2 pl-6 pr-6 opacity-50 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] md:h-28 rounded-lg bg-slate-600`}
         >
           <VideoCameraButton
             room={room}
@@ -58,14 +63,17 @@ export const ControlPanel = ({
           ) : null}
 
           <Invite mod={roomDetails.mod} room={roomDetails.room} />
-
+          {location.state.mod ? (
+            <LayoutButton
+              room={room}
+              curLayout={curLayout}
+              setCurLayout={setCurLayout}
+            />
+          ) : null}
           <PhoneMissedCallButton room={room} />
           
         </div>
 
-        {recording ? (
-          <VideoRecordingSymbol position="absolute" bottom="2" right="0" />
-        ) : null}
       </div>
     </>
   );

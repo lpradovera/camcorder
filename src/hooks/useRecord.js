@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 /**
  *
  * @param {*} room use the room parameter to manage the video session
@@ -14,8 +14,10 @@ export const useRecord = (room) => {
 
   const startRecording = async () => {
     if (!recordingObj) {
-      const rec = await room.startRecording();
-      setRecordingObj(rec);
+      if (Object.keys(room).length !== 0) {
+        const rec = await room.startRecording();
+        setRecordingObj(rec);
+      }
 
       console.log(
         "Your recording is being processed and will be downloaded shortly."
@@ -24,13 +26,15 @@ export const useRecord = (room) => {
       const recId = recordingObj.id;
       await recordingObj.stop();
       setRecordingObj(undefined);
-      console.log('Stop recording');
-      setRecord(room.getRecordings())
+      console.log("Stop recording");
+      setRecord(room.getRecordings());
       await retry(
         async () => {
-          const res = await axios.get(`http://localhost:8080/get_recording/${recId}`);
+          const res = await axios.get(
+            `http://localhost:8080/get_recording/${recId}`
+          );
           if (res.data && res.data.uri) {
-            console.log(res.data, 'RECORDING')
+            console.log(res.data, "RECORDING");
             setRecordingReady(res.data);
             return true;
           }
@@ -51,6 +55,6 @@ export const useRecord = (room) => {
   return {
     startRecording,
     recordingReady,
-    record
+    record,
   };
 };

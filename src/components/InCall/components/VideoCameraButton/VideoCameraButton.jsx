@@ -3,12 +3,14 @@ import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 
 export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
   const handleToggleSelfVideoMuted = async () => {
-    if (videoMuted) {
-      await room.videoUnmute();
-      setVideoMuted(false);
-    } else {
-      await room.videoMute();
-      setVideoMuted(true);
+    if (Object.keys(room).length !== 0) {
+      if (videoMuted) {
+        await room.videoUnmute();
+        setVideoMuted(false);
+      } else {
+        await room.videoMute();
+        setVideoMuted(true);
+      }
     }
   };
 

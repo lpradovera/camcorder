@@ -4,7 +4,6 @@ import { getToken } from "../../helpers/helpers";
 
 export const VideoRoom = ({
   onRoomInit,
-  offset,
   setRecording,
   onRoomUpdate,
   roomDetails: roomDetails = {
@@ -17,16 +16,18 @@ export const VideoRoom = ({
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
   let currLayout = useRef(null);
-
-  let [overlayStyle, setOverlayStyle] = useState({ display: "none" });
   let [speakerOverlayStyle, setSpeakerOverlayStyle] = useState({
     display: "none",
   });
 
-  //
   function updateSpeakerOverlay(memberId, speaking) {
     if (!currLayout.current) return;
-
+    memberList.current.find((member) => {
+      if (member.id === memberId) {
+        let div = document.querySelector("#name");
+        div.innerHTML = member.name;
+      }
+    });
     const layer = currLayout.current.layers.find(
       (lyr) => lyr.member_id === memberId
     );
@@ -42,48 +43,15 @@ export const VideoRoom = ({
         height: layer.height + "%",
         zIndex: 1,
         background: "transparent",
-        border: "5px solid yellow",
+        border: "5px solid #034DF6",
+        borderRadius: '10px',
+        opacity: '50%',
         pointerEvents: "none",
       });
     } else {
       setSpeakerOverlayStyle({ display: "none" });
     }
   }
-
-  // function updateOverlay(e) {
-  //   if (!currLayout) return;
-
-  //   // Mouse coordinates relative to the video element, in percentage (0 to 100)
-  //   const rect = document.getElementById("video-root").getBoundingClientRect();
-  //   const x = (100 * (e.clientX - rect.left)) / rect.width;
-  //   const y = (100 * (e.clientY - rect.top)) / rect.height;
-
-  //   const layer = currLayout?.current?.layers.find(
-  //     (lyr) =>
-  //       lyr.x < x &&
-  //       x < lyr.x + lyr.width &&
-  //       lyr.y < y &&
-  //       y < lyr.y + lyr.height
-  //   );
-  //   if (layer && layer.reservation !== "fullscreen") {
-  //     setOverlayStyle({
-  //       display: "block",
-  //       position: "absolute",
-  //       overflow: "hidden",
-  //       top: layer.y + "%",
-  //       left: layer.x + "%",
-  //       width: layer.width + "%",
-  //       height: layer.height + "%",
-  //       zIndex: 1,
-  //       background: "#0d6efd38",
-  //       backdropFilter: "blur(10px)",
-  //       pointerEvents: "none",
-  //     });
-  //   } else {
-  //     setOverlayStyle({ display: "none" });
-  //   }
-  // }
-  //
 
   const roomJoined = async (e) => {
     thisMemberId.current = e.member_id;
@@ -172,19 +140,19 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
+    return () => {
+      setRecording();
+    }
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
-
+  
   return (
     <>
       <div
         className={`w-full relative rounded-lg border-4 border-slate-600`}
-        id="video-root"
-        // onMouseOver={updateOverlay}
-        // onMouseMove={updateOverlay}
-        // onMouseLeave={updateOverlay}
-      >
-        {/* <div style={overlayStyle}></div> */}
-        <div style={speakerOverlayStyle}></div>
+        id="video-root">
+        <div style={speakerOverlayStyle}>
+          <div id="name" className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}></div>
+        </div>
       </div>
     </>
   );

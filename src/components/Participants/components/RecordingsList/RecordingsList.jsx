@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ButtonRefresh } from "../ButtonComponents/ButtonRefresh/ButtonRefresh";
-import { RecordingItem } from '../RecordingItem/RecordingItem';
+import { RecordingItem } from "../RecordingItem/RecordingItem";
 
-export const RecordingsList = ({ room, offset }) => {
+export const RecordingsList = ({ room }) => {
   const [rec, setRec] = useState();
 
   const getRec = async () => {
@@ -30,7 +30,6 @@ export const RecordingsList = ({ room, offset }) => {
   useEffect(() => {
     getRec();
   }, []);
-
 
   return (
     <div className={`relative`}>

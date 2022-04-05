@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
 import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
 
 export const VolumeButton = ({ room, setVolumeMuted, volumeMuted }) => {
   const handleToggleDeaf = async () => {
-    if (volumeMuted) {
-      await room.deaf();
-      setVolumeMuted(false);
-    } else {
-      await room.undeaf();
-      await room.audioMute();
-      setVolumeMuted(true);
+    if (Object.keys(room).length !== 0) {
+      if (volumeMuted) {
+        await room.deaf();
+        setVolumeMuted(false);
+      } else {
+        await room.undeaf();
+        await room.audioMute();
+        setVolumeMuted(true);
+      }
     }
   };
 
