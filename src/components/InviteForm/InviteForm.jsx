@@ -4,6 +4,22 @@ export const InviteForm = ({ roomName, onJoin = () => {}, mod = false }) => {
   let [name, setName] = useState("");
   let [joinAsGuest, setJoinAsGuest] = useState(false);
 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(name !== "") {
+      onJoin({
+        name, 
+        room: roomName,
+        mod: mod && !joinAsGuest
+      })
+    } else {
+      alert(
+        "Please Fill all fields (todo use bootstrap alert or form error messages)"
+      );
+    }
+  }
+
   return (
       <div className="min-h-full h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <form className="mt-8 space-y-6" onSubmit={(e) => handleSubmit(e)}>
@@ -33,19 +49,6 @@ export const InviteForm = ({ roomName, onJoin = () => {}, mod = false }) => {
           <button
             className="w-full flex justify-center py-2 px-4 border border-transparent text-2xl font-extrabold rounded-md text-white bg-slate-500 hover:bg-slate-800"
             type="submit"
-            onClick={() => {
-              if(name !== "") {
-                onJoin({
-                  name, 
-                  room: roomName,
-                  mod: mod && !joinAsGuest
-                })
-              } else {
-                alert(
-                  "Please Fill all fields (todo use bootstrap alert or form error messages)"
-                );
-              }
-            }}
           >
             Join {roomName} {mod && !joinAsGuest ? " as moderator" : ""}
           </button>
