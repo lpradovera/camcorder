@@ -6,8 +6,7 @@ import { getRecordings } from "../../../../features/recordingSlice";
 
 export const RecordingsList = ({ room }) => {
   const dispatch = useDispatch();
-  let recording = useSelector((state) => state?.recording?.recordings);
-
+  
   useEffect(() => {
     dispatch(getRecordings(room));
   }, [dispatch]);

@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import videoSlice from './videoSlice';
+import deviceSlice from './deviceSlice';
 import recordingSlice from './recordingSlice';
+import layoutSlice from './layoutSlice';
 
 
 export default configureStore({
     reducer: {
-        video: videoSlice,
+        device: deviceSlice,
         recording: recordingSlice,
+        layout: layoutSlice,
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -11,6 +11,7 @@ import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
 
+
 export const InCall = ({ roomDetails }) => {
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
@@ -22,7 +23,8 @@ export const InCall = ({ roomDetails }) => {
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
   const { room, onRoomInit } = useOnRoomInit();
-  
+
+
   let onRoomUpdate = useCallback(
     (updatedValues) => {
       if (updatedValues.cameras !== undefined)
@@ -45,7 +47,6 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
-
 
   return (
     <InCallWrapper>

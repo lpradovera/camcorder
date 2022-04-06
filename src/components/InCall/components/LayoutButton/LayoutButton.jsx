@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getLayout } from "../../../../features/layoutSlice";
+
 
 export const LayoutButton = ({ room, curLayout, setCurLayout }) => {
-  const [layouts, setLayouts] = useState([]);
 
-  const getLayout = async () => {
-    setLayouts((await room.getLayouts()).layouts);
-  };
+  const dispatch = useDispatch();
+  const layouts = useSelector((state) => state?.layout?.layout);
 
-  useEffect( () => {
-    if (Object.keys(room).length !== 0) {
-      getLayout();
-    }
+  useEffect(() => {
+    dispatch(getLayout(room));
   }, [curLayout]);
-
-  
 
   return (
     <div className="flex flex-col z-0 justify-center px-2 pb-4 relative">
