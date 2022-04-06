@@ -1,71 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Play } from "../../../../Icons/Play/Play";
 import { Pause } from "../../../../Icons/Pause/Pause";
 import { Stop } from "../../../../Icons/Stop/Stop";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import {
+  play,
+  resume,
+  pause,
+  stop,
+} from "../../../../../features/recordingSlice";
 
 export const ButtonPlayToggle = ({ room, id }) => {
-  const [uri, setUri] = useState("");
-  const [pause, setPause] = useState(false);
-  const [currentPlayback, setCurrentPlayback] = useState();
-
-  const getUrl = async (id) => {
-    await retry(
-      async () => {
-        try {
-          const res = await axios.get(
-            `http://localhost:8080/get_recording/${id}`
-          );
-          if (res.status === 200) {
-            await setUri(res.data.uri);
-            return true;
-          }
-          return false;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      1000,
-      5
-    );
-  };
-  async function retry(fn, timeout_ms, retries) {
-    if (retries > 0 && !(await fn())) {
-      await new Promise((resolve) => setTimeout(resolve, timeout_ms));
-      retry(fn, timeout_ms, retries - 1);
-    }
-  }
+  const [waiting, setWaiting] = useState(false);
+  const dispatch = useDispatch();
 
   const handlePlay = async (id) => {
-    if (pause) {
-      await currentPlayback.resume();
-      setPause(false);
-    } else {
-      await getUrl(id);
-      if (uri) {
-        await setCurrentPlayback(await room.play({ url: uri }));
+    if (waiting) {
+      if (currentPlayback) {
+        await dispatch(resume());
+        setWaiting(false);
       }
+    } else {
+      await dispatch(play({ room, id }));
+      setWaiting(true);
     }
   };
 
   const handlePause = async () => {
-    await currentPlayback.pause();
-    setPause(true);
+    await dispatch(pause());
+    setWaiting(true);
   };
 
   const handleStop = async () => {
-    await currentPlayback.stop();
+    await dispatch(stop());
+    setWaiting(false);
   };
 
   return (
     <>
-      <button onClick={() => handlePlay(id)} className="absolute left-4 bottom-0">
+      <button
+        onClick={() => handlePlay(id)}
+        className="absolute right-12 bottom-0"
+      >
         <Play />
       </button>
-      <button onClick={() => handlePause()} className="absolute left-10 bottom-0">
+      <button
+        onClick={() => handlePause()}
+        className="absolute right-6 bottom-0"
+      >
         <Pause />
       </button>
-      <button onClick={() => handleStop()} className="absolute left-16 bottom-0">
+      <button
+        onClick={() => handleStop()}
+        className="absolute right-0 bottom-0"
+      >
         <Stop />
       </button>
     </>
