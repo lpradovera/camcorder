@@ -1,28 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getDate } from "../../../../helpers/helpers";
 import { ButtonPlayToggle } from "../ButtonComponents/ButtonPlayToggle/ButtonPlayToggle";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecordings, stop } from "../../../../features/recordingSlice";
+import { ButtonArrow } from "../ButtonComponents/ButtonArrow/ButtonArrow";
 
-export const RecordingItem = ({ rec, room }) => {
+
+export const RecordingItem = ({ room }) => {
+  const dispatch = useDispatch();
+  let recording = useSelector((state) => state?.recording?.recordings);
+  let [ids, setIds] = useState();
+
+  useEffect(() => {
+    dispatch(getRecordings(room));
+  }, [dispatch]);
+
+  useEffect(() => {}, [recording]);
 
   return (
     <>
-      {rec &&
-        rec.recordings.map((r, i) => {
+      {recording &&
+        recording?.recordings?.map((r, i) => {
           return (
-            <div key={r.id} className="flex flex-col pb-3">
+            <div key={r.id} className="flex justify-between pb-7 relative">
               <div className="flex">
                 <p className="pr-1">{i + 1}. </p>
-                <p>
-                  Started: {getDate(r.startedAt)} Ended: {getDate(r.endedAt)}
-                </p>
+                <div className="flex flex-col">
+                  <p>Started: {getDate(r.startedAt)}</p>
+                <p>Duration: {r.duration} s.</p>
+                </div>
+                
               </div>
 
-              <div className="pl-4 flex relative h-20">
-                <p>Duration: {r.duration} s.</p>
-                <ButtonPlayToggle
-                  room={room}
-                  id={r.id}
-                />
+              <div className="flex pt-6 p">
+                  <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids}/>
+                {ids === i + 1 ? (
+                  <ButtonPlayToggle room={room} id={r.id} />
+                ) : null}
               </div>
             </div>
           );
@@ -30,3 +44,4 @@ export const RecordingItem = ({ rec, room }) => {
     </>
   );
 };
+

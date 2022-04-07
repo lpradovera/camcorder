@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import { Refresh } from '../../../../Icons/Refresh/Refresh';
+import { useDispatch } from "react-redux";
+import { getRecordings } from "../../../../../features/recordingSlice";
 
-export const ButtonRefresh = ({getRec}) => {
+export const ButtonRefresh = ({room}) => {
   const [spin, setSpin] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setSpin(true);
-    getRec();
+    dispatch(getRecordings(room));
     setTimeout(() => setSpin(false), 1000);
   }
 

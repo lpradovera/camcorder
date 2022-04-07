@@ -24,6 +24,7 @@ export const InCall = ({ roomDetails }) => {
   const { handleHide, offset } = useHandleHide();
   const { room, onRoomInit } = useOnRoomInit();
 
+
   let onRoomUpdate = useCallback(
     (updatedValues) => {
       if (updatedValues.cameras !== undefined)
@@ -46,7 +47,6 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
-
 
   return (
     <InCallWrapper>
