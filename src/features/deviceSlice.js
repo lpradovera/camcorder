@@ -44,6 +44,26 @@ export const updateCameras = createAsyncThunk("device/updateCameras", async (dat
   }
 });
 
+export const getSpeakers = createAsyncThunk("device/getSpeacers", async () => {
+  try {
+    return await SignalWire.WebRTC.getSpeakerDevicesWithPermissions();
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+export const updateSpeakers = createAsyncThunk("device/updateSpeakers", async (data) => {
+  let room = data.room,
+    deviceId = data.deviceId;
+  try {
+    return await room.updateSpeaker({
+      deviceId: deviceId
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 
 
 
@@ -52,6 +72,7 @@ const deviceSlice = createSlice({
   initialState: {
     microphones: [],
     cameras: [],
+    speakers: [],
   },
   reducers: {},
   extraReducers: {
@@ -78,6 +99,12 @@ const deviceSlice = createSlice({
       console.log('updateCamera');
     },
     [updateMicrophone.rejected]: (state, action) => {},
+    //get speakers
+    [getSpeakers.pending]: (state, action) => {},
+    [getSpeakers.fulfilled]: (state, { payload }) => {
+      state.speakers = payload;
+    },
+    [getSpeakers.rejected]: (state, action) => {},
   },
 });
 

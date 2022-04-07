@@ -10,6 +10,7 @@ export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
   const [view, setView] = useState(false);
 
   const handleToggleSelfVideoMuted = async () => {
+    dispatch(getCameras());
     if (Object.keys(room).length !== 0) {
       if (videoMuted) {
         await room.videoUnmute();
@@ -22,6 +23,7 @@ export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
   };
 
   const handleChangeCamera = (e) => {
+    dispatch(getCameras());
     dispatch(updateCameras({ room, id: e.target.value }));
   };
 
@@ -44,7 +46,6 @@ export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
               view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
             } rounded`}
           >
-            <option value="default">default</option>
             {cameras.map((cam) => {
               return (
                 <option key={cam.deviceId} value={cam.deviceId}>

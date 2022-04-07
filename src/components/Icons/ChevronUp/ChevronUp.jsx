@@ -1,10 +1,11 @@
 import React from 'react';
 
-export const ChevronUp = () => {
+export const ChevronUp = ({right}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4 absolute right-[28px] top-[-10px] z-20"
+      style={{right: `${right}px`}}
+      className={`h-4 w-4 absolute right-[28px] top-[-10px] z-20`}
       fill="#cbd5e1"
       viewBox="0 0 24 24"
       stroke="#475569"

@@ -13,6 +13,7 @@ export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
   const [view, setView] = useState(false);
 
   const handleToggleSelfAudioMuted = async () => {
+    dispatch(getMicrophone());
     if (Object.keys(room).length !== 0) {
       if (audioMuted) {
         await room?.audioUnmute();
@@ -25,6 +26,7 @@ export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
   };
 
   const handleChangeMicrophone = (e) => {
+    dispatch(getMicrophone());
     dispatch(updateMicrophone({ room, id: e.target.value }));
   };
 
@@ -47,7 +49,6 @@ export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
               view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
             } rounded`}
           >
-            <option value="default">default</option>
             {microphones.map((mic) => {
               return (
                 <option key={mic.deviceId} value={mic.deviceId}>
