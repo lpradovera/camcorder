@@ -41,10 +41,6 @@ export const VideoRoom = ({
             src,
             width = 2;
 
-          // volume.style.position = "absolute";
-          // volume.style.bottom = `${layer.y}%`;
-          // volume.style.left = `${layer.x}%`;
-
           for (var i = 0; i < num; i++) {
             logo = document.createElement("div");
             logo.style.width = "2px";
@@ -93,6 +89,64 @@ export const VideoRoom = ({
           }
         }
         // volume testing
+        //volume2
+        if (layer && speaking) {
+          let volume2 = document.querySelector("#volume2"),
+            num = 20,
+            array = new Uint8Array(num * 2),
+            logo2,
+            height,
+            src,
+            width = 2;
+
+          for (var i = 0; i < num; i++) {
+            logo2 = document.createElement("div");
+            logo2.style.width = "2px";
+            logo2.style.height = "0px";
+            logo2.style.marginTop = "20px";
+            logo2.style.margin = "2px";
+            logo2.className = "logo2";
+            logo2.style.borderRadius = "30px";
+            logo2.style.background = "green";
+            logo2.style.minWidth = width + "px";
+            volume2.appendChild(logo2);
+          }
+
+          let myElements2 = document.querySelectorAll(".logo2"),
+            context = new AudioContext(),
+            analyser = context.createAnalyser();
+
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: true,
+            })
+            .then((stream) => {
+              src = context.createMediaStreamSource(stream);
+              src.connect(analyser);
+              loop();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          function loop() {
+            try {
+              if (volume2) {
+                window?.requestAnimationFrame(loop);
+                analyser?.getByteFrequencyData(array);
+
+                for (var i = 0; i < num; i++) {
+                  height = array[i + num];
+                  myElements2[i].style.minHeight = height / 5 + "px";
+                  myElements2[i].style.opacity = 0.008 * height;
+                }
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+        //volume2
       }
     });
 
@@ -108,7 +162,7 @@ export const VideoRoom = ({
         zIndex: 1,
         background: "transparent",
         // border: "5px solid #034DF6",
-        border: '5px solid green',
+        border: "5px solid green",
         borderRadius: "1px",
         opacity: "50%",
         pointerEvents: "none",
@@ -222,6 +276,7 @@ export const VideoRoom = ({
             className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}
           ></div>
           <div id="volume" className="rotate-10 flex"></div>
+          <div id="volume2" className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"></div>
         </div>
       </div>
     </>
