@@ -4,7 +4,6 @@ import { getToken } from "../../helpers/helpers";
 
 export const VideoRoom = ({
   onRoomInit,
-  setRecording,
   onRoomUpdate,
   roomDetails: roomDetails = {
     room: "test",
@@ -209,7 +208,6 @@ export const VideoRoom = ({
 
         room.on("room.updated", async (e) => {
           console.log("Room has been updated");
-          setRecording(e.room.recording);
         });
 
         room.on("member.joined", async (e) => memberJoined(e));
@@ -259,9 +257,6 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
-    return () => {
-      setRecording();
-    };
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
 
   return (

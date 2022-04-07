@@ -10,10 +10,10 @@ import { Invite } from "../../../Invite/Invite";
 import { useLocation } from "react-router-dom";
 import { LayoutButton } from "../LayoutButton/LayoutButton";
 import { ScreenShareButton } from "../ScreenShareButton/ScreenShareButton";
+import { useSelector } from "react-redux";
 
 export const ControlPanel = ({
   room,
-  recording,
   videoMuted,
   volumeMuted,
   roomDetails,
@@ -26,6 +26,7 @@ export const ControlPanel = ({
 }) => {
   const { startRecording, recordingReady } = useRecord(room);
   const location = useLocation();
+  const record = useSelector(state => state?.recording?.record);
 
   return (
     <>
@@ -33,7 +34,7 @@ export const ControlPanel = ({
         <div
           style={{ maxWidth: "740px" }}
           className={`flex w-11/12 ${
-            recording ? "border-2 border-red-600" : "border-2 border-transparent"
+            record ? "border-2 border-red-600" : "border-2 border-transparent"
           } flex-wrap md:flex-nowrap pt-2 pl-6 pr-6 opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] md:h-28 rounded-lg bg-slate-600`}
         >
           <VideoCameraButton
@@ -44,7 +45,6 @@ export const ControlPanel = ({
           {location.state.mod ? (
             <RecordingButton
               startRecording={startRecording}
-              recording={recording}
             />
           ) : null}
 

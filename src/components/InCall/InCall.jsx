@@ -10,24 +10,16 @@ import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
-//volume testing
-
-
 
 
 export const InCall = ({ roomDetails }) => {
-  //volume testing 
-  
 
 
-  //volume testing
-  
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
   const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const [volumeMuted, setVolumeMuted] = useState(false);
-  const [recording, setRecording] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
@@ -67,7 +59,6 @@ export const InCall = ({ roomDetails }) => {
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
             offset={offset}
-            setRecording={setRecording}
             members={memberList}
             onRoomInit={onRoomInit}
             onRoomUpdate={onRoomUpdate}
@@ -96,7 +87,6 @@ export const InCall = ({ roomDetails }) => {
         <ControlPanel
           setCurLayout={setCurLayout}
           curLayout={curLayout}
-          recording={recording}
           room={room}
           roomDetails={roomDetails}
           setVideoMuted={setVideoMuted}

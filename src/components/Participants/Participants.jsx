@@ -40,7 +40,7 @@ export const Participants = ({
           />
         </TabPanel>
         <TabPanel className="px-6 py-6">
-          {location.state.mod ? 
+          {location?.state?.mod ? 
           <RecordingsList room={room} offset={offset} />
           : 
           <p className='font-semibold text-slate-300 text-center'>

@@ -17,7 +17,7 @@ export const MemberList = ({
 
   return (
     <>
-      {memberList.map((member) => {
+      {memberList && memberList.map((member) => {
         return (
           <div
             key={member.id}
@@ -27,7 +27,7 @@ export const MemberList = ({
               <span className="dark:text-slate-300 text-lg pt-1 pr-3">
                 {member.name}
               </span>
-              {location.state.mod ? (
+              {location?.state?.mod ? (
                 <div className="w-2/5">
                   <ButtonVideoCamera
                     room={room}
@@ -37,12 +37,12 @@ export const MemberList = ({
                 </div>
               ) : null}
               <div className="w-24 flex justify-end">
-                {location.state.mod ? (
+                {location?.state?.mod ? (
                   <ButtonRemoveMember room={room} member={member} />
                 ) : null}
               </div>
             </div>
-            {location.state.name === member.name || location.state.mod ? (
+            {location?.state?.name === member.name || location?.state?.mod ? (
               <>
                 <div className="flex justify-between">
                   <InputVolume room={room} member={member} />

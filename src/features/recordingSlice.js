@@ -64,10 +64,14 @@ const recordingSlice = createSlice({
     expect: false,
     recordings: [],
     currentPlayback: {},
+    record: false,
   },
   reducers: {
     setExpect(state, { payload } ) {
       state.expect = payload;
+    },
+    setRecord(state, { payload }) {
+      state.record = payload;
     }
   },
   extraReducers: {
@@ -105,6 +109,6 @@ const recordingSlice = createSlice({
   },
 });
 
-export const { setExpect } = recordingSlice.actions;
+export const { setExpect, setRecord } = recordingSlice.actions;
 
 export default recordingSlice.reducer;
