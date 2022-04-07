@@ -3,10 +3,12 @@ import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 import { useDispatch, useSelector } from "react-redux";
 import { getCameras, updateCameras } from "../../../../features/deviceSlice";
 import { ChevronUp } from "../../../Icons/ChevronUp/ChevronUp";
+import { setVideoMuted } from '../../../../features/deviceSlice';
 
-export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
+export const VideoCameraButton = ({ room }) => {
   const dispatch = useDispatch();
   const cameras = useSelector((state) => state?.device?.cameras);
+  const videoMuted = useSelector(state => state?.device?.videoMuted);
   const [view, setView] = useState(false);
 
   const handleToggleSelfVideoMuted = async () => {
@@ -14,10 +16,10 @@ export const VideoCameraButton = ({ room, setVideoMuted, videoMuted }) => {
     if (Object.keys(room).length !== 0) {
       if (videoMuted) {
         await room.videoUnmute();
-        setVideoMuted(false);
+        dispatch(setVideoMuted(false));
       } else {
         await room.videoMute();
-        setVideoMuted(true);
+        dispatch(setVideoMuted(true));
       }
     }
   };

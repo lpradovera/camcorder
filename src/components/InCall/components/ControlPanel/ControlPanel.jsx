@@ -12,13 +12,12 @@ import { LayoutButton } from "../LayoutButton/LayoutButton";
 import { ScreenShareButton } from "../ScreenShareButton/ScreenShareButton";
 import { useSelector } from "react-redux";
 
+
 export const ControlPanel = ({
   room,
-  videoMuted,
   volumeMuted,
   roomDetails,
   audioMuted,
-  setVideoMuted,
   setAudioMuted,
   setVolumeMuted,
   setCurLayout,
@@ -39,8 +38,6 @@ export const ControlPanel = ({
         >
           <VideoCameraButton
             room={room}
-            videoMuted={videoMuted}
-            setVideoMuted={setVideoMuted}
           />
           {location.state.mod ? (
             <RecordingButton

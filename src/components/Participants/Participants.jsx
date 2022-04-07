@@ -10,7 +10,6 @@ export const Participants = ({
   room,
   setVolumeMuted,
   volumeMuted,
-  setVideoMuted,
   setAudioMuted,
   offset,
   handleHide,
@@ -32,7 +31,6 @@ export const Participants = ({
         <TabPanel className="px-6 py-6 md:px-0 md:py-0">
           <MemberList
             setAudioMuted={setAudioMuted}
-            setVideoMuted={setVideoMuted}
             memberList={memberList}
             setVolumeMuted={setVolumeMuted}
             volumeMuted={volumeMuted}

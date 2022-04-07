@@ -10,7 +10,6 @@ import { OutputVolume } from "../ButtonComponents/OutputVolume/OutputVolume";
 export const MemberList = ({
   memberList,
   room,
-  setVideoMuted,
   setAudioMuted,
 }) => {
   const location = useLocation();
@@ -32,7 +31,6 @@ export const MemberList = ({
                   <ButtonVideoCamera
                     room={room}
                     member={member}
-                    setVideoMuted={setVideoMuted}
                   />
                 </div>
               ) : null}

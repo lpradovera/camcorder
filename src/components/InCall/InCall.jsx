@@ -17,7 +17,6 @@ export const InCall = ({ roomDetails }) => {
 
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const [volumeMuted, setVolumeMuted] = useState(false);
   let [curLayout, setCurLayout] = useState();
@@ -43,7 +42,6 @@ export const InCall = ({ roomDetails }) => {
         let mem = updatedValues.member;
         console.log("Current User", mem);
         setAudioMuted(mem.audio_muted);
-        setVideoMuted(mem.video_muted);
       }
     },
     [history]
@@ -73,7 +71,6 @@ export const InCall = ({ roomDetails }) => {
           <Participants
             room={room}
             offset={offset}
-            setVideoMuted={setVideoMuted}
             setAudioMuted={setAudioMuted}
             audioMuted={audioMuted}
             handleHide={handleHide}
@@ -89,11 +86,9 @@ export const InCall = ({ roomDetails }) => {
           curLayout={curLayout}
           room={room}
           roomDetails={roomDetails}
-          setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}
           setVolumeMuted={setVolumeMuted}
           volumeMuted={volumeMuted}
-          videoMuted={videoMuted}
           audioMuted={audioMuted}
         />
       </ControlPanelWrapper>
