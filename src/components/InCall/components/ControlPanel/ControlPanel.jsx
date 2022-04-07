@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRecord } from "../../../../hooks/useRecord";
-import { VideoRecordingSymbol } from "../../../VideoRecordingSymbol/VideoRecordingSymbol";
 import { VideoCameraButton } from "../VideoCameraButton/VideoCameraButton";
 import { RecordingButton } from "../RecordingButton/RecordingButton";
 import { MicrophoneButton } from "../MicrophoneButton/MicrophoneButton";
@@ -10,6 +9,7 @@ import { PhoneMissedCallButton } from "../PhoneMissedCallButton/PhoneMissedCallB
 import { Invite } from "../../../Invite/Invite";
 import { useLocation } from "react-router-dom";
 import { LayoutButton } from "../LayoutButton/LayoutButton";
+import { ScreenShareButton } from "../ScreenShareButton/ScreenShareButton";
 
 export const ControlPanel = ({
   room,
@@ -31,7 +31,7 @@ export const ControlPanel = ({
     <>
       <div className="flex py-2 justify-center relative transparent">
         <div
-          style={{ maxWidth: "640px" }}
+          style={{ maxWidth: "740px" }}
           className={`flex w-11/12 ${
             recording ? "border-2 border-red-600" : "border-2 border-transparent"
           } flex-wrap md:flex-nowrap pt-2 pl-6 pr-6 opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] md:h-28 rounded-lg bg-slate-600`}
@@ -70,6 +70,7 @@ export const ControlPanel = ({
               setCurLayout={setCurLayout}
             />
           ) : null}
+          <ScreenShareButton room={room} />
           <PhoneMissedCallButton room={room} />
           
         </div>

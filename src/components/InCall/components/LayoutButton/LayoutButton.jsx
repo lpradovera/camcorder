@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLayout } from "../../../../features/layoutSlice";
+import { ChevronUp } from "../../../Icons/ChevronUp/ChevronUp";
 
 
 export const LayoutButton = ({ room, curLayout, setCurLayout }) => {
-
+  const [view, setView] = useState(false);
   const dispatch = useDispatch();
   const layouts = useSelector((state) => state?.layout?.layout);
 
@@ -13,7 +14,14 @@ export const LayoutButton = ({ room, curLayout, setCurLayout }) => {
   }, [curLayout]);
 
   return (
-    <div className="flex flex-col z-0 justify-center px-2 pb-4 relative">
+    <div 
+    onMouseEnter={() => setView(true)}
+      onMouseLeave={() => setView(false)}
+    className="flex flex-col z-0 justify-center px-2 pb-4 relative">
+      
+      
+      
+      
       <select
         className="flex form-select layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onChange={async (e) => {
