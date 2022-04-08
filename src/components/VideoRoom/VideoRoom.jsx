@@ -251,7 +251,31 @@ export const VideoRoom = ({
         });
 
         await room.join();
+
+
         onRoomInit(room);
+        //cameras
+        let camChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
+          targets: ["camera"],
+        });
+        camChangeWatcher.on("changed", (changes) => {
+          onRoomUpdate({ cameras: changes.devices });
+        });
+        //microphones
+        let micChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
+          targets: ["microphone"],
+        });
+        micChangeWatcher.on("changed", (changes) => {
+          onRoomUpdate({ microphones: changes.devices });
+        });
+        //speakers
+        let speakerChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
+          targets: ["speaker"],
+        });
+        speakerChangeWatcher.on("changed", (changes) => {
+          onRoomUpdate({ speakers: changes.devices });
+        });
+
         console.log("You joined");
       } catch (error) {
         console.error("Something went wrong", error);
@@ -271,7 +295,10 @@ export const VideoRoom = ({
             className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}
           ></div>
           <div id="volume" className="rotate-10 flex"></div>
-          <div id="volume2" className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"></div>
+          <div
+            id="volume2"
+            className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"
+          ></div>
         </div>
       </div>
     </>

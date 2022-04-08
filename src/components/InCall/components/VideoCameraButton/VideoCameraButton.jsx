@@ -48,7 +48,7 @@ export const VideoCameraButton = ({ room }) => {
               view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
             } rounded`}
           >
-            {cameras.map((cam) => {
+            {cameras && cameras.map((cam) => {
               return (
                 <option key={cam.deviceId} value={cam.deviceId}>
                   {cam.label}
