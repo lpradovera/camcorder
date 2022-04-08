@@ -1,10 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const getLayout = createAsyncThunk("layout/getLayout", async (room) => {
+export const getLayout = createAsyncThunk("layout/getLayout", async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
   try {
-    if (typeof room.getLayouts === "function") {
-      return (await room.getLayouts()).layouts;
+    if (typeof state.room.room.getLayouts === "function") {
+      return (await state.room.room.getLayouts()).layouts;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+export const setLayout = createAsyncThunk("layout/setLayout", async (layout, thunkAPI) => {
+  const state = thunkAPI.getState();
+  try {
+    if (typeof state.room.room.setLayout === "function") {
+      await state.room.room.setLayout({ name: layout });
     }
   } catch (error) {
     console.log(error.message);
@@ -13,12 +25,12 @@ export const getLayout = createAsyncThunk("layout/getLayout", async (room) => {
 
 export const shareScreen = createAsyncThunk(
   "layout/shareScreen",
-  async (room, thunkAPI) => {
+  async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
-      if (room === undefined) return;
+      if (state.room.room === undefined) return;
       if(state.layout.screenShareObj === undefined) {
-        return await room.startScreenShare();
+        return await state.room.room.startScreenShare();
       } else {
         state.layout.screenShareObj.leave();
         return undefined;
@@ -33,13 +45,9 @@ const layoutSlice = createSlice({
   name: "layout",
   initialState: {
     layout: [],
-    room: {},
     screenShareObj: undefined,
   },
   reducers: {
-    setRoom(state, { payload }) {
-      state.room = payload;
-    },
     setScreenShareObj(state, { payload }) {
       state.screenShareObj = payload;
     }
@@ -50,6 +58,11 @@ const layoutSlice = createSlice({
       state.layout = payload;
     },
     [getLayout.rejected]: (state, action) => {},
+    //set layout 
+    [setLayout.pending]: (state, action) => {},
+    [setLayout.fulfilled]: (state, { payload }) => {
+    },
+    [setLayout.rejected]: (state, action) => {},
     //share screen
     [shareScreen.pending]: (state, action) => {},
     [shareScreen.fulfilled]: (state, { payload }) => {
@@ -59,6 +72,6 @@ const layoutSlice = createSlice({
   },
 });
 
-export const { setRoom } = layoutSlice.actions;
+export const { } = layoutSlice.actions;
 
 export default layoutSlice.reducer;

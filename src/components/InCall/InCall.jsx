@@ -10,47 +10,38 @@ import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
-import { useDispatch } from 'react-redux';
-import { updateSpeakers, updateCameras, updateMicrophone} from '../../features/deviceSlice';
+import { useDispatch } from "react-redux";
+import {
+  updateSpeakers,
+  updateCameras,
+  updateMicrophone,
+} from "../../features/deviceSlice";
 
 export const InCall = ({ roomDetails }) => {
-
   const dispatch = useDispatch();
-
 
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  // const [volumeMuted, setVolumeMuted] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
   const { room, onRoomInit } = useOnRoomInit();
 
-  
-
   let onRoomUpdate = useCallback(
     (updatedValues) => {
-      if (updatedValues.cameras !== undefined)
-        dispatch(updateCameras());
-      if (updatedValues.speakers !== undefined)
-        dispatch(updateSpeakers());
+      if (updatedValues.cameras !== undefined) dispatch(updateCameras());
+      if (updatedValues.speakers !== undefined) dispatch(updateSpeakers());
       if (updatedValues.microphones !== undefined)
-        console.log(updatedValues.microphones)
-        dispatch(updateMicrophone());
+        console.log(updatedValues.microphones);
+      dispatch(updateMicrophone());
       if (updatedValues.left === true) navigate("/");
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined)
         setCurLayout(updatedValues.layout);
-      // if (updatedValues.member !== undefined) {
-      //   let mem = updatedValues.member;
-      //   console.log("Current User", mem);
-      //   setAudioMuted(mem.audio_muted);
-      // }
     },
     [history]
   );
-
 
   return (
     <InCallWrapper>
@@ -80,12 +71,7 @@ export const InCall = ({ roomDetails }) => {
       </VideoParticipantsWrapper>
 
       <ControlPanelWrapper>
-        <ControlPanel
-          setCurLayout={setCurLayout}
-          curLayout={curLayout}
-          room={room}
-          roomDetails={roomDetails}
-        />
+        <ControlPanel roomDetails={roomDetails} />
       </ControlPanelWrapper>
     </InCallWrapper>
   );

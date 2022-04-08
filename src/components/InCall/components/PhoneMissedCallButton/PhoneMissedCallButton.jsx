@@ -1,23 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { PhoneMissedCall } from "../../../Icons/PhoneMissedCall/PhoneMissedCall";
 import { useNavigate } from "react-router-dom";
+import {useDispatch } from 'react-redux';
+import { roomLeave } from "../../../../features/roomSlice";
 
-export const PhoneMissedCallButton = ({ room }) => {
+export const PhoneMissedCallButton = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
  
+  const handleRoomLeave = () => {
+    dispatch(roomLeave());
+
+    setTimeout(() => {
+      navigate("/", {
+        state: { },
+      });
+    }, 1500);
+  };
 
   return (
     <div className="flex flex-col justify-center px-2 pb-4">
       <button
         className="flex dark:bg-red-600 hover:dark:bg-red-500 rounded justify-center pt-4 w-14 h-14"
-        onClick={async () => {
-          if (Object.keys(room).length !== 0) await room.leave();
-          setTimeout(() => {
-            navigate("/", {
-              state: { },
-            });
-          }, 1500);
-        }}
+        onClick={async () => handleRoomLeave()}
       >
         <PhoneMissedCall />
       </button>

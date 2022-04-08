@@ -6,32 +6,33 @@ import {
   getSpeakers,
   updateSpeakers,
   setAudioMuted,
+  audioMute,
+  roomDeaf,
+  roomUndeaf,
   setVolumeMuted,
 } from "../../../../features/deviceSlice";
 
-export const VolumeButton = ({ room }) => {
+export const SpeakerButton = () => {
   const dispatch = useDispatch();
   const speakers = useSelector((state) => state?.device?.speakers);
   const volumeMuted = useSelector((state) => state?.device?.volumeMuted);
 
   const handleToggleDeaf = async () => {
     dispatch(getSpeakers());
-    if (Object.keys(room).length !== 0) {
       if (volumeMuted) {
-        await room.undeaf();
+        dispatch(roomUndeaf());
         dispatch(setAudioMuted(false));
         dispatch(setVolumeMuted(false));
       } else {
-        await room.deaf();
-        await room.audioMute();
+        dispatch(roomDeaf());
+        dispatch(audioMute());
         dispatch(setVolumeMuted(true));
         dispatch(setAudioMuted(true));
       }
-    }
   };
 
   const handleChangeSpeakers = async (e) => {
-    dispatch(updateSpeakers({ room, id: e.target.value }));
+    dispatch(updateSpeakers(e.target.value));
   };
 
   useEffect(() => {
@@ -44,8 +45,9 @@ export const VolumeButton = ({ room }) => {
         <select
           onClick={() => dispatch(getSpeakers())}
           onChange={(e) => handleChangeSpeakers(e)}
-          className={`flex w-8 h-14 chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
+          className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
         >
+          <option value="test">test</option>
           {speakers &&
             speakers.map((speaker) => {
               return (

@@ -5,29 +5,29 @@ import {
   getMicrophone,
   updateMicrophone,
   setAudioMuted,
+  audioMute,
+  audioUnmute,
 } from "../../../../features/deviceSlice";
 
-export const MicrophoneButton = ({ room }) => {
+export const MicrophoneButton = () => {
   const dispatch = useDispatch();
   const microphones = useSelector((state) => state?.device?.microphones);
   const audioMuted = useSelector((state) => state?.device?.audioMuted);
 
   const handleToggleSelfAudioMuted = async () => {
     dispatch(getMicrophone());
-    if (Object.keys(room).length !== 0) {
       if (audioMuted) {
-        await room?.audioUnmute();
+        dispatch(audioUnmute());
         dispatch(setAudioMuted(false));
       } else {
-        await room?.audioMute();
+        dispatch(audioMute());
         dispatch(setAudioMuted(true));
       }
-    }
   };
 
   const handleChangeMicrophone = (e) => {
     dispatch(getMicrophone());
-    dispatch(updateMicrophone({ room, id: e.target.value }));
+    dispatch(updateMicrophone(e.target.value));
   };
 
   useEffect(() => {
@@ -39,8 +39,9 @@ export const MicrophoneButton = ({ room }) => {
       <div className="flex">
         <select
           onChange={(e) => handleChangeMicrophone(e)}
-          className={`flex w-8 h-14 chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
+          className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
         >
+          <option value="test">test</option>
           {microphones &&
             microphones.map((mic) => {
               return (
@@ -68,7 +69,7 @@ export const MicrophoneButton = ({ room }) => {
         </button>
       </div>
 
-      <p className="text-center pt-1 text-slate-300">Mic</p>
+      <p className="text-center pt-1 text-slate-300">Microphone</p>
     </div>
   );
 };
