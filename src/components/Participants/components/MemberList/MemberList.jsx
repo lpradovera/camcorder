@@ -10,7 +10,6 @@ import { OutputVolume } from "../ButtonComponents/OutputVolume/OutputVolume";
 export const MemberList = ({
   memberList,
   room,
-  setAudioMuted,
 }) => {
   const location = useLocation();
 
@@ -47,7 +46,6 @@ export const MemberList = ({
                   <ButtonMicrophone
                     room={room}
                     member={member}
-                    setAudioMuted={setAudioMuted}
                   />
                 </div>
                 <div className="flex justify-between pt-4">

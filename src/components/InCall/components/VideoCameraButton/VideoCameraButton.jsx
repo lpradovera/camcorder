@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 import { useDispatch, useSelector } from "react-redux";
 import { getCameras, updateCameras } from "../../../../features/deviceSlice";
-import { ChevronUp } from "../../../Icons/ChevronUp/ChevronUp";
-import { setVideoMuted } from '../../../../features/deviceSlice';
+import { setVideoMuted } from "../../../../features/deviceSlice";
 
 export const VideoCameraButton = ({ room }) => {
   const dispatch = useDispatch();
   const cameras = useSelector((state) => state?.device?.cameras);
-  const videoMuted = useSelector(state => state?.device?.videoMuted);
-  const [view, setView] = useState(false);
+  const videoMuted = useSelector((state) => state?.device?.videoMuted);
 
   const handleToggleSelfVideoMuted = async () => {
     dispatch(getCameras());
@@ -34,48 +32,39 @@ export const VideoCameraButton = ({ room }) => {
   }, [dispatch]);
 
   return (
-    <div
-      onMouseEnter={() => setView(true)}
-      onMouseLeave={() => setView(false)}
-      className="flex flex-col justify-center relative px-2 pb-4"
-    >
-      {view ? (
-        <>
-          <ChevronUp />
+    <div className="flex flex-col relative px-2 pb-4">
+      <div className="flex">
           <select
             onChange={(e) => handleChangeCamera(e)}
-            className={`flex w-14 h-4 absolute top-0 form-select appearance-none text-transparent ${
-              view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
-            } rounded`}
+            className={`flex w-8 h-14 chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
           >
-            {cameras && cameras.map((cam) => {
-              return (
-                <option key={cam.deviceId} value={cam.deviceId}>
-                  {cam.label}
-                </option>
-              );
-            })}
+            {cameras &&
+              cameras.map((cam) => {
+                return (
+                  <option className="absolute top-[-20px]" key={cam.deviceId} value={cam.deviceId}>
+                    {cam.label}
+                  </option>
+                );
+              })}
           </select>
-        </>
-      ) : null}
 
-      <button
-        className={`flex ${
-          view ? "dark:bg-slate-400" : "dark:bg-slate-500"
-        }  rounded justify-center ${
-          view ? "pt-6" : "pt-4"
-        } w-14 h-14 transition-all`}
-        onClick={() => handleToggleSelfVideoMuted()}
-      >
-        {videoMuted ? (
-          <div className="relative">
+        <button
+          className={`flex dark:bg-slate-500 hover:dark:bg-slate-400
+        rounded-r justify-center pt-4 border-l-2 border-slate-400
+        w-14 h-14`}
+          onClick={() => handleToggleSelfVideoMuted()}
+        >
+          {videoMuted ? (
+            <div className="relative">
+              <VideoCamera />
+              <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
+            </div>
+          ) : (
             <VideoCamera />
-            <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
-          </div>
-        ) : (
-          <VideoCamera />
-        )}
-      </button>
+          )}
+        </button>
+      </div>
+
       <p className="text-center pt-1 text-slate-300">Cam</p>
     </div>
   );

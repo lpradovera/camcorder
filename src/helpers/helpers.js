@@ -21,17 +21,6 @@ export const getDate = (d) => {
   return `${addZero(date.getDate())}.${addZero(date.getMonth())}`;
 };
 
-export const handleToggleAudioMute = async (member, room, setAudioMuted) => {
-  if (Object.keys(room).length !== 0) {
-    if (member.audio_muted) {
-      await room.audioUnmute({ memberId: member.id });
-      setAudioMuted(false);
-    } else {
-      await room.audioMute({ memberId: member.id });
-      setAudioMuted(true);
-    }
-  }
-};
 
 export const handleSetInputVolume = async (e, member, room) => {
   if (Object.keys(room).length !== 0) {
@@ -42,15 +31,6 @@ export const handleSetInputVolume = async (e, member, room) => {
   }
 };
 
-export const handleToggleDeaf = async (room, member) => {
-  if (Object.keys(room).length !== 0) {
-    if (member.deaf) {
-      await room.undeaf({ memberId: member.id });
-    } else {
-      await room.deaf({ memberId: member.id });
-    }
-  }
-};
 
 export const handleSetOutputVolume = async (e, member, room) => {
   if (Object.keys(room).length !== 0) {

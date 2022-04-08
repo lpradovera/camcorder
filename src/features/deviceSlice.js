@@ -74,10 +74,18 @@ const deviceSlice = createSlice({
     cameras: [],
     speakers: [],
     videoMuted: false,
+    audioMuted: false,
+    volumeMuted: false,
   },
   reducers: {
     setVideoMuted(state, { payload }) {
       state.videoMuted = payload;
+    }, 
+    setVolumeMuted(state, { payload }) {
+      state.volumeMuted = payload;
+    },
+    setAudioMuted(state, { payload }) {
+      state.audioMuted = payload;
     }
   },
   extraReducers: {
@@ -113,6 +121,6 @@ const deviceSlice = createSlice({
   },
 });
 
-export const {setVideoMuted} = deviceSlice.actions;
+export const {setVideoMuted, setAudioMuted, setVolumeMuted} = deviceSlice.actions;
 
 export default deviceSlice.reducer;
