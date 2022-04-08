@@ -48,7 +48,7 @@ export const VideoRoom = ({
             logo.style.margin = "2px";
             logo.className = "logo";
             logo.style.borderRadius = "30px";
-            logo.style.background = "green";
+            logo.style.background = "#475569";
             logo.style.minWidth = width + "px";
             volume.appendChild(logo);
           }
@@ -106,7 +106,7 @@ export const VideoRoom = ({
             logo2.style.margin = "2px";
             logo2.className = "logo2";
             logo2.style.borderRadius = "30px";
-            logo2.style.background = "green";
+            logo2.style.background = "#475569";
             logo2.style.minWidth = width + "px";
             volume2.appendChild(logo2);
           }
@@ -161,7 +161,7 @@ export const VideoRoom = ({
         zIndex: 1,
         background: "transparent",
         // border: "5px solid #034DF6",
-        border: "5px solid green",
+        border: "5px solid #475569",
         borderRadius: "1px",
         opacity: "50%",
         pointerEvents: "none",
