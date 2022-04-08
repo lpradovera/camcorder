@@ -15,11 +15,7 @@ import { useSelector } from "react-redux";
 
 export const ControlPanel = ({
   room,
-  volumeMuted,
   roomDetails,
-  audioMuted,
-  setAudioMuted,
-  setVolumeMuted,
   setCurLayout,
   curLayout,
 }) => {
@@ -47,13 +43,9 @@ export const ControlPanel = ({
 
           <MicrophoneButton
             room={room}
-            audioMuted={audioMuted}
-            setAudioMuted={setAudioMuted}
           />
           <VolumeButton
             room={room}
-            volumeMuted={volumeMuted}
-            setVolumeMuted={setVolumeMuted}
           />
           {location.state.mod ? (
             <GetRecordButton recordingReady={recordingReady} />

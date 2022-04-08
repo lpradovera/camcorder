@@ -20,8 +20,7 @@ export const InCall = ({ roomDetails }) => {
 
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  const [audioMuted, setAudioMuted] = useState(false);
-  const [volumeMuted, setVolumeMuted] = useState(false);
+  // const [volumeMuted, setVolumeMuted] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
@@ -43,11 +42,11 @@ export const InCall = ({ roomDetails }) => {
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined)
         setCurLayout(updatedValues.layout);
-      if (updatedValues.member !== undefined) {
-        let mem = updatedValues.member;
-        console.log("Current User", mem);
-        setAudioMuted(mem.audio_muted);
-      }
+      // if (updatedValues.member !== undefined) {
+      //   let mem = updatedValues.member;
+      //   console.log("Current User", mem);
+      //   setAudioMuted(mem.audio_muted);
+      // }
     },
     [history]
   );
@@ -73,8 +72,6 @@ export const InCall = ({ roomDetails }) => {
           <Participants
             room={room}
             offset={offset}
-            setAudioMuted={setAudioMuted}
-            audioMuted={audioMuted}
             handleHide={handleHide}
             memberList={memberList}
             onMemberUpdate={(event) => memberUpdate(event)}
@@ -88,10 +85,6 @@ export const InCall = ({ roomDetails }) => {
           curLayout={curLayout}
           room={room}
           roomDetails={roomDetails}
-          setAudioMuted={setAudioMuted}
-          setVolumeMuted={setVolumeMuted}
-          volumeMuted={volumeMuted}
-          audioMuted={audioMuted}
         />
       </ControlPanelWrapper>
     </InCallWrapper>

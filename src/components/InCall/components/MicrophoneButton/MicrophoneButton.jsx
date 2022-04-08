@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getMicrophone,
   updateMicrophone,
+  setAudioMuted,
 } from "../../../../features/deviceSlice";
 import { ChevronUp } from "../../../Icons/ChevronUp/ChevronUp";
 
-export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
+
+export const MicrophoneButton = ({ room }) => {
   const dispatch = useDispatch();
   const microphones = useSelector((state) => state?.device?.microphones);
+  const audioMuted = useSelector(state => state?.device?.audioMuted);
   const [view, setView] = useState(false);
 
   const handleToggleSelfAudioMuted = async () => {
@@ -17,10 +20,10 @@ export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
     if (Object.keys(room).length !== 0) {
       if (audioMuted) {
         await room?.audioUnmute();
-        setAudioMuted(false);
+        dispatch(setAudioMuted(false));
       } else {
         await room?.audioMute();
-        setAudioMuted(true);
+        dispatch(setAudioMuted(true));
       }
     }
   };

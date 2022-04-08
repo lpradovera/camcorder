@@ -8,9 +8,6 @@ import { useLocation } from "react-router-dom";
 export const Participants = ({
   memberList,
   room,
-  setVolumeMuted,
-  volumeMuted,
-  setAudioMuted,
   offset,
   handleHide,
 }) => {
@@ -30,10 +27,7 @@ export const Participants = ({
 
         <TabPanel className="px-6 py-6 md:px-0 md:py-0">
           <MemberList
-            setAudioMuted={setAudioMuted}
             memberList={memberList}
-            setVolumeMuted={setVolumeMuted}
-            volumeMuted={volumeMuted}
             room={room}
           />
         </TabPanel>
