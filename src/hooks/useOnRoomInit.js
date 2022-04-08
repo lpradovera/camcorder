@@ -1,16 +1,14 @@
 import { useState, useCallback } from "react";
 
 export const useOnRoomInit = () => {
-  let [room, setRoom] = useState({}),
-    [layouts, setLayouts] = useState([]);
+  let [room, setRoom] = useState({});
 
-  let onRoomInit = useCallback((room, layouts) => {
+  let onRoomInit = useCallback((room) => {
     setRoom(room);
-    setLayouts(layouts);
   }, []);
+
   return {
     room,
-    layouts,
     onRoomInit,
   }
 };

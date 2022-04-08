@@ -24,7 +24,7 @@ export const VolumeButton = ({ room, setVolumeMuted, volumeMuted }) => {
     }
   };
 
-  const handleChangeSpeakers = (e) => {
+  const handleChangeSpeakers = async (e) => {
     dispatch(updateSpeakers({ room, id: e.target.value }));
   };
 
@@ -48,11 +48,10 @@ export const VolumeButton = ({ room, setVolumeMuted, volumeMuted }) => {
               view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
             } rounded`}
           >
-            {speakers.map((speaker) => {
+            {speakers && speakers.map((speaker) => {
               return (
                 <option key={speaker.deviceId} value={speaker.deviceId}>
                   {speaker.label} 
-                  {speaker.deviceId}
                 </option>
               );
             })}

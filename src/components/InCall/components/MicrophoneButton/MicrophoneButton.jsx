@@ -49,10 +49,10 @@ export const MicrophoneButton = ({ room, setAudioMuted, audioMuted }) => {
               view ? "dark:bg-slate-300 animate-pulse" : "dark:bg-slate-500"
             } rounded`}
           >
-            {microphones.map((mic) => {
+            {microphones && microphones.map((mic) => {
               return (
-                <option key={mic.deviceId} value={mic.deviceId}>
-                  {mic.label}
+                <option key={mic?.deviceId} value={mic?.deviceId}>
+                  {mic?.label}
                 </option>
               );
             })}

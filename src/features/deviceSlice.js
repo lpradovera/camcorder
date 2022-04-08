@@ -14,7 +14,7 @@ export const getMicrophone = createAsyncThunk(
 
 export const updateMicrophone = createAsyncThunk("device/updateMicrophone", async (data) => {
   let room = data.room,
-    deviceId = data.deviceId;
+    deviceId = data.id;
   try {
     return await room.updateMicrophone({
       deviceId: deviceId
@@ -34,7 +34,7 @@ export const getCameras = createAsyncThunk("device/getCameras", async () => {
 
 export const updateCameras = createAsyncThunk("device/updateCameras", async (data) => {
   let room = data.room,
-    deviceId = data.deviceId;
+    deviceId = data.id;
   try {
     return await room.updateCamera({
       deviceId: deviceId
@@ -54,7 +54,7 @@ export const getSpeakers = createAsyncThunk("device/getSpeacers", async () => {
 
 export const updateSpeakers = createAsyncThunk("device/updateSpeakers", async (data) => {
   let room = data.room,
-    deviceId = data.deviceId;
+    deviceId = data.id;
   try {
     return await room.updateSpeaker({
       deviceId: deviceId
