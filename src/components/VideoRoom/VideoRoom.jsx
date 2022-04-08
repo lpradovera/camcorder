@@ -4,7 +4,6 @@ import { getToken } from "../../helpers/helpers";
 
 export const VideoRoom = ({
   onRoomInit,
-  setRecording,
   onRoomUpdate,
   roomDetails: roomDetails = {
     room: "test",
@@ -22,15 +21,133 @@ export const VideoRoom = ({
 
   function updateSpeakerOverlay(memberId, speaking) {
     if (!currLayout.current) return;
+    const layer = currLayout.current.layers.find(
+      (lyr) => lyr.member_id === memberId
+    );
     memberList.current.find((member) => {
       if (member.id === memberId) {
         let div = document.querySelector("#name");
         div.innerHTML = member.name;
+        //////////////////////////
+        //////////volume testing
+        //////////////////////////
+        if (layer && speaking) {
+          let volume = document.querySelector("#volume"),
+            num = 20,
+            array = new Uint8Array(num * 2),
+            logo,
+            height,
+            src,
+            width = 2;
+
+          for (var i = 0; i < num; i++) {
+            logo = document.createElement("div");
+            logo.style.width = "2px";
+            logo.style.height = "0px";
+            logo.style.marginTop = "10px";
+            logo.style.margin = "2px";
+            logo.className = "logo";
+            logo.style.borderRadius = "30px";
+            logo.style.background = "green";
+            logo.style.minWidth = width + "px";
+            volume.appendChild(logo);
+          }
+
+          let myElements = document.querySelectorAll(".logo"),
+            context = new AudioContext(),
+            analyser = context.createAnalyser();
+
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: true,
+            })
+            .then((stream) => {
+              src = context.createMediaStreamSource(stream);
+              src.connect(analyser);
+              loop();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          function loop() {
+            try {
+              if (volume) {
+                window?.requestAnimationFrame(loop);
+                analyser?.getByteFrequencyData(array);
+
+                for (var i = 0; i < num; i++) {
+                  height = array[i + num];
+                  myElements[i].style.minHeight = height / 5 + "px";
+                  myElements[i].style.opacity = 0.008 * height;
+                }
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+        // volume testing
+        //volume2
+        if (layer && speaking) {
+          let volume2 = document.querySelector("#volume2"),
+            num = 20,
+            array = new Uint8Array(num * 2),
+            logo2,
+            height,
+            src,
+            width = 2;
+
+          for (var i = 0; i < num; i++) {
+            logo2 = document.createElement("div");
+            logo2.style.width = "2px";
+            logo2.style.height = "0px";
+            logo2.style.marginTop = "20px";
+            logo2.style.margin = "2px";
+            logo2.className = "logo2";
+            logo2.style.borderRadius = "30px";
+            logo2.style.background = "green";
+            logo2.style.minWidth = width + "px";
+            volume2.appendChild(logo2);
+          }
+
+          let myElements2 = document.querySelectorAll(".logo2"),
+            context = new AudioContext(),
+            analyser = context.createAnalyser();
+
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: true,
+            })
+            .then((stream) => {
+              src = context.createMediaStreamSource(stream);
+              src.connect(analyser);
+              loop();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          function loop() {
+            try {
+              if (volume2) {
+                window?.requestAnimationFrame(loop);
+                analyser?.getByteFrequencyData(array);
+
+                for (var i = 0; i < num; i++) {
+                  height = array[i + num];
+                  myElements2[i].style.minHeight = height / 5 + "px";
+                  myElements2[i].style.opacity = 0.008 * height;
+                }
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+        //volume2
       }
     });
-    const layer = currLayout.current.layers.find(
-      (lyr) => lyr.member_id === memberId
-    );
 
     if (layer && speaking) {
       setSpeakerOverlayStyle({
@@ -43,9 +160,10 @@ export const VideoRoom = ({
         height: layer.height + "%",
         zIndex: 1,
         background: "transparent",
-        border: "5px solid #034DF6",
-        borderRadius: '10px',
-        opacity: '50%',
+        // border: "5px solid #034DF6",
+        border: "5px solid green",
+        borderRadius: "1px",
+        opacity: "50%",
         pointerEvents: "none",
       });
     } else {
@@ -90,7 +208,6 @@ export const VideoRoom = ({
 
         room.on("room.updated", async (e) => {
           console.log("Room has been updated");
-          setRecording(e.room.recording);
         });
 
         room.on("member.joined", async (e) => memberJoined(e));
@@ -140,18 +257,21 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
-    return () => {
-      setRecording();
-    }
   }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
-  
+
   return (
     <>
       <div
         className={`w-full relative rounded-lg border-4 border-slate-600`}
-        id="video-root">
+        id="video-root"
+      >
         <div style={speakerOverlayStyle}>
-          <div id="name" className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}></div>
+          <div
+            id="name"
+            className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}
+          ></div>
+          <div id="volume" className="rotate-10 flex"></div>
+          <div id="volume2" className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"></div>
         </div>
       </div>
     </>

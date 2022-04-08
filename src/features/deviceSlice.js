@@ -73,8 +73,13 @@ const deviceSlice = createSlice({
     microphones: [],
     cameras: [],
     speakers: [],
+    videoMuted: false,
   },
-  reducers: {},
+  reducers: {
+    setVideoMuted(state, { payload }) {
+      state.videoMuted = payload;
+    }
+  },
   extraReducers: {
     [getMicrophone.pending]: (state, action) => {},
     [getMicrophone.fulfilled]: (state, { payload }) => {
@@ -108,6 +113,6 @@ const deviceSlice = createSlice({
   },
 });
 
-export const {} = deviceSlice.actions;
+export const {setVideoMuted} = deviceSlice.actions;
 
 export default deviceSlice.reducer;

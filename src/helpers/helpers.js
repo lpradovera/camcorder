@@ -67,14 +67,4 @@ export const handleRemoveMember = async (room, member) => {
   }
 };
 
-export const handleToggleVideoMute = async (room, member, setVideoMuted) => {
-  if (Object.keys(room).length !== 0) {
-    if (member.video_muted) {
-      await room.videoUnmute({ memberId: member.id });
-      setVideoMuted(false);
-    } else {
-      await room.videoMute({ memberId: member.id });
-      setVideoMuted(true);
-    }
-  }
-};
+

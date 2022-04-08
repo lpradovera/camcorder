@@ -13,12 +13,12 @@ import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPan
 
 
 export const InCall = ({ roomDetails }) => {
+
+
   const [memberList, setMemberList] = useState([]);
   let navigate = useNavigate();
-  const [videoMuted, setVideoMuted] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const [volumeMuted, setVolumeMuted] = useState(false);
-  const [recording, setRecording] = useState(false);
   let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
   const { handleHide, offset } = useHandleHide();
@@ -42,11 +42,14 @@ export const InCall = ({ roomDetails }) => {
         let mem = updatedValues.member;
         console.log("Current User", mem);
         setAudioMuted(mem.audio_muted);
-        setVideoMuted(mem.video_muted);
       }
     },
     [history]
   );
+
+
+
+
 
   return (
     <InCallWrapper>
@@ -54,7 +57,6 @@ export const InCall = ({ roomDetails }) => {
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
             offset={offset}
-            setRecording={setRecording}
             members={memberList}
             onRoomInit={onRoomInit}
             onRoomUpdate={onRoomUpdate}
@@ -69,7 +71,6 @@ export const InCall = ({ roomDetails }) => {
           <Participants
             room={room}
             offset={offset}
-            setVideoMuted={setVideoMuted}
             setAudioMuted={setAudioMuted}
             audioMuted={audioMuted}
             handleHide={handleHide}
@@ -83,14 +84,11 @@ export const InCall = ({ roomDetails }) => {
         <ControlPanel
           setCurLayout={setCurLayout}
           curLayout={curLayout}
-          recording={recording}
           room={room}
           roomDetails={roomDetails}
-          setVideoMuted={setVideoMuted}
           setAudioMuted={setAudioMuted}
           setVolumeMuted={setVolumeMuted}
           volumeMuted={volumeMuted}
-          videoMuted={videoMuted}
           audioMuted={audioMuted}
         />
       </ControlPanelWrapper>
