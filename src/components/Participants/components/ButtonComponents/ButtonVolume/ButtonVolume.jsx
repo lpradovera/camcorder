@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { VolumeUp } from "../../../../Icons/VolumeUp/VolumeUp";
 import { VolumeOff } from "../../../../Icons/VolumeOff/VolumeOff"; 
 import { useDispatch } from "react-redux";
@@ -21,9 +21,6 @@ export const ButtonVolume = ({ room, member }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(member.deaf, 'deaf')
-  }, [member])
 
   return (
     <button

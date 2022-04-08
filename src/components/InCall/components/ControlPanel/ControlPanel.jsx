@@ -27,10 +27,10 @@ export const ControlPanel = ({
     <>
       <div className="flex py-2 justify-center relative transparent">
         <div
-          style={{ maxWidth: "740px" }}
+          style={{ maxWidth: "900px" }}
           className={`flex w-11/12 ${
             record ? "border-2 border-red-600" : "border-2 border-transparent"
-          } flex-wrap md:flex-nowrap pt-2 pl-6 pr-6 opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] md:h-28 rounded-lg bg-slate-600`}
+          } flex-wrap pt-2 pl-6 pr-6 opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto]  rounded-lg bg-slate-600`}
         >
           <VideoCameraButton
             room={room}
