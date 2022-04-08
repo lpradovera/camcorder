@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLayout } from "../../../../features/layoutSlice";
-// import { ChevronUp } from "../../../Icons/ChevronUp/ChevronUp";
+import { getLayout, setLayout } from "../../../../features/layoutSlice";
 
-
-export const LayoutButton = ({ room, curLayout, setCurLayout }) => {
-  const [view, setView] = useState(false);
+export const LayoutButton = () => {
   const dispatch = useDispatch();
   const layouts = useSelector((state) => state?.layout?.layout);
 
-  useEffect(() => {
-    dispatch(getLayout(room));
-  }, [curLayout]);
-
   return (
-    <div 
-    onMouseEnter={() => setView(true)}
-      onMouseLeave={() => setView(false)}
-    className="flex flex-col z-0 justify-center px-2 pb-4 relative">
-      
-      
-      
-      
+    <div
+      onMouseEnter={() => dispatch(getLayout())}
+      className="flex flex-col z-0 justify-center px-2 pb-4 relative"
+    >
       <select
-        className="flex form-select layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
+        className="flex form-select outline-none layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onChange={async (e) => {
-          console.log("Layout: ", e.target.value);
-          await room.setLayout({ name: e.target.value });
-          setCurLayout(e.target.value);
+          dispatch(setLayout(e.target.value));
         }}
       >
         {layouts?.length > 1 &&

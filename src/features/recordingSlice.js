@@ -29,15 +29,17 @@ export const play = createAsyncThunk("recording/Play", async (data, thunkAPI) =>
 export const resume = createAsyncThunk("recording/Resume", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
+    if(state?.recording?.currentPlayback === undefined) return
     return await state?.recording?.currentPlayback.resume();
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message, 'hello');
   }
 });
 
 export const pause = createAsyncThunk("recording/Pause", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
+    if(state?.recording?.currentPlayback === undefined) return
     return await state?.recording?.currentPlayback.pause();
   } catch (error) {
     console.log(error.message);
@@ -47,11 +49,17 @@ export const pause = createAsyncThunk("recording/Pause", async (_, thunkAPI) => 
 export const stop = createAsyncThunk("recording/Stop", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
-    return await state?.recording?.currentPlayback.stop();
+    if(state?.recording?.currentPlayback === undefined) return
+    if(typeof state?.recording?.currentPlayback.stop === 'function') {
+      return await state?.recording?.currentPlayback.stop();
+    }
+    
   } catch (error) {
     console.log(error.message);
   }
 });
+
+
 
 
 
@@ -63,6 +71,7 @@ const recordingSlice = createSlice({
     status: "loading",
     expect: false,
     recordings: [],
+    recordingObj: {},
     currentPlayback: {},
     record: false,
   },
@@ -75,6 +84,7 @@ const recordingSlice = createSlice({
     }
   },
   extraReducers: {
+    //getRecordings
     [getRecordings.pending]: (state, action) => {},
     [getRecordings.fulfilled]: (state, { payload }) => {
       state.recordings = payload;

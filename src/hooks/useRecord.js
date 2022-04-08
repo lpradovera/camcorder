@@ -1,16 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from 'react-redux';
 /**
  *
- * @param {*} room use the room parameter to manage the video session
+ * 
  * @returns use startRecord to start recording video
  * @returns use stopRecord to stop recording video
  * @returns use recordingReady record object
  */
-export const useRecord = (room) => {
+export const useRecord = () => {
   const [recordingObj, setRecordingObj] = useState();
   const [recordingReady, setRecordingReady] = useState();
   const [record, setRecord] = useState();
+  const room = useSelector(state => state?.room.room);
 
   const startRecording = async () => {
     if (!recordingObj) {

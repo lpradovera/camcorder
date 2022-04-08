@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as SignalWire from "@signalwire/js";
 import { getToken } from "../../helpers/helpers";
+import { useDispatch } from "react-redux";
+import { setRoom } from "../../features/roomSlice";
 
 export const VideoRoom = ({
   onRoomInit,
@@ -11,6 +13,8 @@ export const VideoRoom = ({
   },
   onMemberListUpdate = () => {},
 }) => {
+  const dispatch = useDispatch();
+
   let [setupDone, setSetupDone] = useState(false);
   let thisMemberId = useRef(null);
   let memberList = useRef([]);
@@ -252,7 +256,7 @@ export const VideoRoom = ({
 
         await room.join();
 
-
+        dispatch(setRoom(room));
         onRoomInit(room);
         //cameras
         let camChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
