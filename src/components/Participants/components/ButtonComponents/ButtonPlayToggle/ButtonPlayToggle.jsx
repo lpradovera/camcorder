@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Play } from "../../../../Icons/Play/Play";
 import { Pause } from "../../../../Icons/Pause/Pause";
 import { Stop } from "../../../../Icons/Stop/Stop";
@@ -10,18 +10,16 @@ import {
   stop,
 } from "../../../../../features/recordingSlice";
 
-export const ButtonPlayToggle = ({ room, id }) => {
+export const ButtonPlayToggle = ({ id }) => {
   const [waiting, setWaiting] = useState(false);
   const dispatch = useDispatch();
 
   const handlePlay = async (id) => {
     if (waiting) {
-      if (currentPlayback) {
         await dispatch(resume());
         setWaiting(false);
-      }
     } else {
-      await dispatch(play({ room, id }));
+      await dispatch(play(id));
       setWaiting(true);
     }
   };

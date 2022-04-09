@@ -17,7 +17,9 @@ export const updateMicrophone = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(id === undefined) return
       if (state.room.room !== undefined) {
+        console.log('hello')
         return await state.room.room.updateMicrophone({
           deviceId: id,
         });
@@ -41,6 +43,7 @@ export const updateCameras = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(id === undefined) return
       if (state.room.room !== undefined) {
         return await state.room.room.updateCamera({
           deviceId: id,
@@ -65,6 +68,7 @@ export const updateSpeakers = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(id === undefined) return
       if (state.room.room !== undefined) {
         return await state.room.room.updateSpeaker({
           deviceId: id,

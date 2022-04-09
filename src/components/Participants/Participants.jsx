@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 
 export const Participants = ({
   memberList,
-  room,
   offset,
   handleHide,
 }) => {
@@ -28,12 +27,11 @@ export const Participants = ({
         <TabPanel className="px-6 py-6 md:px-0 md:py-0">
           <MemberList
             memberList={memberList}
-            room={room}
           />
         </TabPanel>
         <TabPanel className="px-6 py-6">
           {location?.state?.mod ? 
-          <RecordingsList room={room} offset={offset} />
+          <RecordingsList />
           : 
           <p className='font-semibold text-slate-300 text-center'>
             Sorry, you do not have access to view video recordings

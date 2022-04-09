@@ -7,6 +7,7 @@ import {
   updateSpeakers,
   setAudioMuted,
   audioMute,
+  audioUnmute,
   roomDeaf,
   roomUndeaf,
   setVolumeMuted,
@@ -21,6 +22,7 @@ export const SpeakerButton = () => {
     dispatch(getSpeakers());
       if (volumeMuted) {
         dispatch(roomUndeaf());
+        dispatch(audioUnmute())
         dispatch(setAudioMuted(false));
         dispatch(setVolumeMuted(false));
       } else {
@@ -47,7 +49,6 @@ export const SpeakerButton = () => {
           onChange={(e) => handleChangeSpeakers(e)}
           className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
         >
-          <option value="test">test</option>
           {speakers &&
             speakers.map((speaker) => {
               return (

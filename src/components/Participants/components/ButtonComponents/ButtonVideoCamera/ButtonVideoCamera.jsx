@@ -2,20 +2,19 @@ import React from "react";
 import { VideoCamera } from "../../../../Icons/VideoCamera/VideoCamera";
 import { useDispatch } from "react-redux";
 import { setVideoMuted } from "../../../../../features/deviceSlice";
+import {participantsVideoMute, participantsVideoUnmute} from '../../../../../features/participantsSlice';
 
-export const ButtonVideoCamera = ({ room, member }) => {
+export const ButtonVideoCamera = ({ member }) => {
   const dispatch = useDispatch();
 
   const handleToggleVideoMute = async () => {
-    if (Object.keys(room).length !== 0) {
       if (member.video_muted) {
-        await room.videoUnmute({ memberId: member.id });
+        dispatch(participantsVideoUnmute(member.id))
         dispatch(setVideoMuted(false));
       } else {
-        await room.videoMute({ memberId: member.id });
+        dispatch(participantsVideoMute(member.id))
         dispatch(setVideoMuted(true));
       }
-    }
   };
 
   return (

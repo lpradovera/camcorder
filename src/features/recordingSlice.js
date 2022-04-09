@@ -1,69 +1,76 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
-
-
-export const getRecordings = createAsyncThunk("recording/getRecordings", async (room) => {
-  try {
-    return await room.getRecordings();
-  } catch (error) {
-    console.log(error.message);
+export const getRecordings = createAsyncThunk(
+  "recording/getRecordings",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    try {
+      return await state?.room?.room.getRecordings();
+    } catch (error) {
+      console.log(error.message);
+    }
   }
-});
+);
 
-export const play = createAsyncThunk("recording/Play", async (data, thunkAPI) => {
-  let id = data.id,
-    room = data.room;
+export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
-    if(state.recording.expect) return
-    let uri = await axios.get(`http://localhost:8080/get_recording/${id}`)
-    return await room.play({ url: uri.data.uri });
-
+    if (state.recording.expect) return;
+    let uri = await axios.get(`http://localhost:8080/get_recording/${id}`);
+    return await state?.room?.room.play({ url: uri.data.uri });
   } catch (error) {
-    console.log(error.message);
+    if (error.jsonrpc.code === "403") {
+      console.log(error.jsonrpc.message);
+    }
   }
 });
 
-export const resume = createAsyncThunk("recording/Resume", async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  try {
-    if(state?.recording?.currentPlayback === undefined) return
-    return await state?.recording?.currentPlayback.resume();
-  } catch (error) {
-    console.log(error.message, 'hello');
+export const resume = createAsyncThunk(
+  "recording/Resume",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    try {
+      if (state?.recording?.currentPlayback === undefined) return;
+      if (typeof state?.recording?.currentPlayback.resume === "function") {
+        return await state?.recording?.currentPlayback.resume();
+      }
+    } catch (error) {
+      if (error.jsonrpc.code === "403") {
+        console.log(error.jsonrpc.message);
+      }
+    }
   }
-});
+);
 
-export const pause = createAsyncThunk("recording/Pause", async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  try {
-    if(state?.recording?.currentPlayback === undefined) return
-    return await state?.recording?.currentPlayback.pause();
-  } catch (error) {
-    console.log(error.message);
+export const pause = createAsyncThunk(
+  "recording/Pause",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    try {
+      if (state?.recording?.currentPlayback === undefined) return;
+      if (typeof state?.recording?.currentPlayback.pause === "function") {
+        return await state?.recording?.currentPlayback.pause();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
-});
+);
 
 export const stop = createAsyncThunk("recording/Stop", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
-    if(state?.recording?.currentPlayback === undefined) return
-    if(typeof state?.recording?.currentPlayback.stop === 'function') {
+    if (state?.recording?.currentPlayback === undefined) return;
+    if (typeof state?.recording?.currentPlayback.stop === "function") {
       return await state?.recording?.currentPlayback.stop();
     }
-    
   } catch (error) {
-    console.log(error.message);
+    if (error.jsonrpc.code === "403") {
+      console.log(error.jsonrpc.message);
+    }
   }
 });
-
-
-
-
-
-
 
 const recordingSlice = createSlice({
   name: "recording",
@@ -71,24 +78,22 @@ const recordingSlice = createSlice({
     status: "loading",
     expect: false,
     recordings: [],
-    recordingObj: {},
     currentPlayback: {},
     record: false,
   },
   reducers: {
-    setExpect(state, { payload } ) {
+    setExpect(state, { payload }) {
       state.expect = payload;
     },
     setRecord(state, { payload }) {
       state.record = payload;
-    }
+    },
   },
   extraReducers: {
     //getRecordings
     [getRecordings.pending]: (state, action) => {},
     [getRecordings.fulfilled]: (state, { payload }) => {
       state.recordings = payload;
-      
     },
     [getRecordings.rejected]: (state, action) => {},
     //play

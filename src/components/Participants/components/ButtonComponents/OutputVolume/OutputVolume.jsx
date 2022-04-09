@@ -1,14 +1,24 @@
 import React from "react";
-import { handleSetOutputVolume } from "../../../../../helpers/helpers";
+import { useDispatch } from "react-redux";
+import { participantsSetOutputVolume } from "../../../../../features/participantsSlice";
 
-export const OutputVolume = ({ room, member }) => {
+export const OutputVolume = ({ member }) => {
+  const dispatch = useDispatch();
   let opacity = member.deaf ? "opacity-20" : "opacity-100";
+
+  const handleSetOutputVolume = async (e) => {
+    dispatch(
+      participantsSetOutputVolume({
+        memberId: member.id,
+        volume: e.target.value
+      })
+    );
+  };
 
   return (
     <div className="relative w-10/12 pt-2">
       <input
-        // disabled={member.audio_muted}
-        onChange={(e) => handleSetOutputVolume(e, member, room)}
+        onChange={(e) => handleSetOutputVolume(e)}
         type="range"
         id="range"
         step="5"

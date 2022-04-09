@@ -22,29 +22,9 @@ export const getDate = (d) => {
 };
 
 
-export const handleSetInputVolume = async (e, member, room) => {
-  if (Object.keys(room).length !== 0) {
-    await room.setInputVolume({
-      memberId: member.id,
-      volume: e.target.value,
-    });
-  }
-};
 
 
-export const handleSetOutputVolume = async (e, member, room) => {
-  if (Object.keys(room).length !== 0) {
-    await room.setOutputVolume({
-      memberId: member.id,
-      volume: e.target.value,
-    });
-  }
-};
 
-export const handleRemoveMember = async (room, member) => {
-  if (Object.keys(room).length !== 0) {
-    await room.removeMember({ memberId: member.id });
-  }
-};
+
 
 
