@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState} from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
@@ -11,34 +11,25 @@ import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
 import { useDispatch } from "react-redux";
-import {
-  updateSpeakers,
-  updateCameras,
-  updateMicrophone,
-} from "../../features/deviceSlice";
+import { getLayout } from '../../features/layoutSlice'
 
 export const InCall = ({ roomDetails }) => {
   const dispatch = useDispatch();
-
   const [memberList, setMemberList] = useState([]);
-  let navigate = useNavigate();
-  let [curLayout, setCurLayout] = useState();
   let [thisMemberId, setThisMemberId] = useState(null);
+  let navigate = useNavigate();
   const { handleHide, offset } = useHandleHide();
   const { room, onRoomInit } = useOnRoomInit();
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
-      if (updatedValues.cameras !== undefined) dispatch(updateCameras());
-      if (updatedValues.speakers !== undefined) dispatch(updateSpeakers());
-      if (updatedValues.microphones !== undefined)
-        console.log(updatedValues.microphones);
-      dispatch(updateMicrophone());
+      console.log(updatedValues)
       if (updatedValues.left === true) navigate("/");
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined)
-        setCurLayout(updatedValues.layout);
+        dispatch(getLayout())
+        // setCurLayout(updatedValues.layout);
     },
     [history]
   );

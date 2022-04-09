@@ -55,6 +55,7 @@ const layoutSlice = createSlice({
   extraReducers: {
     [getLayout.pending]: (state, action) => {},
     [getLayout.fulfilled]: (state, { payload }) => {
+      console.log(payload)
       state.layout = payload;
     },
     [getLayout.rejected]: (state, action) => {},

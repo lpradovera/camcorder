@@ -3,6 +3,11 @@ import * as SignalWire from "@signalwire/js";
 import { getToken } from "../../helpers/helpers";
 import { useDispatch } from "react-redux";
 import { setRoom } from "../../features/roomSlice";
+import {
+  updateSpeakers,
+  updateMicrophone,
+  updateCameras,
+} from "../../features/deviceSlice";
 
 export const VideoRoom = ({
   onRoomInit,
@@ -179,17 +184,10 @@ export const VideoRoom = ({
     thisMemberId.current = e.member_id;
     memberList.current = e.room.members;
     let thisMember = memberList.current.find((m) => m.id === e.member_id);
-    onRoomUpdate({ thisMemberId: e.member_id, member: thisMember });
+    // onRoomUpdate({ thisMemberId: e.member_id, member: thisMember });
     onMemberListUpdate(e.room.members);
     console.log(e.room.members);
     console.log("You have joined the room.");
-  };
-
-  const memberJoined = async (e) => {
-    console.log(e.member.name + " has joined the room.");
-    memberList.current.push(e.member);
-    console.log(memberList.current);
-    onMemberListUpdate(memberList.current);
   };
 
   useEffect(() => {
@@ -208,13 +206,26 @@ export const VideoRoom = ({
         } catch (e) {
           console.log(e);
         }
-        room.on("room.joined", async (e) => roomJoined(e));
+        room.on("room.joined", async (e) => {
+          thisMemberId.current = e.member_id;
+          memberList.current = e.room.members;
+          let thisMember = memberList.current.find((m) => m.id === e.member_id);
+          onRoomUpdate({ thisMemberId: e.member_id, member: thisMember });
+          onMemberListUpdate(e.room.members);
+          console.log(e.room.members);
+          console.log("You have joined the room.");
+        });
 
         room.on("room.updated", async (e) => {
           console.log("Room has been updated");
         });
 
-        room.on("member.joined", async (e) => memberJoined(e));
+        room.on("member.joined", async (e) => {
+          console.log(e.member.name + " has joined the room.");
+          memberList.current.push(e.member);
+          console.log(memberList.current);
+          onMemberListUpdate(memberList.current);
+        });
 
         room.on("member.updated", async (e) => {
           let updatedMember = memberList.current.find(
@@ -232,8 +243,8 @@ export const VideoRoom = ({
           onMemberListUpdate([...memberList.current]);
         });
         room.on("layout.changed", async (e) => {
-          currLayout.current = e.layout; // add this line
-          onRoomUpdate({ layout: e.layout.name });
+          // currLayout.current = e.layout; // add this line
+          // onRoomUpdate({ layout: e.layout.name });
         });
         room.on("member.talking", (e) => {
           // Update the UI: the participant with id `e.member.id` is talking iff e.member.talking == true
@@ -250,6 +261,10 @@ export const VideoRoom = ({
 
           if (memberThatLeft === undefined) return;
           console.log(memberThatLeft?.name + " has left the room.");
+          if (thisMemberId.current === memberThatLeft?.id) {
+            console.log("It is you who has left the room");
+            onRoomUpdate({ left: true });
+          }
           memberList.current = remainingMembers;
           onMemberListUpdate(memberList.current);
         });
@@ -263,21 +278,24 @@ export const VideoRoom = ({
           targets: ["camera"],
         });
         camChangeWatcher.on("changed", (changes) => {
-          onRoomUpdate({ cameras: changes.devices });
+          console.log(changes, "changes cameras");
+          dispatch(updateCameras());
         });
         //microphones
         let micChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
           targets: ["microphone"],
         });
         micChangeWatcher.on("changed", (changes) => {
-          onRoomUpdate({ microphones: changes.devices });
+          console.log(changes, "changes microphone");
+          dispatch(updateMicrophone());
         });
         //speakers
         let speakerChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
           targets: ["speaker"],
         });
         speakerChangeWatcher.on("changed", (changes) => {
-          onRoomUpdate({ speakers: changes.devices });
+          console.log(changes, "changes speaker");
+          dispatch(updateSpeakers());
         });
 
         console.log("You joined");
