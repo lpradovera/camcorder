@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { Refresh } from '../../../../Icons/Refresh/Refresh';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getRecordings } from "../../../../../features/recordingSlice";
 
-export const ButtonRefresh = ({room}) => {
+export const ButtonRefresh = () => {
   const [spin, setSpin] = useState(false);
+  const room = useSelector(state => state?.room?.room);
   const dispatch = useDispatch();
 
   const handleClick = () => {

@@ -3,6 +3,7 @@ import deviceSlice from './deviceSlice';
 import recordingSlice from './recordingSlice';
 import layoutSlice from './layoutSlice';
 import roomSlice from './roomSlice';
+import participantsSlice from './participantsSlice';
 
 
 export default configureStore({
@@ -11,6 +12,7 @@ export default configureStore({
         recording: recordingSlice,
         layout: layoutSlice,
         room: roomSlice,
+        participants: participantsSlice,
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

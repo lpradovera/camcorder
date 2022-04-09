@@ -3,30 +3,28 @@ import axios from "axios";
 
 export const getRecordings = createAsyncThunk(
   "recording/getRecordings",
-  async (room) => {
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
     try {
-      return await room.getRecordings();
+      return await state?.room?.room.getRecordings();
     } catch (error) {
       console.log(error.message);
     }
   }
 );
 
-export const play = createAsyncThunk(
-  "recording/Play",
-  async (data, thunkAPI) => {
-    let id = data.id,
-      room = data.room;
-    const state = thunkAPI.getState();
-    try {
-      if (state.recording.expect) return;
-      let uri = await axios.get(`http://localhost:8080/get_recording/${id}`);
-      return await room.play({ url: uri.data.uri });
-    } catch (error) {
-      console.log(error.message);
+export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
+  const state = thunkAPI.getState();
+  try {
+    if (state.recording.expect) return;
+    let uri = await axios.get(`http://localhost:8080/get_recording/${id}`);
+    return await state?.room?.room.play({ url: uri.data.uri });
+  } catch (error) {
+    if (error.jsonrpc.code === "403") {
+      console.log(error.jsonrpc.message);
     }
   }
-);
+});
 
 export const resume = createAsyncThunk(
   "recording/Resume",
@@ -38,7 +36,9 @@ export const resume = createAsyncThunk(
         return await state?.recording?.currentPlayback.resume();
       }
     } catch (error) {
-      console.log(error.message);
+      if (error.jsonrpc.code === "403") {
+        console.log(error.jsonrpc.message);
+      }
     }
   }
 );
@@ -66,11 +66,11 @@ export const stop = createAsyncThunk("recording/Stop", async (_, thunkAPI) => {
       return await state?.recording?.currentPlayback.stop();
     }
   } catch (error) {
-    console.log(error.message);
+    if (error.jsonrpc.code === "403") {
+      console.log(error.jsonrpc.message);
+    }
   }
 });
-
-
 
 const recordingSlice = createSlice({
   name: "recording",

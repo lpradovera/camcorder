@@ -57,7 +57,7 @@ export const VideoRoom = ({
             logo.style.margin = "2px";
             logo.className = "logo";
             logo.style.borderRadius = "30px";
-            logo.style.background = "#475569";
+            logo.style.background = "green";
             logo.style.minWidth = width + "px";
             volume.appendChild(logo);
           }
@@ -115,7 +115,7 @@ export const VideoRoom = ({
             logo2.style.margin = "2px";
             logo2.className = "logo2";
             logo2.style.borderRadius = "30px";
-            logo2.style.background = "#475569";
+            logo2.style.background = "green";
             logo2.style.minWidth = width + "px";
             volume2.appendChild(logo2);
           }
@@ -180,16 +180,6 @@ export const VideoRoom = ({
     }
   }
 
-  const roomJoined = async (e) => {
-    thisMemberId.current = e.member_id;
-    memberList.current = e.room.members;
-    let thisMember = memberList.current.find((m) => m.id === e.member_id);
-    // onRoomUpdate({ thisMemberId: e.member_id, member: thisMember });
-    onMemberListUpdate(e.room.members);
-    console.log(e.room.members);
-    console.log("You have joined the room.");
-  };
-
   useEffect(() => {
     if (setupDone) return;
     setup_room();
@@ -243,8 +233,7 @@ export const VideoRoom = ({
           onMemberListUpdate([...memberList.current]);
         });
         room.on("layout.changed", async (e) => {
-          // currLayout.current = e.layout; // add this line
-          // onRoomUpdate({ layout: e.layout.name });
+          currLayout.current = e.layout; // add this line
         });
         room.on("member.talking", (e) => {
           // Update the UI: the participant with id `e.member.id` is talking iff e.member.talking == true
@@ -272,7 +261,7 @@ export const VideoRoom = ({
         await room.join();
 
         dispatch(setRoom(room));
-        onRoomInit(room);
+        // onRoomInit(room);
         //cameras
         let camChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
           targets: ["camera"],
@@ -303,7 +292,7 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
-  }, [roomDetails, onRoomUpdate, onRoomInit, onMemberListUpdate, setupDone]);
+  }, [roomDetails, onRoomUpdate, onMemberListUpdate, setupDone]);
 
   return (
     <>

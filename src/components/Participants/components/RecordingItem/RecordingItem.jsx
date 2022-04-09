@@ -6,13 +6,13 @@ import { getRecordings, stop } from "../../../../features/recordingSlice";
 import { ButtonArrow } from "../ButtonComponents/ButtonArrow/ButtonArrow";
 
 
-export const RecordingItem = ({ room }) => {
+export const RecordingItem = () => {
   const dispatch = useDispatch();
-  let recording = useSelector((state) => state?.recording?.recordings);
+  const recording = useSelector((state) => state?.recording?.recordings);
   let [ids, setIds] = useState();
 
   useEffect(() => {
-    dispatch(getRecordings(room));
+    dispatch(getRecordings());
   }, [dispatch]);
 
   useEffect(() => {}, [recording]);
@@ -35,7 +35,7 @@ export const RecordingItem = ({ room }) => {
               <div className="flex pt-6 p">
                   <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids}/>
                 {ids === i + 1 ? (
-                  <ButtonPlayToggle room={room} id={r.id} />
+                  <ButtonPlayToggle id={r.id} />
                 ) : null}
               </div>
             </div>

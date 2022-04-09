@@ -4,7 +4,6 @@ import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
 import { useHandleHide } from "../../hooks/useHandleHide";
-import { useOnRoomInit } from "../../hooks/useOnRoomInit";
 import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
 import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
@@ -19,7 +18,6 @@ export const InCall = ({ roomDetails }) => {
   let [thisMemberId, setThisMemberId] = useState(null);
   let navigate = useNavigate();
   const { handleHide, offset } = useHandleHide();
-  const { room, onRoomInit } = useOnRoomInit();
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
@@ -29,10 +27,10 @@ export const InCall = ({ roomDetails }) => {
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined)
         dispatch(getLayout())
-        // setCurLayout(updatedValues.layout);
     },
     [history]
   );
+
 
   return (
     <InCallWrapper>
@@ -41,7 +39,6 @@ export const InCall = ({ roomDetails }) => {
           <VideoRoom
             offset={offset}
             members={memberList}
-            onRoomInit={onRoomInit}
             onRoomUpdate={onRoomUpdate}
             roomDetails={roomDetails}
             onMemberListUpdate={useCallback((list) => {
@@ -52,7 +49,6 @@ export const InCall = ({ roomDetails }) => {
 
         <ParticipantsWrapper offset={offset}>
           <Participants
-            room={room}
             offset={offset}
             handleHide={handleHide}
             memberList={memberList}
