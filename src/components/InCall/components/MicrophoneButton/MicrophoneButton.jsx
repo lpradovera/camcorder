@@ -27,7 +27,7 @@ export const MicrophoneButton = () => {
       }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getMicrophone());
   }, [dispatch]);
 
