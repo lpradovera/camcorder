@@ -10,6 +10,7 @@ export const VideoRoom = ({
     room: "test",
     name: "tester",
   },
+  setLeft,
   onMemberListUpdate = () => {},
 }) => {
   const dispatch = useDispatch();
@@ -241,7 +242,7 @@ export const VideoRoom = ({
           let remainingMembers = memberList.current.filter(
             (m) => m.id !== e.member.id
           );
-
+            setLeft(true)
 
           if (memberThatLeft === undefined) return;
           console.log(memberThatLeft?.name + " has left the room.");

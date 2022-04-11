@@ -21,10 +21,9 @@ export const getDate = (d) => {
   return `${addZero(date.getDate())}.${addZero(date.getMonth())}`;
 };
 
-
-
-
-
-
-
-
+export const isEmpty = (obj) => {
+  for (let key in obj) {
+    return false;
+  }
+  return true;
+};

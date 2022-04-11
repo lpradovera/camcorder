@@ -1,12 +1,15 @@
 import React from "react";
 import { ScreenShare } from "../../../Icons/ScreenShare/ScreenShare";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shareScreen } from "../../../../features/layoutSlice";
+import {isEmpty} from '../../../../helpers/helpers';
 
 export const ScreenShareButton = () => {
   const dispatch = useDispatch();
+  const room = useSelector((state) => state.room.room);
 
   const screenShareToggle = () => {
+    if (isEmpty(room)) return
     dispatch(shareScreen());
   };
 

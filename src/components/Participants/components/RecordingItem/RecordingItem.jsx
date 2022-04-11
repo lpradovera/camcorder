@@ -4,6 +4,7 @@ import { ButtonPlayToggle } from "../ButtonComponents/ButtonPlayToggle/ButtonPla
 import { useDispatch, useSelector } from "react-redux";
 import { getRecordings, stop } from "../../../../features/recordingSlice";
 import { ButtonArrow } from "../ButtonComponents/ButtonArrow/ButtonArrow";
+// import { setVideoId } from '../../../../features/recordingSlice';
 
 
 export const RecordingItem = () => {
@@ -37,6 +38,10 @@ export const RecordingItem = () => {
                 {ids === i + 1 ? (
                   <ButtonPlayToggle id={r.id} />
                 ) : null}
+                {/* {ids === i + 1 ? (
+                  <button onClick={() => dispatch(setVideoId(r.id))}>play</button>
+                ) : null} */}
+                
               </div>
             </div>
           );

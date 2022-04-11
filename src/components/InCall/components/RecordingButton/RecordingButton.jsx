@@ -1,12 +1,15 @@
 import React from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { setRecord } from "../../../../features/recordingSlice";
+import { isEmpty } from '../../../../helpers/helpers';
 
 export const RecordingButton = ({startRecording}) => {
   const dispatch = useDispatch();
   const record = useSelector(state => state?.recording?.record);
+  const room = useSelector(state => state.room.room);
 
   const recordToggle = () => {
+    if (isEmpty(room)) return
     dispatch(setRecord(!record));
   }
 

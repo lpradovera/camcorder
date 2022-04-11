@@ -82,6 +82,7 @@ const recordingSlice = createSlice({
     recordings: [],
     currentPlayback: {},
     record: false,
+    id: '',
   },
   reducers: {
     setExpect(state, { payload }) {
@@ -90,6 +91,10 @@ const recordingSlice = createSlice({
     setRecord(state, { payload }) {
       state.record = payload;
     },
+    setVideoId(state, { payload }) {
+      state.id = payload;
+      console.log(payload);
+    }
   },
   extraReducers: {
     //getRecordings
@@ -99,37 +104,42 @@ const recordingSlice = createSlice({
     },
     [getRecordings.rejected]: (state, action) => {},
     //play
-    [play.pending]: (state, action) => {},
+    [play.pending]: (state, action) => {
+
+    },
     [play.fulfilled]: (state, { payload }) => {
       state.currentPlayback = payload;
       state.expect = true;
+      console.log(state.currentPlayback, 'play')
     },
-    [play.rejected]: (state, action) => {
-      // console.log(payload, 'hello')
+    [play.rejected]: (state, { payload }) => {
     },
     //resume
     [resume.pending]: (state, action) => {},
     [resume.fulfilled]: (state, { payload }) => {
       state.expect = false;
+      console.log(state.currentPlayback, 'resume')
     },
     [resume.rejected]: (state, action) => {
-      // console.log(payload, 'hello')
     },
     //pause
     [pause.pending]: (state, action) => {},
     [pause.fulfilled]: (state, { payload }) => {
       state.expect = false;
+      console.log(state.currentPlayback, 'pause')
     },
     [pause.rejected]: (state, action) => {},
     //stop
     [stop.pending]: (state, action) => {},
     [stop.fulfilled]: (state, { payload }) => {
       state.expect = false;
+      console.log(state.currentPlayback, 'stop')
+      state.currentPlayback = {}
     },
     [stop.rejected]: (state, action) => {},
   },
 });
 
-export const { setExpect, setRecord } = recordingSlice.actions;
+export const { setExpect, setRecord, setVideoId } = recordingSlice.actions;
 
 export default recordingSlice.reducer;
