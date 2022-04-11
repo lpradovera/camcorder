@@ -65,16 +65,6 @@ app.get("/get_recordings", async (req, res) => {
   }
 });
 
-app.get("/rooms", async (req, res) => {
-  const rooms = await axios.get(`${apiurl}/rooms`, { auth });
-  res.json(rooms.data.data);
-});
-
-app.get("/api/test", (req, res) => {
-  console.log("API call");
-  res.json({ message: "Hello from server!" });
-});
-
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

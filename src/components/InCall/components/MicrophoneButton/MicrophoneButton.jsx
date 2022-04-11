@@ -16,9 +16,9 @@ export const MicrophoneButton = () => {
   const audioMuted = useSelector((state) => state?.device?.audioMuted);
   const room = useSelector(state => state.room.room);
 
-  const handleToggleSelfAudioMuted = async () => {
-    if(isEmpty(room)) return 
+  const handleToggleSelfAudioMuted = async () => { 
     dispatch(getMicrophone());
+    if(isEmpty(room)) return
       if (audioMuted) {
         dispatch(audioUnmute());
         dispatch(setAudioMuted(false));
@@ -29,13 +29,11 @@ export const MicrophoneButton = () => {
   };
 
   const handleChangeMicrophone = (e) => {
-    if(isEmpty(room)) return 
     dispatch(getMicrophone());
     dispatch(updateMicrophone(e.target.value));
   };
 
-  useEffect(() => {
-    if(isEmpty(room)) return 
+  useEffect(() => { 
     dispatch(getMicrophone());
   }, [dispatch]);
 

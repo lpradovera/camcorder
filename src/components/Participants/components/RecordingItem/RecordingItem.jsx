@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRecordings, stop } from "../../../../features/recordingSlice";
 import { ButtonArrow } from "../ButtonComponents/ButtonArrow/ButtonArrow";
 
-
 export const RecordingItem = () => {
   const dispatch = useDispatch();
   const recording = useSelector((state) => state?.recording?.recordings);
@@ -36,7 +35,7 @@ export const RecordingItem = () => {
                   <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids}/>
                 {ids === i + 1 ? (
                   <ButtonPlayToggle id={r.id} />
-                ) : null}
+                ) : null} 
               </div>
             </div>
           );

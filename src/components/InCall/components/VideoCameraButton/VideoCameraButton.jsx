@@ -3,22 +3,21 @@ import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCameras,
-  updateCameras,
   videoUnmute,
   videoMute,
 } from "../../../../features/deviceSlice";
 import { setVideoMuted } from "../../../../features/deviceSlice";
 import { isEmpty } from "../../../../helpers/helpers";
+import { ChangeCamera } from './components/ChangeCamera/ChangeCamera';
 
 export const VideoCameraButton = () => {
   const dispatch = useDispatch();
-  const cameras = useSelector((state) => state?.device?.cameras);
   const videoMuted = useSelector((state) => state?.device?.videoMuted);
   const room = useSelector((state) => state.room.room);
 
   const handleToggleSelfVideoMuted = async () => {
-    if (isEmpty(room)) return
     dispatch(getCameras());
+    if(isEmpty(room)) return
       if (videoMuted) {
         dispatch(videoUnmute());
         dispatch(setVideoMuted(false));
@@ -28,37 +27,14 @@ export const VideoCameraButton = () => {
       }
   };
 
-  const handleChangeCamera = (e) => {
-    if(isEmpty(room)) return
-    dispatch(getCameras());
-    dispatch(updateCameras(e.target.value));
-  };
-
   useEffect(() => {
-    if(isEmpty(room)) return
     dispatch(getCameras());
   }, [dispatch]);
 
   return (
     <div className="flex flex-col relative px-2 pb-4">
       <div className="flex">
-        <select
-          onChange={(e) => handleChangeCamera(e)}
-          className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
-        >
-          {cameras &&
-            cameras.map((cam) => {
-              return (
-                <option
-                  className="absolute top-[-20px]"
-                  key={cam.deviceId}
-                  value={cam.deviceId}
-                >
-                  {cam.label}
-                </option>
-              );
-            })}
-        </select>
+        <ChangeCamera />
 
         <button
           className={`flex dark:bg-slate-500 hover:dark:bg-slate-400

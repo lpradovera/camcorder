@@ -10,18 +10,18 @@ import {
   stop,
 } from "../../../../../features/recordingSlice";
 
+
 export const ButtonPlayToggle = ({ id }) => {
   const [waiting, setWaiting] = useState(false);
   const dispatch = useDispatch();
 
-  const handlePlay = async (id) => {
+  const handlePlay = (id) => {
     if (waiting) {
-      await dispatch(resume());
+      dispatch(resume());
       setWaiting(false);
-
     } else {
-      await dispatch(play(id));
-      setWaiting(true);
+        dispatch(play(id));
+        setWaiting(true);
     }
   };
 
@@ -33,7 +33,6 @@ export const ButtonPlayToggle = ({ id }) => {
   const handleStop = async () => {
     await dispatch(stop());
     setWaiting(false);
-
   };
 
   return (
