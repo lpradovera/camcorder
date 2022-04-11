@@ -3,11 +3,6 @@ import * as SignalWire from "@signalwire/js";
 import { getToken } from "../../helpers/helpers";
 import { useDispatch } from "react-redux";
 import { setRoom } from "../../features/roomSlice";
-import {
-  updateSpeakers,
-  updateMicrophone,
-  updateCameras,
-} from "../../features/deviceSlice";
 
 export const VideoRoom = ({
   onRoomUpdate,

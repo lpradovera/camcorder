@@ -5,6 +5,7 @@ export const participantsVideoUnmute = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.videoUnmute) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.videoUnmute({ memberId: id });
       }
@@ -19,6 +20,7 @@ export const participantsVideoMute = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.videoMute) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.videoMute({ memberId: id });
       }
@@ -33,6 +35,7 @@ export const participantsRemoveMember = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.removeMember) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.removeMember({ memberId: id });
       }
@@ -49,6 +52,7 @@ export const participantsSetInputVolume = createAsyncThunk(
       volume = data.volume;
     const state = thunkAPI.getState();
     try {
+      if (typeof (state.room.room.setInputVolume) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.setInputVolume({
           memberId: id,
@@ -68,6 +72,7 @@ export const participantsSetOutputVolume = createAsyncThunk(
       volume = data.volume;
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.setOutputVolume) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.setOutputVolume({
           memberId: id,
@@ -85,6 +90,7 @@ export const participantsAudioUnmute = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.audioUnmute) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.audioUnmute({ memberId: id });
       }
@@ -99,6 +105,7 @@ export const participantsAudioMute = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.audioMute) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.audioMute({ memberId: id });
       }
@@ -113,6 +120,7 @@ export const participantsDeaf = createAsyncThunk(
   async (memberId, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.deaf) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.deaf({ memberId: memberId.id });
       }
@@ -127,6 +135,7 @@ export const participantsUndeaf = createAsyncThunk(
   async (memberId, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.undeaf) !== 'function') return
       if (state.room.room !== undefined) {
         await state?.room?.room.undeaf({ memberId: memberId.id });
       }

@@ -34,8 +34,6 @@ export const InCall = ({ roomDetails }) => {
           state: {},
         });
       }
-
-        
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined) dispatch(getLayout());

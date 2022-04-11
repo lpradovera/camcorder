@@ -17,9 +17,9 @@ export const updateMicrophone = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.updateMicrophone) !== 'function') return
       if(id === undefined) return
       if (state.room.room !== undefined) {
-        console.log('hello')
         return await state.room.room.updateMicrophone({
           deviceId: id,
         });
@@ -43,6 +43,7 @@ export const updateCameras = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.updateCamera) !== 'function') return
       if(id === undefined) return
       if (state.room.room !== undefined) {
         return await state.room.room.updateCamera({
@@ -68,6 +69,7 @@ export const updateSpeakers = createAsyncThunk(
   async (id, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.updateSpeaker) !== 'function') return
       if(id === undefined) return
       if (state.room.room !== undefined) {
         return await state.room.room.updateSpeaker({
@@ -85,6 +87,7 @@ export const videoUnmute = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.videoUnmute) !== 'function') return
       if (state.room.room !== undefined) {
         await state.room.room.videoUnmute();
       }
@@ -99,6 +102,7 @@ export const videoMute = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.videoMute) !== 'function') return
       if (state.room.room !== undefined) {
         await state.room.room.videoMute();
       }
@@ -113,6 +117,7 @@ export const audioUnmute = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.audioUnmute) !== 'function') return 
       if (state.room.room !== undefined) {
         await state.room.room.audioUnmute();
       }
@@ -127,6 +132,7 @@ export const audioMute = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.audioMute) !== 'function') return
       if (state.room.room !== undefined) {
         await state.room.room.audioMute();
       }
@@ -141,6 +147,7 @@ export const roomUndeaf = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.undeaf) !== 'function') return 
       if (state.room.room !== undefined) {
         await state.room.room.undeaf();
       }
@@ -155,6 +162,7 @@ export const roomDeaf = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.deaf) !== 'function') return
       if (state.room.room !== undefined) {
         await state.room.room.deaf();
       }
