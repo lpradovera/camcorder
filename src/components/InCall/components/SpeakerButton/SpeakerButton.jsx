@@ -21,8 +21,8 @@ export const SpeakerButton = () => {
   const room = useSelector((state) => state.room.room);
 
   const handleToggleDeaf = async () => {
-    if (isEmpty(room)) return;
     dispatch(getSpeakers());
+    if(isEmpty(room)) return
     if (volumeMuted) {
       dispatch(roomUndeaf());
       dispatch(audioUnmute());
@@ -37,12 +37,10 @@ export const SpeakerButton = () => {
   };
 
   const handleChangeSpeakers = async (e) => {
-    if (isEmpty(room)) return;
     dispatch(updateSpeakers(e.target.value));
   };
 
   useEffect(() => {
-    if (isEmpty(room)) return;
     dispatch(getSpeakers());
   }, [dispatch]);
 
