@@ -32,9 +32,9 @@ export const VideoRoom = ({
       if (member.id === memberId) {
         let div = document.querySelector("#name");
         div.innerHTML = member.name;
-        //////////////////////////
-        //////////volume testing
-        //////////////////////////
+
+
+
         if (layer && speaking) {
           let volume = document.querySelector("#volume"),
             num = 20,
@@ -91,8 +91,9 @@ export const VideoRoom = ({
             }
           }
         }
-        // volume testing
+
         //volume2
+
         if (layer && speaking) {
           let volume2 = document.querySelector("#volume2"),
             num = 20,
@@ -164,7 +165,6 @@ export const VideoRoom = ({
         height: layer.height + "%",
         zIndex: 1,
         background: "transparent",
-        // border: "5px solid #034DF6",
         border: "5px solid #475569",
         borderRadius: "1px",
         opacity: "50%",
