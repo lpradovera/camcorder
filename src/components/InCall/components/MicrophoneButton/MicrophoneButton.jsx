@@ -3,16 +3,15 @@ import { Microphone } from "../../../Icons/Microphone/Microphone";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getMicrophone,
-  updateMicrophone,
   setAudioMuted,
   audioMute,
   audioUnmute,
 } from "../../../../features/deviceSlice";
 import { isEmpty } from '../../../../helpers/helpers';
+import { ChangeMicrophone } from './components/ChangeMicrophone/ChangeMicrophone';
 
 export const MicrophoneButton = () => {
   const dispatch = useDispatch();
-  const microphones = useSelector((state) => state?.device?.microphones);
   const audioMuted = useSelector((state) => state?.device?.audioMuted);
   const room = useSelector(state => state.room.room);
 
@@ -28,32 +27,14 @@ export const MicrophoneButton = () => {
       }
   };
 
-  const handleChangeMicrophone = (e) => {
-    dispatch(getMicrophone());
-    dispatch(updateMicrophone(e.target.value));
-  };
-
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getMicrophone());
   }, [dispatch]);
 
   return (
     <div className="flex flex-col justify-center relative px-2 pb-4">
       <div className="flex">
-        <select
-          onChange={(e) => handleChangeMicrophone(e)}
-          className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
-        >
-          {microphones &&
-            microphones.map((mic) => {
-              return (
-                <option key={mic?.deviceId} value={mic?.deviceId}>
-                  {mic?.label}
-                </option>
-              );
-            })}
-        </select>
-
+        <ChangeMicrophone />
         <button
           className={`flex dark:bg-slate-500 hover:dark:bg-slate-400
           rounded-r justify-center pt-4 border-l-2 border-slate-400

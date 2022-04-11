@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
 import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSpeakers,
-  updateSpeakers,
   setAudioMuted,
   audioMute,
   audioUnmute,
@@ -13,10 +12,10 @@ import {
   setVolumeMuted,
 } from "../../../../features/deviceSlice";
 import { isEmpty } from "../../../../helpers/helpers";
+import {ChangeSpeaker} from './components/ChangeSpeaker/ChangeSpeaker';
 
 export const SpeakerButton = () => {
   const dispatch = useDispatch();
-  const speakers = useSelector((state) => state?.device?.speakers);
   const volumeMuted = useSelector((state) => state?.device?.volumeMuted);
   const room = useSelector((state) => state.room.room);
 
@@ -36,31 +35,11 @@ export const SpeakerButton = () => {
     }
   };
 
-  const handleChangeSpeakers = async (e) => {
-    dispatch(updateSpeakers(e.target.value));
-  };
-
-  useEffect(() => {
-    dispatch(getSpeakers());
-  }, [dispatch]);
 
   return (
     <div className="flex flex-col relative px-2 pb-4">
       <div className="flex">
-        <select
-          onClick={() => dispatch(getSpeakers())}
-          onChange={(e) => handleChangeSpeakers(e)}
-          className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
-        >
-          {speakers &&
-            speakers.map((speaker) => {
-              return (
-                <option key={speaker.deviceId} value={speaker.deviceId}>
-                  {speaker.label}
-                </option>
-              );
-            })}
-        </select>
+        <ChangeSpeaker />
 
         <div className="flex justify-center">
           <button

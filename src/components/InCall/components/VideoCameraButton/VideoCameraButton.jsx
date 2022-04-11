@@ -27,9 +27,6 @@ export const VideoCameraButton = () => {
       }
   };
 
-  useEffect(() => {
-    dispatch(getCameras());
-  }, [dispatch]);
 
   return (
     <div className="flex flex-col relative px-2 pb-4">
