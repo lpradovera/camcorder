@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
 import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +12,16 @@ import {
   roomUndeaf,
   setVolumeMuted,
 } from "../../../../features/deviceSlice";
+import {isEmpty } from '../../../../helpers/helpers';
 
 export const SpeakerButton = () => {
   const dispatch = useDispatch();
   const speakers = useSelector((state) => state?.device?.speakers);
   const volumeMuted = useSelector((state) => state?.device?.volumeMuted);
+  const room = useSelector(state => state.room.room);
 
   const handleToggleDeaf = async () => {
+    if (isEmpty(room)) return
     dispatch(getSpeakers());
       if (volumeMuted) {
         dispatch(roomUndeaf());
@@ -34,10 +37,12 @@ export const SpeakerButton = () => {
   };
 
   const handleChangeSpeakers = async (e) => {
+    if (isEmpty(room)) return
     dispatch(updateSpeakers(e.target.value));
   };
 
   useEffect(() => {
+    if (isEmpty(room)) return
     dispatch(getSpeakers());
   }, [dispatch]);
 

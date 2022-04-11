@@ -41,7 +41,7 @@ export const InviteForm = ({ roomName, onJoin = () => {}, mod = false }) => {
                   setJoinAsGuest(e.target.checked);
                 }}
               />
-              <label htmlFor="mod">
+              <label htmlFor="mod" className="text-slate-300 pl-3">
                 Please add me without moderator privileges
               </label>
             </>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
@@ -29,7 +29,6 @@ export const InCall = ({ roomDetails }) => {
     (updatedValues) => {
       console.log(updatedValues);
       if (updatedValues.left === true) {
-        setLeft(true);
         navigate("/", {
           state: {},
         });
@@ -43,12 +42,18 @@ export const InCall = ({ roomDetails }) => {
     },
     [history]
   );
+  useEffect(() => {
+    return () => {
+      setThisMemberId()
+    }
+  }, [])
 
   return (
     <InCallWrapper>
       <VideoParticipantsWrapper>
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
+            setLeft={setLeft}
             onRoomUpdate={onRoomUpdate}
             roomDetails={roomDetails}
             onMemberListUpdate={useCallback((list) => {

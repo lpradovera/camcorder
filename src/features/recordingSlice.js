@@ -99,13 +99,14 @@ const recordingSlice = createSlice({
     },
     [getRecordings.rejected]: (state, action) => {},
     //play
-    [play.pending]: (state, action) => {},
+    [play.pending]: (state, action) => {
+
+    },
     [play.fulfilled]: (state, { payload }) => {
       state.currentPlayback = payload;
       state.expect = true;
     },
-    [play.rejected]: (state, action) => {
-      // console.log(payload, 'hello')
+    [play.rejected]: (state, { payload }) => {
     },
     //resume
     [resume.pending]: (state, action) => {},
@@ -113,7 +114,6 @@ const recordingSlice = createSlice({
       state.expect = false;
     },
     [resume.rejected]: (state, action) => {
-      // console.log(payload, 'hello')
     },
     //pause
     [pause.pending]: (state, action) => {},

@@ -1,14 +1,17 @@
 import React from "react";
 import { PhoneMissedCall } from "../../../Icons/PhoneMissedCall/PhoneMissedCall";
 import { useNavigate } from "react-router-dom";
-import {useDispatch } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import { roomLeave } from "../../../../features/roomSlice";
+import { isEmpty } from '../../../../helpers/helpers';
 
 export const PhoneMissedCallButton = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const room = useSelector(state => state.room.room)
  
   const handleRoomLeave = () => {
+    if (isEmpty(room)) return
     dispatch(roomLeave());
 
     setTimeout(() => {

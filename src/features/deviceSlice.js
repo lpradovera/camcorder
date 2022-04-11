@@ -104,7 +104,7 @@ export const videoMute = createAsyncThunk(
     try {
       if(typeof (state.room.room.videoMute) !== 'function') return
       if (state.room.room !== undefined) {
-        await state.room.room.videoMute();
+        await state?.room?.room?.videoMute();
       }
     } catch (error) {
       console.log(error.message);

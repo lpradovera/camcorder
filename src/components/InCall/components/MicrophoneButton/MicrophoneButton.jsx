@@ -8,13 +8,16 @@ import {
   audioMute,
   audioUnmute,
 } from "../../../../features/deviceSlice";
+import { isEmpty } from '../../../../helpers/helpers';
 
 export const MicrophoneButton = () => {
   const dispatch = useDispatch();
   const microphones = useSelector((state) => state?.device?.microphones);
   const audioMuted = useSelector((state) => state?.device?.audioMuted);
+  const room = useSelector(state => state.room.room);
 
   const handleToggleSelfAudioMuted = async () => {
+    if(isEmpty(room)) return 
     dispatch(getMicrophone());
       if (audioMuted) {
         dispatch(audioUnmute());
@@ -26,11 +29,13 @@ export const MicrophoneButton = () => {
   };
 
   const handleChangeMicrophone = (e) => {
+    if(isEmpty(room)) return 
     dispatch(getMicrophone());
     dispatch(updateMicrophone(e.target.value));
   };
 
   useEffect(() => {
+    if(isEmpty(room)) return 
     dispatch(getMicrophone());
   }, [dispatch]);
 

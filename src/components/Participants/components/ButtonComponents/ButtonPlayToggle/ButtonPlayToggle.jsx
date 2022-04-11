@@ -18,6 +18,7 @@ export const ButtonPlayToggle = ({ id }) => {
     if (waiting) {
       await dispatch(resume());
       setWaiting(false);
+
     } else {
       await dispatch(play(id));
       setWaiting(true);
@@ -32,6 +33,7 @@ export const ButtonPlayToggle = ({ id }) => {
   const handleStop = async () => {
     await dispatch(stop());
     setWaiting(false);
+
   };
 
   return (

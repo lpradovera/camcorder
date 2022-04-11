@@ -8,29 +8,34 @@ import {
   videoMute,
 } from "../../../../features/deviceSlice";
 import { setVideoMuted } from "../../../../features/deviceSlice";
+import { isEmpty } from "../../../../helpers/helpers";
 
 export const VideoCameraButton = () => {
   const dispatch = useDispatch();
   const cameras = useSelector((state) => state?.device?.cameras);
   const videoMuted = useSelector((state) => state?.device?.videoMuted);
+  const room = useSelector((state) => state.room.room);
 
   const handleToggleSelfVideoMuted = async () => {
+    if (isEmpty(room)) return
     dispatch(getCameras());
-    if (videoMuted) {
-      dispatch(videoUnmute());
-      dispatch(setVideoMuted(false));
-    } else {
-      dispatch(videoMute());
-      dispatch(setVideoMuted(true));
-    }
+      if (videoMuted) {
+        dispatch(videoUnmute());
+        dispatch(setVideoMuted(false));
+      } else {
+        dispatch(videoMute());
+        dispatch(setVideoMuted(true));
+      }
   };
 
   const handleChangeCamera = (e) => {
+    if(isEmpty(room)) return
     dispatch(getCameras());
     dispatch(updateCameras(e.target.value));
   };
 
   useEffect(() => {
+    if(isEmpty(room)) return
     dispatch(getCameras());
   }, [dispatch]);
 
