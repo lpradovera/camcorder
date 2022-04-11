@@ -10,7 +10,6 @@ import {
 } from "../../features/deviceSlice";
 
 export const VideoRoom = ({
-  onRoomInit,
   onRoomUpdate,
   roomDetails: roomDetails = {
     room: "test",
@@ -248,6 +247,7 @@ export const VideoRoom = ({
             (m) => m.id !== e.member.id
           );
 
+
           if (memberThatLeft === undefined) return;
           console.log(memberThatLeft?.name + " has left the room.");
           if (thisMemberId.current === memberThatLeft?.id) {
@@ -261,14 +261,13 @@ export const VideoRoom = ({
         await room.join();
 
         dispatch(setRoom(room));
-        // onRoomInit(room);
         //cameras
         let camChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
           targets: ["camera"],
         });
         camChangeWatcher.on("changed", (changes) => {
           console.log(changes, "changes cameras");
-          dispatch(updateCameras());
+          onRoomUpdate({ cameras: changes.devices });
         });
         //microphones
         let micChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
@@ -276,7 +275,7 @@ export const VideoRoom = ({
         });
         micChangeWatcher.on("changed", (changes) => {
           console.log(changes, "changes microphone");
-          dispatch(updateMicrophone());
+          onRoomUpdate({ microphones: changes.devices });
         });
         //speakers
         let speakerChangeWatcher = await SignalWire.WebRTC.createDeviceWatcher({
@@ -284,7 +283,7 @@ export const VideoRoom = ({
         });
         speakerChangeWatcher.on("changed", (changes) => {
           console.log(changes, "changes speaker");
-          dispatch(updateSpeakers());
+          onRoomUpdate({ speakers: changes.devices });
         });
 
         console.log("You joined");
@@ -292,6 +291,7 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
+    
   }, [roomDetails, onRoomUpdate, onMemberListUpdate, setupDone]);
 
   return (

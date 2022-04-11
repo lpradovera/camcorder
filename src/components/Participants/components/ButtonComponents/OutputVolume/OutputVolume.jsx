@@ -18,6 +18,7 @@ export const OutputVolume = ({ member }) => {
   return (
     <div className="relative w-10/12 pt-2">
       <input
+        disabled={member.deaf}
         onChange={(e) => handleSetOutputVolume(e)}
         type="range"
         id="range"

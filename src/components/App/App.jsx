@@ -33,6 +33,9 @@ export const App = () => {
         mod: location.state.mod,
       });
     }
+    return () => {
+      setRoomDetails({})
+    }
   }, []);
 
   const InCallRoute = ({ roomDetails }) => {
