@@ -76,7 +76,6 @@ export const App = () => {
               />
             }
           />
-
           <Route
             path="in-call"
             element={<InCallRoute roomDetails={roomDetails} />}

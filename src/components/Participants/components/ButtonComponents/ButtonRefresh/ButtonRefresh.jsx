@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Refresh } from '../../../../Icons/Refresh/Refresh';
 import { useDispatch, useSelector } from "react-redux";
 import { getRecordings } from "../../../../../features/recordingSlice";
+import { isEmpty } from '../../../../../helpers/helpers';
 
 export const ButtonRefresh = () => {
   const [spin, setSpin] = useState(false);
@@ -9,6 +10,7 @@ export const ButtonRefresh = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    if(isEmpty(room)) return
     setSpin(true);
     dispatch(getRecordings(room));
     setTimeout(() => setSpin(false), 1000);

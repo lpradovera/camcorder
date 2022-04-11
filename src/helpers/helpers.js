@@ -16,6 +16,7 @@ const addZero = (elem) => {
     return elem;
   }
 };
+
 export const getDate = (d) => {
   let date = new Date(d);
   return `${addZero(date.getDate())}.${addZero(date.getMonth())}`;

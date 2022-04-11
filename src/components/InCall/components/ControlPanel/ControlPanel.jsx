@@ -18,6 +18,7 @@ export const ControlPanel = ({
   const { startRecording, recordingReady } = useRecord();
   const location = useLocation();
   const record = useSelector((state) => state?.recording?.record);
+  const {mod} = location?.state;
 
   return (
     <>
@@ -32,16 +33,16 @@ export const ControlPanel = ({
 
           <MicrophoneButton />
           <SpeakerButton />
-          {location.state.mod ? (
+          {mod ? (
             <RecordingButton startRecording={startRecording} />
           ) : null}
 
-          {location.state.mod ? (
+          {mod ? (
             <GetRecordButton recordingReady={recordingReady} />
           ) : null}
 
           <Invite mod={roomDetails.mod} room={roomDetails.room} />
-          {location.state.mod ? <LayoutButton /> : null}
+          {mod ? <LayoutButton /> : null}
           <ScreenShareButton />
           <PhoneMissedCallButton />
         </div>

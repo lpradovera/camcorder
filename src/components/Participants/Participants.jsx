@@ -5,12 +5,9 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { RecordingsList } from "./components/RecordingsList/RecordingsList";
 import { useLocation } from "react-router-dom";
 
-export const Participants = ({
-  memberList,
-  offset,
-  handleHide,
-}) => {
+export const Participants = ({ memberList, offset, handleHide }) => {
   const location = useLocation();
+  const { mod } = location?.state;
   return (
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
@@ -28,7 +25,7 @@ export const Participants = ({
           <MemberList memberList={memberList} />
         </TabPanel>
         <TabPanel className="px-6 py-6">
-          {location?.state?.mod ? (
+          {mod ? (
             <RecordingsList />
           ) : (
             <p className="font-semibold text-slate-300 text-center">
