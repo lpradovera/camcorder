@@ -6,6 +6,7 @@ export const getRecordings = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     try {
+      if(typeof (state.room.room.getRecordings) !== 'function') return
       return await state?.room?.room.getRecordings();
     } catch (error) {
       console.log(error.message);
@@ -18,6 +19,7 @@ export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
   try {
     if (state.recording.expect) return;
     let uri = await axios.get(`http://localhost:8080/get_recording/${id}`);
+    if(typeof (state.room.room.play) !== 'function') return
     return await state?.room?.room.play({ url: uri.data.uri });
   } catch (error) {
     if (error.jsonrpc.code === "403") {
@@ -32,7 +34,7 @@ export const resume = createAsyncThunk(
     const state = thunkAPI.getState();
     try {
       if (state?.recording?.currentPlayback === undefined) return;
-      if (typeof state?.recording?.currentPlayback.resume === "function") {
+      if (typeof (state?.recording?.currentPlayback.resume) === "function") {
         return await state?.recording?.currentPlayback.resume();
       }
     } catch (error) {
@@ -49,7 +51,7 @@ export const pause = createAsyncThunk(
     const state = thunkAPI.getState();
     try {
       if (state?.recording?.currentPlayback === undefined) return;
-      if (typeof state?.recording?.currentPlayback.pause === "function") {
+      if (typeof (state?.recording?.currentPlayback.pause) === "function") {
         return await state?.recording?.currentPlayback.pause();
       }
     } catch (error) {
@@ -62,7 +64,7 @@ export const stop = createAsyncThunk("recording/Stop", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
     if (state?.recording?.currentPlayback === undefined) return;
-    if (typeof state?.recording?.currentPlayback.stop === "function") {
+    if (typeof (state?.recording?.currentPlayback.stop) === "function") {
       return await state?.recording?.currentPlayback.stop();
     }
   } catch (error) {
@@ -102,13 +104,17 @@ const recordingSlice = createSlice({
       state.currentPlayback = payload;
       state.expect = true;
     },
-    [play.rejected]: (state, action) => {},
+    [play.rejected]: (state, action) => {
+      // console.log(payload, 'hello')
+    },
     //resume
     [resume.pending]: (state, action) => {},
     [resume.fulfilled]: (state, { payload }) => {
       state.expect = false;
     },
-    [resume.rejected]: (state, action) => {},
+    [resume.rejected]: (state, action) => {
+      // console.log(payload, 'hello')
+    },
     //pause
     [pause.pending]: (state, action) => {},
     [pause.fulfilled]: (state, { payload }) => {

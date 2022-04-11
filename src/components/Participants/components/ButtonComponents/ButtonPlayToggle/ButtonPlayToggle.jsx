@@ -16,8 +16,8 @@ export const ButtonPlayToggle = ({ id }) => {
 
   const handlePlay = async (id) => {
     if (waiting) {
-        await dispatch(resume());
-        setWaiting(false);
+      await dispatch(resume());
+      setWaiting(false);
     } else {
       await dispatch(play(id));
       setWaiting(true);

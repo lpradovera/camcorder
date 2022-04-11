@@ -13,6 +13,7 @@ export const setRoom = createAsyncThunk("room/setRoom", async (room) => {
 export const roomLeave = createAsyncThunk("room/roomLeave", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   try {
+    if(typeof (state.room.room.leave) !== 'function') return
     if (state.room.room !== undefined) {
       await state.room.room.leave();
     }

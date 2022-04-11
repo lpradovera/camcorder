@@ -1,4 +1,4 @@
-import React, { useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
 import { Participants } from "../Participants/Participants";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel";
@@ -10,35 +10,45 @@ import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
 import { useDispatch } from "react-redux";
-import { getLayout } from '../../features/layoutSlice'
+import { getLayout } from "../../features/layoutSlice";
+import {
+  updateSpeakers,
+  updateMicrophone,
+  updateCameras,
+} from "../../features/deviceSlice";
 
 export const InCall = ({ roomDetails }) => {
   const dispatch = useDispatch();
   const [memberList, setMemberList] = useState([]);
   let [thisMemberId, setThisMemberId] = useState(null);
+  const [left, setLeft] = useState(false);
   let navigate = useNavigate();
   const { handleHide, offset } = useHandleHide();
 
   let onRoomUpdate = useCallback(
     (updatedValues) => {
-      console.log(updatedValues)
-      if (updatedValues.left === true) navigate("/");
+      console.log(updatedValues);
+      if (updatedValues.left === true) {
+        setLeft(true);
+        navigate("/", {
+          state: {},
+        });
+      }
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
-      if (updatedValues.layout !== undefined)
-        dispatch(getLayout())
+      if (updatedValues.layout !== undefined) dispatch(getLayout());
+      if (updatedValues.cameras !== undefined) dispatch(updateCameras());
+      if (updatedValues.speakers !== undefined) dispatch(updateMicrophone());
+      if (updatedValues.microphones !== undefined) dispatch(updateSpeakers());
     },
     [history]
   );
-
 
   return (
     <InCallWrapper>
       <VideoParticipantsWrapper>
         <VideoRoomWrapper offset={offset}>
           <VideoRoom
-            offset={offset}
-            members={memberList}
             onRoomUpdate={onRoomUpdate}
             roomDetails={roomDetails}
             onMemberListUpdate={useCallback((list) => {
@@ -52,7 +62,6 @@ export const InCall = ({ roomDetails }) => {
             offset={offset}
             handleHide={handleHide}
             memberList={memberList}
-            onMemberUpdate={(event) => memberUpdate(event)}
           />
         </ParticipantsWrapper>
       </VideoParticipantsWrapper>
