@@ -9,6 +9,7 @@ import { OutputVolume } from "../ButtonComponents/OutputVolume/OutputVolume";
 
 export const MemberList = ({ memberList }) => {
   const location = useLocation();
+  const { mod, name } = location?.state;
 
   return (
     <>
@@ -23,18 +24,18 @@ export const MemberList = ({ memberList }) => {
                 <span className="dark:text-slate-300 text-lg pt-1 pr-3">
                   {member.name}
                 </span>
-                {location?.state?.mod ? (
+                {mod ? (
                   <div className="w-2/5">
                     <ButtonVideoCamera member={member} />
                   </div>
                 ) : null}
                 <div className="w-24 flex justify-end">
-                  {location?.state?.mod ? (
+                  {mod ? (
                     <ButtonRemoveMember member={member} />
                   ) : null}
                 </div>
               </div>
-              {location?.state?.name === member.name || location?.state?.mod ? (
+              {name === member.name || mod ? (
                 <>
                   <div className="flex justify-between">
                     <InputVolume member={member} />

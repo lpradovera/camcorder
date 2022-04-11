@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { PhoneMissedCall } from "../../../../Icons/PhoneMissedCall/PhoneMissedCall";
 import {useDispatch} from 'react-redux';
 import { participantsRemoveMember } from '../../../../../features/participantsSlice';

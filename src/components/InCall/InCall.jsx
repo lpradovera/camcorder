@@ -61,7 +61,6 @@ export const InCall = ({ roomDetails }) => {
               setMemberList(list);
             }, [])}
           />
-          
         </VideoRoomWrapper>
 
         <ParticipantsWrapper offset={offset}>

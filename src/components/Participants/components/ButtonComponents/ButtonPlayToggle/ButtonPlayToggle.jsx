@@ -8,7 +8,6 @@ import {
   resume,
   pause,
   stop,
-  // setVideoId,
 } from "../../../../../features/recordingSlice";
 
 
@@ -34,7 +33,6 @@ export const ButtonPlayToggle = ({ id }) => {
   const handleStop = async () => {
     await dispatch(stop());
     setWaiting(false);
-    // dispatch(setVideoId());
   };
 
   return (
