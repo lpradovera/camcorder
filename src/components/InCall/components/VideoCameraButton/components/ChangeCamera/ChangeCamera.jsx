@@ -16,6 +16,10 @@ export const ChangeCamera = () => {
     dispatch(getCameras());
     dispatch(updateCameras(e.target.value));
   };
+  
+  useEffect(() => {
+    dispatch(getCameras());
+  }, [dispatch]);
   useEffect(() => {}, [cameras]);
 
   return (
