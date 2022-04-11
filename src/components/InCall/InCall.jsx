@@ -9,16 +9,19 @@ import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLayout } from "../../features/layoutSlice";
 import {
   updateSpeakers,
   updateMicrophone,
   updateCameras,
 } from "../../features/deviceSlice";
+import { ButtonPlayToggle } from "../Participants/components/ButtonComponents/ButtonPlayToggle/ButtonPlayToggle";
 
 export const InCall = ({ roomDetails }) => {
   const dispatch = useDispatch();
+  // const id = useSelector(state => state.recording.id);
+
   const [memberList, setMemberList] = useState([]);
   let [thisMemberId, setThisMemberId] = useState(null);
   const [left, setLeft] = useState(false);
@@ -60,6 +63,10 @@ export const InCall = ({ roomDetails }) => {
               setMemberList(list);
             }, [])}
           />
+          {/* <div className='relative h-10 border-2'> 
+            {id ? <ButtonPlayToggle id={id} /> : null }
+          </div> */}
+          
         </VideoRoomWrapper>
 
         <ParticipantsWrapper offset={offset}>

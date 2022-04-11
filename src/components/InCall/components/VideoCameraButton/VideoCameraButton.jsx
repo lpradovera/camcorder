@@ -18,6 +18,7 @@ export const VideoCameraButton = () => {
 
   const handleToggleSelfVideoMuted = async () => {
     if (isEmpty(room)) return
+  
     dispatch(getCameras());
       if (videoMuted) {
         dispatch(videoUnmute());
@@ -27,6 +28,9 @@ export const VideoCameraButton = () => {
         dispatch(setVideoMuted(true));
       }
   };
+  useEffect(() => {
+
+  }, [cameras])
 
   const handleChangeCamera = (e) => {
     if(isEmpty(room)) return
