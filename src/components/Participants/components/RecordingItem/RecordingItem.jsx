@@ -16,6 +16,7 @@ export const RecordingItem = () => {
 
   useEffect(() => {}, [recording]);
 
+
   return (
     <>
       {recording &&
@@ -30,7 +31,6 @@ export const RecordingItem = () => {
                 </div>
                 
               </div>
-
               <div className="flex pt-6 p">
                   <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids}/>
                 {ids === i + 1 ? (
