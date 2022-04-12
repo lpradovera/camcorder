@@ -13,11 +13,11 @@ export const Participants = ({ memberList, offset, handleHide }) => {
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
       <Tabs className={`${offset ? "hidden" : "block"} md:block`}>
-        <TabList className="flex justify-center text-slate-200 pb-4">
-          <Tab className="px-6 cursor-pointer border-b-2 hover:border-b-2 hover:border-white border-transparent">
+        <TabList className="flex justify-center text-2xl md:text-base text-slate-200 pb-4">
+          <Tab className="px-3 md:px-6 cursor-pointer border-b-2 hover:border-b-2 hover:border-white border-transparent">
             Members
           </Tab>
-          <Tab className="px-6 cursor-pointer hover:border-b-2 hover:border-white border-transparent">
+          <Tab className="px-3 md:px-6 cursor-pointer hover:border-b-2 hover:border-white border-transparent">
             Records
           </Tab>
         </TabList>
