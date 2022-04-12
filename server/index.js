@@ -53,17 +53,6 @@ app.get("/get_recording/:id", async (req, res) => {
     return res.status(500);
   }
 });
-app.get("/get_recordings", async (req, res) => {
-  try {
-    const records = await axios.get(
-      `https://${apiurl}/api/video/room_recordings`,
-      { auth }
-    );
-    res.json(records)
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

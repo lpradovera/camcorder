@@ -242,7 +242,7 @@ export const VideoRoom = ({
           let remainingMembers = memberList.current.filter(
             (m) => m.id !== e.member.id
           );
-            setLeft(true)
+            setLeft(true);
 
           if (memberThatLeft === undefined) return;
           console.log(memberThatLeft?.name + " has left the room.");
