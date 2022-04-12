@@ -6,6 +6,9 @@ import { ButtonVolume } from "../ButtonComponents/ButtonVolume/ButtonVolume";
 import { ButtonRemoveMember } from "../ButtonComponents/ButtonRemoveMember/ButtonRemoveMember";
 import { InputVolume } from "../ButtonComponents/InputVolume/InputVolume";
 import { OutputVolume } from "../ButtonComponents/OutputVolume/OutputVolume";
+import { MemberListWrapper } from "./components/MemberListWrapper/MemberListWrapper";
+import { MemberNameWrapper } from "./components/MemberNameWrapper/MemberNameWrapper";
+import { MemberName } from "./components/MemberName/MemberName";
 
 export const MemberList = ({ memberList }) => {
   const location = useLocation();
@@ -16,25 +19,18 @@ export const MemberList = ({ memberList }) => {
       {memberList &&
         memberList.map((member) => {
           return (
-            <div
-              key={member.id}
-              className="shadow-lg mb-2 rounded-lg py-2 px-2 dark:bg-slate-700"
-            >
-              <div className=" flex justify-between pb-4">
-                <span className="dark:text-slate-300 text-3xl md:text-lg pt-2 md:pt-1 pr-3">
-                  {member.name}
-                </span>
+            <MemberListWrapper key={member.id}>
+              <MemberNameWrapper>
+                <MemberName name={member.name} />
                 {mod ? (
                   <div className="w-2/5">
                     <ButtonVideoCamera member={member} />
                   </div>
                 ) : null}
                 <div className="w-24 flex justify-end">
-                  {mod ? (
-                    <ButtonRemoveMember member={member} />
-                  ) : null}
+                  {mod ? <ButtonRemoveMember member={member} /> : null}
                 </div>
-              </div>
+              </MemberNameWrapper>
               {name === member.name || mod ? (
                 <>
                   <div className="flex justify-between">
@@ -47,7 +43,7 @@ export const MemberList = ({ memberList }) => {
                   </div>
                 </>
               ) : null}
-            </div>
+            </MemberListWrapper>
           );
         })}
     </>

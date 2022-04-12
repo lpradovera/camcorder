@@ -37,20 +37,22 @@ export const InCall = ({ roomDetails }) => {
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined) dispatch(getLayout());
-      if (updatedValues.cameras !== undefined) {}dispatch(updateCameras());
+      if (updatedValues.cameras !== undefined) {
+      }
+      dispatch(updateCameras());
       if (updatedValues.speakers !== undefined) dispatch(updateMicrophone());
       if (updatedValues.microphones !== undefined) dispatch(updateSpeakers());
     },
     [history]
   );
   useEffect(() => {
-    dispatch(getLayout())
-  }, [thisMemberId])
+    dispatch(getLayout());
+  }, [thisMemberId]);
   useEffect(() => {
     return () => {
-      setThisMemberId()
-    }
-  }, [])
+      setThisMemberId();
+    };
+  }, []);
 
   return (
     <InCallWrapper>
@@ -74,7 +76,7 @@ export const InCall = ({ roomDetails }) => {
           />
         </ParticipantsWrapper>
       </VideoParticipantsWrapper>
-
+      
       <ControlPanelWrapper>
         <ControlPanel roomDetails={roomDetails} />
       </ControlPanelWrapper>
