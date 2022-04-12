@@ -28,3 +28,7 @@ export const isEmpty = (obj) => {
   }
   return true;
 };
+
+export const copy = (text) => {
+  navigator.clipboard.writeText(text);
+};
