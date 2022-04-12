@@ -28,6 +28,17 @@ export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
   }
 });
 
+export const saveThisRecord = createAsyncThunk("recording/saveThisRecord", async (id) => {
+  try {
+    return await axios.get(`http://localhost:8080/get_recording/${id}`);
+  } catch (error) {
+    if (error.jsonrpc.code === "403") {
+      console.log(error.jsonrpc.message);
+    }
+  }
+});
+
+
 export const resume = createAsyncThunk(
   "recording/Resume",
   async (_, thunkAPI) => {
@@ -83,6 +94,7 @@ const recordingSlice = createSlice({
     currentPlayback: {},
     record: false,
     id: '',
+    uri: '',
   },
   reducers: {
     setExpect(state, { payload }) {
@@ -137,6 +149,12 @@ const recordingSlice = createSlice({
       state.currentPlayback = {}
     },
     [stop.rejected]: (state, action) => {},
+    // save this record
+    [saveThisRecord.pending]: (state, action) => {},
+    [saveThisRecord.fulfilled]: (state, { payload }) => {
+      state.uri = payload.data.uri;
+    },
+    [saveThisRecord.rejected]: (state, action) => {},
   },
 });
 
