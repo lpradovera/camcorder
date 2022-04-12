@@ -21,9 +21,9 @@ export const InCall = ({ roomDetails }) => {
   const dispatch = useDispatch();
 
   const [memberList, setMemberList] = useState([]);
-  let [thisMemberId, setThisMemberId] = useState(null);
+  const [thisMemberId, setThisMemberId] = useState(null);
   const [left, setLeft] = useState(false);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const { handleHide, offset } = useHandleHide();
 
   let onRoomUpdate = useCallback(
@@ -37,12 +37,15 @@ export const InCall = ({ roomDetails }) => {
       if (updatedValues.thisMemberId !== undefined)
         setThisMemberId(updatedValues.thisMemberId);
       if (updatedValues.layout !== undefined) dispatch(getLayout());
-      if (updatedValues.cameras !== undefined) dispatch(updateCameras());
+      if (updatedValues.cameras !== undefined) {}dispatch(updateCameras());
       if (updatedValues.speakers !== undefined) dispatch(updateMicrophone());
       if (updatedValues.microphones !== undefined) dispatch(updateSpeakers());
     },
     [history]
   );
+  useEffect(() => {
+    dispatch(getLayout())
+  }, [thisMemberId])
   useEffect(() => {
     return () => {
       setThisMemberId()
