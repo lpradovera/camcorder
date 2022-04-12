@@ -16,26 +16,27 @@ export const RecordingItem = () => {
 
   useEffect(() => {}, [recording]);
 
-
   return (
     <>
       {recording &&
         recording?.recordings?.map((r, i) => {
           return (
-            <div key={r.id} className="flex justify-between pb-7 relative">
+            <div
+              key={r.id}
+              className="flex flex-col justify-between pb-7"
+            >
               <div className="flex">
                 <p className="pr-1">{i + 1}. </p>
                 <div className="flex flex-col">
                   <p>Started: {getDate(r.startedAt)}</p>
-                <p>Duration: {r.duration} s.</p>
+                  <p>Duration: {r.duration} s.</p>
                 </div>
-                
               </div>
-              <div className="flex pt-6 p">
-                  <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids}/>
-                {ids === i + 1 ? (
-                  <ButtonPlayToggle id={r.id} />
-                ) : null} 
+              <div className="flex flex-col pt-2">
+                <div className="w-4/5 flex justify-between">
+                  <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids} />
+                  {ids === i + 1 ? <ButtonPlayToggle id={r.id} /> : null}
+                </div>
               </div>
             </div>
           );
@@ -43,4 +44,3 @@ export const RecordingItem = () => {
     </>
   );
 };
-

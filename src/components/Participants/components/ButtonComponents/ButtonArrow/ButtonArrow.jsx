@@ -11,7 +11,7 @@ export const ButtonArrow = ({ setIds, i, stop, ids }) => {
         setIds(i + 1);
       }}
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-5 w-5 `}
+      className={`h-10 w-10 -rotate-90`}
       viewBox="0 0 20 20"
       fill={`${ids === i + 1 ? "#cbd5e1" : "#f1f5f9"}`}
     >

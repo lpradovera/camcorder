@@ -35,25 +35,22 @@ export const ButtonPlayToggle = ({ id }) => {
   };
 
   return (
-    <>
+    <div className='flex justify-center h-10'>
       <button
         onClick={() => handlePlay(id)}
-        className="absolute right-20 bottom-0"
       >
         <Play />
       </button>
       <button
         onClick={() => handlePause()}
-        className="absolute right-14 bottom-0"
       >
         <Pause />
       </button>
       <button
         onClick={() => handleStop()}
-        className="absolute right-8 bottom-0"
       >
         <Stop />
       </button>
-    </>
+    </div>
   );
 };

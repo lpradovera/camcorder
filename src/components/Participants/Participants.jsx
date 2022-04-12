@@ -12,7 +12,7 @@ export const Participants = ({ memberList, offset, handleHide }) => {
   return (
     <>
       <ButtonChevron handleHide={handleHide} offset={offset} />
-      <Tabs className={`${offset ? "hidden" : "block"} md:block`}>
+      <Tabs className={`${offset ? "hidden" : "block"} md:block px-2`}>
         <TabList className="flex justify-center text-2xl md:text-base text-slate-200 pb-4">
           <Tab className="px-3 md:px-6 cursor-pointer border-b-2 hover:border-b-2 hover:border-white border-transparent">
             Members
