@@ -28,15 +28,6 @@ export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
   }
 });
 
-export const saveThisRecord = createAsyncThunk("recording/saveThisRecord", async (id) => {
-  try {
-    return await axios.get(`http://localhost:8080/get_recording/${id}`);
-  } catch (error) {
-    if (error.jsonrpc.code === "403") {
-      console.log(error.jsonrpc.message);
-    }
-  }
-});
 
 
 export const resume = createAsyncThunk(
@@ -94,7 +85,6 @@ const recordingSlice = createSlice({
     currentPlayback: {},
     record: false,
     id: '',
-    uri: '',
   },
   reducers: {
     setExpect(state, { payload }) {
@@ -122,7 +112,6 @@ const recordingSlice = createSlice({
     [play.fulfilled]: (state, { payload }) => {
       state.currentPlayback = payload;
       state.expect = true;
-      console.log(state.currentPlayback, 'play')
     },
     [play.rejected]: (state, { payload }) => {
     },
@@ -130,7 +119,6 @@ const recordingSlice = createSlice({
     [resume.pending]: (state, action) => {},
     [resume.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'resume')
     },
     [resume.rejected]: (state, action) => {
     },
@@ -138,23 +126,15 @@ const recordingSlice = createSlice({
     [pause.pending]: (state, action) => {},
     [pause.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'pause')
     },
     [pause.rejected]: (state, action) => {},
     //stop
     [stop.pending]: (state, action) => {},
     [stop.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'stop')
       state.currentPlayback = {}
     },
     [stop.rejected]: (state, action) => {},
-    // save this record
-    [saveThisRecord.pending]: (state, action) => {},
-    [saveThisRecord.fulfilled]: (state, { payload }) => {
-      state.uri = payload.data.uri;
-    },
-    [saveThisRecord.rejected]: (state, action) => {},
   },
 });
 
