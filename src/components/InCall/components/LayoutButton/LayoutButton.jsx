@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLayout, setLayout } from "../../../../features/layoutSlice";
 import { isEmpty } from "../../../../helpers/helpers";
 import { ButtonName } from "../ButtonName/ButtonName";
+import { updateMicrophone } from '../../../../features/deviceSlice';
 
 export const LayoutButton = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export const LayoutButton = () => {
     if (isEmpty(room)) return;
     dispatch(getLayout());
     dispatch(setLayout(e.target.value));
+    dispatch(updateMicrophone())
   };
 
   return (
