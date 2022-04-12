@@ -22,10 +22,10 @@ export const Participants = ({ memberList, offset, handleHide }) => {
           </Tab>
         </TabList>
 
-        <TabPanel className="px-6 py-6 md:px-0 md:py-0">
+        <TabPanel className="px-6 py-10 md:px-0 md:py-6">
           <MemberList memberList={memberList} />
         </TabPanel>
-        <TabPanel className="px-6 py-6">
+        <TabPanel className="">
           {mod ? <RecordingsList /> : <AccessText />}
         </TabPanel>
       </Tabs>

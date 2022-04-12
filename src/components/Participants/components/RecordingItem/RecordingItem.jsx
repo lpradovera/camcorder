@@ -23,7 +23,7 @@ export const RecordingItem = () => {
           return (
             <div
               key={r.id}
-              className="flex flex-col justify-between pb-7"
+              className="flex flex-col justify-between text-2xl md:text-base pb-7"
             >
               <div className="flex">
                 <p className="pr-1">{i + 1}. </p>
@@ -33,7 +33,7 @@ export const RecordingItem = () => {
                 </div>
               </div>
               <div className="flex flex-col pt-2">
-                <div className="w-4/5 flex justify-between">
+                <div className="w-3/5 md:w-4/5 flex justify-between">
                   <ButtonArrow setIds={setIds} i={i} stop={stop} ids={ids} />
                   {ids === i + 1 ? <ButtonPlayToggle id={r.id} /> : null}
                 </div>
