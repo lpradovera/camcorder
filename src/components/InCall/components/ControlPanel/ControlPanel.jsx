@@ -18,6 +18,7 @@ export const ControlPanel = ({ roomDetails }) => {
   const location = useLocation();
   const { mod } = location?.state;
 
+
   return (
     <ExternalWrapper>
       <InteriorWrapper>

@@ -52,7 +52,8 @@ const layoutSlice = createSlice({
   reducers: {
     setScreenShareObj(state, { payload }) {
       state.screenShareObj = payload;
-    }
+    },
+    
   },
   extraReducers: {
     [getLayout.pending]: (state, action) => {},
@@ -74,6 +75,6 @@ const layoutSlice = createSlice({
   },
 });
 
-export const { } = layoutSlice.actions;
+export const {  } = layoutSlice.actions;
 
 export default layoutSlice.reducer;

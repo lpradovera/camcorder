@@ -8,19 +8,18 @@ export const LayoutButton = () => {
   const dispatch = useDispatch();
   const layouts = useSelector((state) => state?.layout?.layout);
   const room = useSelector((state) => state.room.room);
+  const handleChangeLayout = (e) => {
+    if (isEmpty(room)) return;
+    dispatch(getLayout());
+    dispatch(setLayout(e.target.value));
+  };
+
   return (
-    <div
-      onMouseEnter={() => {
-        if (isEmpty(room)) return;
-        dispatch(getLayout());
-      }}
-      className="flex flex-col z-0 justify-center px-2 pb-4 relative"
-    >
+    <div className="flex flex-col z-0 justify-center px-2 pb-4 relative">
       <select
         className="flex form-select outline-none layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
-        onChange={async (e) => {
-          if (isEmpty(room)) return;
-          dispatch(setLayout(e.target.value));
+        onChange={(e) => {
+          handleChangeLayout(e);
         }}
       >
         {layouts?.length > 1 &&
