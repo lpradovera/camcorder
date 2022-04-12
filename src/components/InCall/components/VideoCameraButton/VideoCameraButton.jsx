@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import { VideoCamera } from "../../../Icons/VideoCamera/VideoCamera";
+import React from "react";
+import { Wrapper } from './components/Wrapper/Wrapper';
 import { useDispatch, useSelector } from "react-redux";
+import { ButtonName } from '../ButtonName/ButtonName';
 import {
   getCameras,
   videoUnmute,
   videoMute,
 } from "../../../../features/deviceSlice";
+import { OnCamera } from './components/OnCamera/OnCamera';
 import { setVideoMuted } from "../../../../features/deviceSlice";
 import { isEmpty } from "../../../../helpers/helpers";
 import { ChangeCamera } from './components/ChangeCamera/ChangeCamera';
@@ -29,7 +31,7 @@ export const VideoCameraButton = () => {
 
 
   return (
-    <div className="flex flex-col relative px-2 pb-4">
+    <Wrapper>
       <div className="flex">
         <ChangeCamera />
 
@@ -39,18 +41,10 @@ export const VideoCameraButton = () => {
         w-14 h-14`}
           onClick={() => handleToggleSelfVideoMuted()}
         >
-          {videoMuted ? (
-            <div className="relative">
-              <VideoCamera />
-              <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
-            </div>
-          ) : (
-            <VideoCamera />
-          )}
+          <OnCamera videoMuted={videoMuted} />
         </button>
       </div>
-
-      <p className="text-center pt-1 text-slate-300">Camera</p>
-    </div>
+      <ButtonName name={'Camera'} />
+    </Wrapper>
   );
 };
