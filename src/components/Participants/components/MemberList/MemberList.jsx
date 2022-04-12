@@ -21,7 +21,7 @@ export const MemberList = ({ memberList }) => {
               className="shadow-lg mb-2 rounded-lg py-2 px-2 dark:bg-slate-700"
             >
               <div className=" flex justify-between pb-4">
-                <span className="dark:text-slate-300 text-lg pt-1 pr-3">
+                <span className="dark:text-slate-300 text-3xl md:text-lg pt-2 md:pt-1 pr-3">
                   {member.name}
                 </span>
                 {mod ? (

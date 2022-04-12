@@ -15,7 +15,7 @@ export const ButtonRemoveMember = ({ member }) => {
 
   return (
     <button
-      className="px-2 py-2 dark:bg-red-600 hover:dark:bg-red-500 rounded"
+      className="px-4 py-4 md:px-2 md:py-2 dark:bg-red-600 hover:dark:bg-red-500 rounded"
       onClick={() => handleRemoveMember()}
     >
       <PhoneMissedCall width={4} height={4}/>

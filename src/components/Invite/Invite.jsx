@@ -2,10 +2,7 @@ import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "../Icons/Link/Link";
 import { useLocation } from "react-router-dom";
-
-const copy = (text) => {
-  navigator.clipboard.writeText(text);
-};
+import { copy } from '../../helpers/helpers';
 
 export const Invite = ({ room = "room", mod }) => {
   const location = useLocation();

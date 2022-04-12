@@ -2,6 +2,9 @@ import React from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { setRecord } from "../../../../features/recordingSlice";
 import { isEmpty } from '../../../../helpers/helpers';
+import { Wrapper } from './components/Wrapper/Wrapper';
+import { RecCircle } from './components/RecCircle/RecCircle';
+import { ButtonName } from '../ButtonName/ButtonName';
 
 export const RecordingButton = ({startRecording}) => {
   const dispatch = useDispatch();
@@ -15,7 +18,7 @@ export const RecordingButton = ({startRecording}) => {
 
 
   return (
-    <div className="flex flex-col justify-center px-2 pb-4">
+    <Wrapper>
       <button
         className={`flex ${
           record
@@ -27,17 +30,9 @@ export const RecordingButton = ({startRecording}) => {
           recordToggle();
         }}
       >
-        {record ? (
-          <div className="animate-pulse border-4 border-red-600 rounded-full w-8 h-8 flex flex-col items-center justify-center">
-            <div className="rounded-full w-5 h-5 bg-red-600"></div>
-          </div>
-        ) : (
-          <div className="border-4 border-slate-100 rounded-full w-8 h-8 flex flex-col items-center justify-center">
-            <div className="rounded-full w-5 h-5 bg-slate-100"></div>
-          </div>
-        )}
+        <RecCircle record={record} />
       </button>
-      <p className="text-center pt-1 text-slate-300">Record</p>
-    </div>
+      <ButtonName name={'Record'} />
+    </Wrapper>
   );
 };

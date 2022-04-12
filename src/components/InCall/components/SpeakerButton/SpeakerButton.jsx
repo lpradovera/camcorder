@@ -1,7 +1,8 @@
 import React from "react";
-import { VolumeUp } from "../../../Icons/VolumeUp/VolumeUp";
-import { VolumeOff } from "../../../Icons/VolumeOff/VolumeOff";
 import { useDispatch, useSelector } from "react-redux";
+import { ButtonName } from '../ButtonName/ButtonName';
+import { OnSpeaker } from './components/OnSpeaker/OnSpeaker';
+import {Wrapper} from './components/Wrapper/Wrapper';
 import {
   getSpeakers,
   setAudioMuted,
@@ -37,7 +38,7 @@ export const SpeakerButton = () => {
 
 
   return (
-    <div className="flex flex-col relative px-2 pb-4">
+    <Wrapper>
       <div className="flex">
         <ChangeSpeaker />
 
@@ -48,12 +49,11 @@ export const SpeakerButton = () => {
           w-14 h-14`}
             onClick={() => handleToggleDeaf()}
           >
-            {volumeMuted ? <VolumeOff /> : <VolumeUp />}
+            <OnSpeaker volumeMuted={volumeMuted} />
           </button>
         </div>
       </div>
-
-      <p className="text-center pt-1 text-slate-300">Speaker</p>
-    </div>
+      <ButtonName name={'Speaker'} />
+    </Wrapper>
   );
 };

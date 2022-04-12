@@ -4,7 +4,7 @@ export const VideoCamera = ({width = 6, height = 6}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-${height} w-${width}`}
+      className={`h-8 w-8 md:h-${height} md:w-${width}`}
       fill="#fff"
       viewBox="0 0 24 24"
       strokeWidth={2}

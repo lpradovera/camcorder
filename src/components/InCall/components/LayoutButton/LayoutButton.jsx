@@ -1,25 +1,25 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLayout, setLayout } from "../../../../features/layoutSlice";
-import {isEmpty } from '../../../../helpers/helpers';
-
+import { isEmpty } from "../../../../helpers/helpers";
+import { ButtonName } from "../ButtonName/ButtonName";
 
 export const LayoutButton = () => {
   const dispatch = useDispatch();
   const layouts = useSelector((state) => state?.layout?.layout);
-  const room = useSelector(state => state.room.room);
+  const room = useSelector((state) => state.room.room);
   return (
     <div
       onMouseEnter={() => {
-        if (isEmpty(room)) return
-        dispatch(getLayout())
+        if (isEmpty(room)) return;
+        dispatch(getLayout());
       }}
       className="flex flex-col z-0 justify-center px-2 pb-4 relative"
     >
       <select
         className="flex form-select outline-none layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onChange={async (e) => {
-          if (isEmpty(room)) return
+          if (isEmpty(room)) return;
           dispatch(setLayout(e.target.value));
         }}
       >
@@ -32,8 +32,7 @@ export const LayoutButton = () => {
             );
           })}
       </select>
-
-      <p className="text-center pt-1 text-slate-300">Layout</p>
+      <ButtonName name={"Layout"} />
     </div>
   );
 };

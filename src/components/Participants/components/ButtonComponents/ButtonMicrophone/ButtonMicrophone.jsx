@@ -28,7 +28,7 @@ export const ButtonMicrophone = ({ member }) => {
       {member.audio_muted ? (
         <div className="relative">
           <Microphone width={4} height={4} />
-          <div className="border-r-2 h-6 border-slate-200 rotate-[-45deg] absolute top-[-4px] left-[7px]"></div>
+          <div className="border-r-2 h-8 md:h-8 border-slate-200 rotate-[-45deg] absolute top-[-4px] md:top-[-4px] left-[11px] md:left-[10px]"></div>
         </div>
       ) : (
         <Microphone width={4} height={4} />

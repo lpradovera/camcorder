@@ -28,6 +28,8 @@ export const play = createAsyncThunk("recording/Play", async (id, thunkAPI) => {
   }
 });
 
+
+
 export const resume = createAsyncThunk(
   "recording/Resume",
   async (_, thunkAPI) => {
@@ -110,7 +112,6 @@ const recordingSlice = createSlice({
     [play.fulfilled]: (state, { payload }) => {
       state.currentPlayback = payload;
       state.expect = true;
-      console.log(state.currentPlayback, 'play')
     },
     [play.rejected]: (state, { payload }) => {
     },
@@ -118,7 +119,6 @@ const recordingSlice = createSlice({
     [resume.pending]: (state, action) => {},
     [resume.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'resume')
     },
     [resume.rejected]: (state, action) => {
     },
@@ -126,14 +126,12 @@ const recordingSlice = createSlice({
     [pause.pending]: (state, action) => {},
     [pause.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'pause')
     },
     [pause.rejected]: (state, action) => {},
     //stop
     [stop.pending]: (state, action) => {},
     [stop.fulfilled]: (state, { payload }) => {
       state.expect = false;
-      console.log(state.currentPlayback, 'stop')
       state.currentPlayback = {}
     },
     [stop.rejected]: (state, action) => {},

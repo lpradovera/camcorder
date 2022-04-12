@@ -10,7 +10,6 @@ import {
   stop,
 } from "../../../../../features/recordingSlice";
 
-
 export const ButtonPlayToggle = ({ id }) => {
   const [waiting, setWaiting] = useState(false);
   const dispatch = useDispatch();
@@ -20,8 +19,8 @@ export const ButtonPlayToggle = ({ id }) => {
       dispatch(resume());
       setWaiting(false);
     } else {
-        dispatch(play(id));
-        setWaiting(true);
+      dispatch(play(id));
+      setWaiting(true);
     }
   };
 
@@ -36,25 +35,22 @@ export const ButtonPlayToggle = ({ id }) => {
   };
 
   return (
-    <>
+    <div className='flex justify-center h-10'>
       <button
         onClick={() => handlePlay(id)}
-        className="absolute right-12 bottom-0"
       >
         <Play />
       </button>
       <button
         onClick={() => handlePause()}
-        className="absolute right-6 bottom-0"
       >
         <Pause />
       </button>
       <button
         onClick={() => handleStop()}
-        className="absolute right-0 bottom-0"
       >
         <Stop />
       </button>
-    </>
+    </div>
   );
 };
