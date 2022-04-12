@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { Microphone } from "../../../Icons/Microphone/Microphone";
 import { useDispatch, useSelector } from "react-redux";
+import {OnMicrophone} from './components/OnMicrophone/OnMicrophone';
+import { ButtonName } from '../ButtonName/ButtonName';
 import {
   getMicrophone,
   setAudioMuted,
   audioMute,
   audioUnmute,
 } from "../../../../features/deviceSlice";
+import { Wrapper } from './components/Wrapper/Wrapper';
 import { isEmpty } from '../../../../helpers/helpers';
 import { ChangeMicrophone } from './components/ChangeMicrophone/ChangeMicrophone';
 
@@ -32,7 +34,7 @@ export const MicrophoneButton = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col justify-center relative px-2 pb-4">
+    <Wrapper>
       <div className="flex">
         <ChangeMicrophone />
         <button
@@ -41,18 +43,10 @@ export const MicrophoneButton = () => {
           w-14 h-14`}
           onClick={() => handleToggleSelfAudioMuted()}
         >
-          {audioMuted ? (
-            <div className="relative">
-              <Microphone />
-              <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
-            </div>
-          ) : (
-            <Microphone />
-          )}
+          <OnMicrophone audioMuted={audioMuted} />
         </button>
       </div>
-
-      <p className="text-center pt-1 text-slate-300">Microphone</p>
-    </div>
+      <ButtonName name={'Microphone'} />
+    </Wrapper>
   );
 };
