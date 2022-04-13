@@ -30,10 +30,10 @@ export const VideoRoom = ({
     );
     memberList.current.find((member) => {
       if (member.id === memberId) {
+
+        if(!layer && layer.width < 30) return
         let div = document.querySelector("#name");
         div.innerHTML = member.name;
-
-
 
         if (layer && speaking) {
           let volume = document.querySelector("#volume"),
@@ -94,6 +94,7 @@ export const VideoRoom = ({
 
         //volume2
 
+        if(layer.width < 30) return
         if (layer && speaking) {
           let volume2 = document.querySelector("#volume2"),
             num = 20,
@@ -291,7 +292,6 @@ export const VideoRoom = ({
   }, [roomDetails, onRoomUpdate, onMemberListUpdate, setupDone]);
 
   return (
-    <>
       <div
         className={`w-full relative rounded-lg border-4 border-slate-600`}
         id="video-root"
@@ -308,6 +308,6 @@ export const VideoRoom = ({
           ></div>
         </div>
       </div>
-    </>
   );
 };
+

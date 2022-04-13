@@ -36,7 +36,7 @@ export const Invite = ({ room = "room", mod }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-[-90px] bottom-32 mt-2 w-96 rounded-md shadow-lg dark:text-slate-100 dark:bg-slate-400 ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-[-270px] xs:right-[-120px] bottom-32 mt-2 w-96 rounded-md shadow-lg dark:text-slate-100 dark:bg-slate-400 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-3 px-3">
             <Menu.Item>{() => <h3>As Guest:</h3>}</Menu.Item>
             <Menu.Item>

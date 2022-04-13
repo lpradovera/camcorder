@@ -1,7 +1,11 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { VideoRoom } from "../VideoRoom/VideoRoom";
+import React, { useCallback, useState, useEffect, Suspense } from "react";
 import { Participants } from "../Participants/Participants";
-import { ControlPanel } from "./components/ControlPanel/ControlPanel";
+import { VideoRoom } from "../VideoRoom/VideoRoom";
+// import { ControlPanel } from "./components/ControlPanel/ControlPanel";
+import { Sceleton } from "./Sceleton";
+const ControlPanel = React.lazy(() =>
+  import("./components/ControlPanel/ControlPanel")
+);
 import { ParticipantsWrapper } from "./components/ParticipantsWrapper/ParticipantsWrapper";
 import { useHandleHide } from "../../hooks/useHandleHide";
 import { VideoRoomWrapper } from "./components/VideoRoomWrapper/VideoRoomWrapper";
@@ -48,6 +52,7 @@ export const InCall = ({ roomDetails }) => {
   useEffect(() => {
     dispatch(getLayout());
   }, [thisMemberId]);
+
   useEffect(() => {
     return () => {
       setThisMemberId();
@@ -76,9 +81,11 @@ export const InCall = ({ roomDetails }) => {
           />
         </ParticipantsWrapper>
       </VideoParticipantsWrapper>
-      
+
       <ControlPanelWrapper>
-        <ControlPanel roomDetails={roomDetails} />
+        <Suspense fallback={<Sceleton />}>
+          <ControlPanel roomDetails={roomDetails} />
+        </Suspense>
       </ControlPanelWrapper>
     </InCallWrapper>
   );
