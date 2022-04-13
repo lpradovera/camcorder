@@ -8,7 +8,7 @@ const Header = React.lazy(() => import('./components/Header/Header'));
 const Text = React.lazy(() => import('./components/Text/Text'));
 import { TextSceleton } from "./components/TextSceleton/TextSceleton";
 import { GetStartedButtonSceleton } from "./components/GetStartedButton/GetStartedButtonSceleton";
-import { HeaderSceleton } from "./components/Header/HeaderSceleton";
+import { HeaderSceleton } from "../Header/HeaderSceleton";
 
 export const Home = () => {
   return (
@@ -16,6 +16,7 @@ export const Home = () => {
       <Suspense fallback={<HeaderSceleton />}>
         <Header />
       </Suspense>
+      
       <Suspense fallback={<TextSceleton />}>
         <Text />
       </Suspense>
