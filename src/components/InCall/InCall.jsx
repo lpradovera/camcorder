@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect, Suspense } from "react";
 import { Participants } from "../Participants/Participants";
 import { VideoRoom } from "../VideoRoom/VideoRoom";
-// import { ControlPanel } from "./components/ControlPanel/ControlPanel";
 import { Sceleton } from "./Sceleton";
 const ControlPanel = React.lazy(() =>
   import("./components/ControlPanel/ControlPanel")

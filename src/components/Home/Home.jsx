@@ -8,7 +8,7 @@ const Header = React.lazy(() => import('./components/Header/Header'));
 const Text = React.lazy(() => import('./components/Text/Text'));
 import { TextSceleton } from "./components/TextSceleton/TextSceleton";
 import { GetStartedButtonSceleton } from "./components/GetStartedButton/GetStartedButtonSceleton";
-import { HeaderSceleton } from "../Header/HeaderSceleton";
+import { HeaderSceleton } from "./components/Header/HeaderSceleton";
 
 export const Home = () => {
   return (
