@@ -5,10 +5,10 @@ export const getLayout = createAsyncThunk("layout/getLayout", async (_, thunkAPI
   const state = thunkAPI.getState();
   try {
     if (typeof (state.room.room.getLayouts) === "function") {
-      return (await state.room.room.getLayouts()).layouts;
+      return (await state?.room?.room?.getLayouts())?.layouts;
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 });
 
