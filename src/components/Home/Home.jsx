@@ -1,19 +1,29 @@
-import React from "react";
-import { GetStartedButton } from "./components/GetStartedButton/GetStartedButton";
+import React, { Suspense } from "react";
+// import { GetStartedButton } from "./components/GetStartedButton/GetStartedButton";
+import { Wrapper } from "./components/Wrapper/Wrapper";
+const GetStartedButton = React.lazy(() =>
+  import("./components/GetStartedButton/GetStartedButton")
+);
+const Header = React.lazy(() => import('./components/Header/Header'));
+const Text = React.lazy(() => import('./components/Text/Text'));
+import { TextSceleton } from "./components/TextSceleton/TextSceleton";
+import { GetStartedButtonSceleton } from "./components/GetStartedButton/GetStartedButtonSceleton";
+import { HeaderSceleton } from "./components/Header/HeaderSceleton";
 
 export const Home = () => {
   return (
-    <>
-      <div className="max-w-7xl h-screen mx-auto py-6 px-4 sm:px-6 md:pt-20 lg:pt-28 lg:px-8 flex flex-col items-center">
-        <h1 className="text-3xl pt-11 text-center font-bold text-silver-100 font-extrabold">
-          Your online recording studio
-        </h1>
-        <p className="mt-4 pt-11 pb-11 text-center text-silver-100 font-medium">
-          The easiest way to record podcasts and videos in studio quality from
-          anywhere. All from the browser.
-        </p>
+    <Wrapper>
+      <Suspense fallback={<HeaderSceleton />}>
+        <Header />
+      </Suspense>
+      
+      <Suspense fallback={<TextSceleton />}>
+        <Text />
+      </Suspense>
+
+      <Suspense fallback={<GetStartedButtonSceleton />}>
         <GetStartedButton />
-      </div>
-    </>
+      </Suspense>
+    </Wrapper>
   );
 };

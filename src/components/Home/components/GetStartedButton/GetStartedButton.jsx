@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { VideoRecordingSymbol } from "../../../VideoRecordingSymbol/VideoRecordingSymbol";
 
-export const GetStartedButton = () => {
+export default function GetStartedButton () {
   let navigate = useNavigate();
 
   return (

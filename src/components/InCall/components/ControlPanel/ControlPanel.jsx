@@ -13,7 +13,7 @@ import { ScreenShareButton } from "../ScreenShareButton/ScreenShareButton";
 import { InteriorWrapper } from "./component/InteriorWrapper";
 import { ExternalWrapper } from "./component/ExternalWrapper";
 
-export const ControlPanel = ({ roomDetails }) => {
+export default function ControlPanel ({ roomDetails }) {
   const { startRecording, recordingReady } = useRecord();
   const location = useLocation();
   const { mod } = location?.state;

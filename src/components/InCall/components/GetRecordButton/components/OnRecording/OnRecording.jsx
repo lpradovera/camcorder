@@ -9,7 +9,7 @@ export const OnRecording = ({ recordingReady }) => {
       ) : (
         <div className="relative">
           <Save />
-          <div className="border-r-2 h-7 border-slate-200 rotate-[-45deg] absolute top-[-2px] left-[10px]"></div>
+          <div className="border-r-2 h-8 border-slate-200 rotate-[-55deg] absolute top-[-3px] left-[11px]"></div>
         </div>
       )}
     </>

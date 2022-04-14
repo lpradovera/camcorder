@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLayout, setLayout } from "../../../../features/layoutSlice";
 import { isEmpty } from "../../../../helpers/helpers";
 import { ButtonName } from "../ButtonName/ButtonName";
+import { Wrapper } from './components/Wrapper/Wrapper';
 import { updateMicrophone } from '../../../../features/deviceSlice';
+import { LayoutItems } from './components/LayoutItems/LayoutItems';
 
 export const LayoutButton = () => {
   const dispatch = useDispatch();
-  const layouts = useSelector((state) => state?.layout?.layout);
   const room = useSelector((state) => state.room.room);
   const handleChangeLayout = (e) => {
     if (isEmpty(room)) return;
@@ -17,23 +18,16 @@ export const LayoutButton = () => {
   };
 
   return (
-    <div className="flex flex-col z-0 justify-center px-2 pb-4 relative">
+    <Wrapper>
       <select
         className="flex form-select outline-none layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onChange={(e) => {
           handleChangeLayout(e);
         }}
       >
-        {layouts?.length > 1 &&
-          layouts.map((layout) => {
-            return (
-              <option key={layout} value={layout} className="text-slate-100">
-                {layout}
-              </option>
-            );
-          })}
+        <LayoutItems />
       </select>
       <ButtonName name={"Layout"} />
-    </div>
+    </Wrapper>
   );
 };

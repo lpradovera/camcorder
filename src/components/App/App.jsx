@@ -6,12 +6,7 @@ import { InCall } from "../InCall/InCall";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 import { Home } from "../Home/Home";
 
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,8 +28,8 @@ export const App = () => {
       });
     }
     return () => {
-      setRoomDetails({})
-    }
+      setRoomDetails({});
+    };
   }, []);
 
   const InCallRoute = ({ roomDetails }) => {
