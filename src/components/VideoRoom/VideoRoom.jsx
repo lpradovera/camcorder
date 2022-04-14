@@ -31,7 +31,7 @@ export const VideoRoom = ({
     memberList.current.find((member) => {
       if (member.id === memberId) {
 
-        if(!layer && layer.width < 30) return
+        if(!layer && layer?.width < 30) return
         let div = document.querySelector("#name");
         div.innerHTML = member.name;
 
@@ -94,7 +94,7 @@ export const VideoRoom = ({
 
         //volume2
 
-        if(layer.width < 30) return
+        if(layer && layer.width < 30) return
         if (layer && speaking) {
           let volume2 = document.querySelector("#volume2"),
             num = 20,

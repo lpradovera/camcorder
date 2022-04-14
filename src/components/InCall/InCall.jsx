@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { InCallWrapper } from "../InCallWrapper/InCallWrapper";
 import { VideoParticipantsWrapper } from "../VideoParticipantsWrapper/VideoParticipantsWrapper";
 import { ControlPanelWrapper } from "./components/ControlPanelWrapper/ControlPanelWrapper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isEmpty } from '../../helpers/helpers'
 import { getLayout } from "../../features/layoutSlice";
 import {
   updateSpeakers,
@@ -22,7 +23,7 @@ import {
 
 export const InCall = ({ roomDetails }) => {
   const dispatch = useDispatch();
-
+  const room = useSelector(state => state.room.room)
   const [memberList, setMemberList] = useState([]);
   const [thisMemberId, setThisMemberId] = useState(null);
   const [left, setLeft] = useState(false);
@@ -49,6 +50,7 @@ export const InCall = ({ roomDetails }) => {
     [history]
   );
   useEffect(() => {
+    if(isEmpty(room)) return
     dispatch(getLayout());
   }, [thisMemberId]);
 
@@ -81,8 +83,9 @@ export const InCall = ({ roomDetails }) => {
         </ParticipantsWrapper>
       </VideoParticipantsWrapper>
 
+      
       <ControlPanelWrapper>
-        <Suspense fallback={<Sceleton />}>
+        <Suspense fallback={<Sceleton mod={roomDetails.mod} />}>
           <ControlPanel roomDetails={roomDetails} />
         </Suspense>
       </ControlPanelWrapper>
