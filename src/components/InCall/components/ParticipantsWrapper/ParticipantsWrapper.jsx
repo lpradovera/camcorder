@@ -5,7 +5,7 @@ export const ParticipantsWrapper = ({ children, offset }) => {
     <div style={{ minHeight: '100vh'}}
       className={`right-0 absolute md:static 
       md:w-3/12 z-20
-    dark:bg-slate-700
+    bg-slate-700
         ${offset ? "w-[0px]" : "w-full"}
         `}
     >

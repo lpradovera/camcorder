@@ -21,7 +21,7 @@ export const ChangeSpeaker = () => {
     <select
       onClick={() => dispatch(getSpeakers())}
       onChange={(e) => handleChangeSpeakers(e)}
-      className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
+      className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent bg-slate-500 hover:bg-slate-400 rounded-l`}
     >
       {speakers &&
         speakers.map((speaker) => {

@@ -23,7 +23,7 @@ export const RecordingButton = ({startRecording}) => {
         className={`flex ${
           record
             ? "bg-slate-100"
-            : "dark:bg-slate-500 hover:dark:bg-slate-400"
+            : "bg-slate-500 hover:bg-slate-400"
         } rounded justify-center pt-3 w-14 h-14`}
         onClick={() => {
           startRecording();
