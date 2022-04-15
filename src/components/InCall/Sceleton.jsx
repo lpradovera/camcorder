@@ -10,7 +10,7 @@ export const Sceleton = ({ mod }) => {
         <div className="flex flex-col blur-sm animate-pulse relative px-2 pb-4  opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] rounded-lg bg-slate-600">
           <div className="flex flex-col">
             <div
-              className="flex dark:bg-slate-500 hover:dark:bg-slate-400
+              className="flex bg-slate-500 hover:bg-slate-400
         rounded-r justify-center pt-3 md:pt-4 border-l-2 border-slate-400
         w-20 h-14"
             ></div>
@@ -21,7 +21,7 @@ export const Sceleton = ({ mod }) => {
         <div className="flex flex-col blur-sm animate-pulse relative px-2 pb-4  opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] rounded-lg bg-slate-600">
           <div className="flex flex-col">
             <div
-              className="flex dark:bg-slate-500 hover:dark:bg-slate-400
+              className="flex bg-slate-500 hover:bg-slate-400
         rounded-r justify-center pt-3 md:pt-4 border-l-2 border-slate-400
         w-20 h-14"
             ></div>
@@ -32,7 +32,7 @@ export const Sceleton = ({ mod }) => {
         <div className="flex flex-col blur-sm animate-pulse relative px-2 pb-4  opacity-100 hover:opacity-100 transition-[opacity] duratrion-1000 justify-around h-[auto] rounded-lg bg-slate-600">
           <div className="flex flex-col">
             <div
-              className="flex dark:bg-slate-500 hover:dark:bg-slate-400
+              className="flex bg-slate-500 hover:bg-slate-400
         rounded-r justify-center pt-3 md:pt-4 border-l-2 border-slate-400
         w-20 h-14"
             ></div>

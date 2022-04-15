@@ -21,7 +21,7 @@ export const Invite = ({ room = "room", mod }) => {
   return (
     <Menu as="div" className="relative flex flex-col justify-center">
       <div className="flex flex-col px-2 pb-4">
-        <Menu.Button className="dark:bg-slate-500 hover:dark:bg-slate-400 rounded flex justify-center pt-4 w-14 h-14">
+        <Menu.Button className="bg-slate-500 hover:bg-slate-400 rounded flex justify-center pt-4 w-14 h-14">
           <Link />
         </Menu.Button>
         <p className="text-center pt-1 text-slate-300">Invite</p>
@@ -36,7 +36,7 @@ export const Invite = ({ room = "room", mod }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-[-270px] xs:right-[-120px] bottom-32 mt-2 w-96 rounded-md shadow-lg dark:text-slate-100 dark:bg-slate-400 ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-[-270px] xs:right-[-120px] bottom-32 mt-2 w-96 rounded-md shadow-lg text-slate-100 bg-slate-400 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-3 px-3">
             <Menu.Item>{() => <h3>As Guest:</h3>}</Menu.Item>
             <Menu.Item>

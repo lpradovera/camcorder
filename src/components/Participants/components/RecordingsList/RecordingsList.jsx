@@ -14,7 +14,7 @@ export const RecordingsList = () => {
   return (
     <div className="relative">
       <ButtonRefresh />
-      <div className="pt-10 shadow-lg mb-2 dark:text-slate-300 rounded-lg py-4 px-3 dark:bg-slate-60">
+      <div className="pt-10 shadow-lg mb-2 text-slate-300 rounded-lg py-4 px-3 bg-slate-60">
         <h4 className="pb-5 font-medium">Record:</h4>
         <RecordingItem />
       </div>

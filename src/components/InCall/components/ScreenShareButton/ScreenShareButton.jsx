@@ -19,7 +19,7 @@ export const ScreenShareButton = () => {
     <Wrapper>
       <button
         onClick={() => screenShareToggle()}
-        className="flex dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
+        className="flex bg-slate-500 hover:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
       >
         <ScreenShare />
       </button>

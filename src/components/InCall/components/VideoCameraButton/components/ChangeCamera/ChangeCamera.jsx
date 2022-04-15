@@ -26,7 +26,7 @@ export const ChangeCamera = () => {
     <select
       onClick={() => dispatch(getCameras())}
       onChange={(e) => handleChangeCamera(e)}
-      className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded-l`}
+      className={`flex w-8 h-14 outline-none chevron-up form-select appearance-none text-transparent bg-slate-500 hover:bg-slate-400 rounded-l`}
     >
       {cameras &&
         cameras.map((cam) => {

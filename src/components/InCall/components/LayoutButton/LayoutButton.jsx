@@ -20,7 +20,7 @@ export const LayoutButton = () => {
   return (
     <Wrapper>
       <select
-        className="flex form-select outline-none layout-bg appearance-none text-transparent dark:bg-slate-500 hover:dark:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
+        className="flex form-select outline-none layout-bg appearance-none text-transparent bg-slate-500 hover:bg-slate-400 rounded justify-center pt-4 w-14 h-14"
         onChange={(e) => {
           handleChangeLayout(e);
         }}

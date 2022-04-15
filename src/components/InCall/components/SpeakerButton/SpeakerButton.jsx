@@ -44,7 +44,7 @@ export const SpeakerButton = () => {
 
         <div className="flex justify-center">
           <button
-            className='flex dark:bg-slate-500 hover:dark:bg-slate-400
+            className='flex bg-slate-500 hover:bg-slate-400
           rounded-r justify-center pt-4 border-l-2 border-slate-400
           w-14 h-14'
             onClick={() => handleToggleDeaf()}

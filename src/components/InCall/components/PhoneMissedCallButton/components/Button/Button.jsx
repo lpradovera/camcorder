@@ -22,7 +22,7 @@ export const Button = ({ children }) => {
 
   return (
     <button
-      className="flex dark:bg-red-600 hover:dark:bg-red-500 rounded justify-center pt-4 w-14 h-14"
+      className="flex bg-red-600 hover:bg-red-500 rounded justify-center pt-4 w-14 h-14"
       onClick={async () => handleRoomLeave()}
     >
       {children}
