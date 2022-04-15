@@ -19,7 +19,7 @@ export const ButtonVideoCamera = ({ member }) => {
 
   return (
     <button
-      className="px-2 py-2 md:px-2 md:py-2 dark:bg-slate-800 dark:hover:bg-slate-900 rounded"
+      className="px-2 py-2 md:px-2 md:py-2 bg-slate-800 hover:bg-slate-900 rounded"
       onClick={() => handleToggleVideoMute()}
     >
       <OnVideoMuted videoMuted={member.video_muted} />

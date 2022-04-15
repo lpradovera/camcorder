@@ -11,14 +11,14 @@
   }
   .layout-bg {
     background-image: url("components/Icons/Layout/layout.svg");
-    background-color: #fff;
+    /* background-color: #fff; */
     background-position: center center;
     background-size: 60%;
     background-repeat: no-repeat;
   }
   .chevron-up {
     background-image: url("components/Icons/ChevronUp/chevronUp.svg");
-    background-color: #fff;
+    /* background-color: #fff; */
     background-position: center center;
     background-size: 60%;
     background-repeat: no-repeat;
