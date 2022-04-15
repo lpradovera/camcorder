@@ -16,7 +16,7 @@ const auth = {
 };
 const apiurl = process.env.SIGNALWIRE_SPACE; // <your username>.signalwire.com
 
-app.use(express.static(path.resolve(__dirname, './dist')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.post("/api/get_token", async (req, res) => {
   let { user_name, room_name, mod } = req.body;
@@ -59,7 +59,7 @@ app.get("/get_recording/:id", async (req, res) => {
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
