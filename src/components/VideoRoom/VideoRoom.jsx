@@ -3,6 +3,7 @@ import * as SignalWire from "@signalwire/js";
 import { getToken } from "../../helpers/helpers";
 import { useDispatch } from "react-redux";
 import { setRoom } from "../../features/roomSlice";
+import { setRecord } from "../../features/recordingSlice";
 
 export const VideoRoom = ({
   onRoomUpdate,
@@ -30,8 +31,7 @@ export const VideoRoom = ({
     );
     memberList.current.find((member) => {
       if (member.id === memberId) {
-
-        if(!layer && layer?.width < 30) return
+        if (!layer && layer?.width < 30) return;
         let div = document.querySelector("#name");
         div.innerHTML = member.name;
 
@@ -94,7 +94,7 @@ export const VideoRoom = ({
 
         //volume2
 
-        if(layer && layer.width < 30) return
+        if (layer && layer.width < 30) return;
         if (layer && speaking) {
           let volume2 = document.querySelector("#volume2"),
             num = 20,
@@ -204,6 +204,8 @@ export const VideoRoom = ({
 
         room.on("room.updated", async (e) => {
           console.log("Room has been updated");
+          console.log(e.room);
+          dispatch(setRecord(e.room.recording));
         });
 
         room.on("member.joined", async (e) => {
@@ -243,7 +245,7 @@ export const VideoRoom = ({
           let remainingMembers = memberList.current.filter(
             (m) => m.id !== e.member.id
           );
-            setLeft(true);
+          setLeft(true);
 
           if (memberThatLeft === undefined) return;
           console.log(memberThatLeft?.name + " has left the room.");
@@ -288,26 +290,24 @@ export const VideoRoom = ({
         console.error("Something went wrong", error);
       }
     }
-    
   }, [roomDetails, onRoomUpdate, onMemberListUpdate, setupDone]);
 
   return (
-      <div
-        className={`w-full relative rounded-lg border-4 border-slate-600`}
-        id="video-root"
-      >
-        <div style={speakerOverlayStyle}>
-          <div
-            id="name"
-            className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}
-          ></div>
-          <div id="volume" className="rotate-10 flex"></div>
-          <div
-            id="volume2"
-            className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"
-          ></div>
-        </div>
+    <div
+      className={`w-full relative rounded-lg border-4 border-slate-600`}
+      id="video-root"
+    >
+      <div style={speakerOverlayStyle}>
+        <div
+          id="name"
+          className={`text-slate-200 font-medium pr-2 absolute bottom-2 left-3`}
+        ></div>
+        <div id="volume" className="rotate-10 flex"></div>
+        <div
+          id="volume2"
+          className="rotate-10 flex top-0 right-0 absolute flex-row-reverse"
+        ></div>
       </div>
+    </div>
   );
 };
-
