@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAudioMuted } from "../../../../../features/deviceSlice";
 import {
   participantsAudioUnmute,
@@ -9,8 +9,9 @@ import { OnMicrophone } from './components/OnMicrophone/OnMicrophone';
 
 export const ButtonMicrophone = ({ member }) => {
   const dispatch = useDispatch();
+  const audioMuted = useSelector(state => state.device.audioMuted);
 
-  const handleToggleAudioMute = async () => {
+  const handleToggleAudioMute = () => {
     if (member.audio_muted) {
       dispatch(participantsAudioUnmute(member.id));
       dispatch(setAudioMuted(false));

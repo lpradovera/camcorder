@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useRecord } from "../../../../hooks/useRecord";
 import { VideoCameraButton } from "../VideoCameraButton/VideoCameraButton";
 import { RecordingButton } from "../RecordingButton/RecordingButton";
@@ -21,11 +21,11 @@ export default function ControlPanel ({ roomDetails }) {
 
   return (
     <ExternalWrapper>
-      <InteriorWrapper>
+      <InteriorWrapper >
         <VideoCameraButton />
         <MicrophoneButton />
         <SpeakerButton />
-        {mod ? <RecordingButton startRecording={startRecording} /> : null}
+        {mod ? <RecordingButton startRecording={startRecording}/> : null}
         {mod ? <GetRecordButton recordingReady={recordingReady} /> : null}
         <Invite mod={roomDetails.mod} room={roomDetails.room} />
         {mod ? <LayoutButton /> : null}

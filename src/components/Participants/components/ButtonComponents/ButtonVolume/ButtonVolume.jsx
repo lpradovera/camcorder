@@ -1,10 +1,10 @@
 import React from "react";
-import { VolumeUp } from "../../../../Icons/VolumeUp/VolumeUp";
-import { VolumeOff } from "../../../../Icons/VolumeOff/VolumeOff";
 import { useDispatch } from "react-redux";
 import {
   setVolumeMuted,
   setAudioMuted,
+  audioMute,
+  audioUnmute,
 } from "../../../../../features/deviceSlice";
 import {
   participantsDeaf,
@@ -14,16 +14,19 @@ import { OnVolume } from './components/OnVolume/OnVolume';
 
 export const ButtonVolume = ({ member }) => {
   const dispatch = useDispatch();
-
-  const handleToggleDeaf = async () => {
+  
+  const handleToggleDeaf = () => {
     if (member.deaf) {
       dispatch(participantsUndeaf({ memberId: member.id }));
       dispatch(setVolumeMuted(false));
       dispatch(setAudioMuted(false));
+      dispatch(audioUnmute());
+      
     } else {
       dispatch(participantsDeaf({ memberId: member.id }));
       dispatch(setVolumeMuted(true));
       dispatch(setAudioMuted(true));
+      dispatch(audioMute());
     }
   };
 

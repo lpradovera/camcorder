@@ -37,10 +37,12 @@ export const MemberList = ({ memberList }) => {
                     <InputVolume member={member} />
                     <ButtonMicrophone member={member} />
                   </div>
-                  <div className="flex justify-between pt-4">
-                    <OutputVolume member={member} />
-                    <ButtonVolume member={member} />
-                  </div>
+                  {name === member.name ? (
+                    <div className="flex justify-between pt-4">
+                      <OutputVolume member={member} />
+                      <ButtonVolume member={member} />
+                    </div>
+                  ) : null}
                 </>
               ) : null}
             </MemberListWrapper>
