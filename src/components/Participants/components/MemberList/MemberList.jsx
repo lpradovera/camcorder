@@ -31,18 +31,16 @@ export const MemberList = ({ memberList }) => {
                   {mod ? <ButtonRemoveMember member={member} /> : null}
                 </div>
               </MemberNameWrapper>
-              {name === member.name || mod ? (
+              {(name === member.name) || mod ? (
                 <>
                   <div className="flex justify-between">
                     <InputVolume member={member} />
                     <ButtonMicrophone member={member} />
                   </div>
-                  {name === member.name ? (
-                    <div className="flex justify-between pt-4">
-                      <OutputVolume member={member} />
-                      <ButtonVolume member={member} />
-                    </div>
-                  ) : null}
+                  <div className="flex justify-between pt-4">
+                    <OutputVolume member={member} />
+                    <ButtonVolume member={member} />
+                  </div>
                 </>
               ) : null}
             </MemberListWrapper>

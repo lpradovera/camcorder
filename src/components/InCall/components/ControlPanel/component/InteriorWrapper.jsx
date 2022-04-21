@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export const InteriorWrapper = ({ children, recording }) => {
+export const InteriorWrapper = ({ children }) => {
   const record = useSelector((state) => state.recording.record);
 
   return (
