@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useRecord } from "../../../../hooks/useRecord";
 import { VideoCameraButton } from "../VideoCameraButton/VideoCameraButton";
 import { RecordingButton } from "../RecordingButton/RecordingButton";

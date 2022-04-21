@@ -122,7 +122,7 @@ export const participantsDeaf = createAsyncThunk(
     try {
       if(typeof (state.room.room.deaf) !== 'function') return
       if (state.room.room !== undefined) {
-        await state?.room?.room.deaf({ memberId: memberId.id });
+        await state?.room?.room.deaf({ memberId: memberId.memberId });
       }
     } catch (error) {
       console.log(error.message);
@@ -137,7 +137,7 @@ export const participantsUndeaf = createAsyncThunk(
     try {
       if(typeof (state.room.room.undeaf) !== 'function') return
       if (state.room.room !== undefined) {
-        await state?.room?.room.undeaf({ memberId: memberId.id });
+        await state?.room?.room.undeaf({ memberId: memberId.memberId });
       }
     } catch (error) {
       console.log(error.message);
